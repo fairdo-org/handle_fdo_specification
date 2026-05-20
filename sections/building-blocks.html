@@ -1,1 +1,85 @@
-<h3>PID & Resolution</h3>
+Each section within this chapter "Building blocks" refers to one building block section in the main FDO spec.
+<section>
+    <h3>PID & Resolution</h3>
+    <ul>
+        <li>
+            PID System: Each FDO following the Handle FDO spec is identified by a Handle.
+        </li>
+        <li>
+            Resolution process: A machine accesses the FDO record by visiting the location
+            `https://hdl.handle.net/api/handles/21.123/abc`. (Maybe exclude this because it doubles what will be defined
+            in the processing block.)</li>
+    </ul>
+</section>
+
+<section>
+    <h3>Granularity</h3>
+    <ul>
+        <li>Here we should specify (recommend?) how to build collections, e.g. which attributes to use and in which
+            records they should be used.</li>
+    </ul>
+</section>
+
+<section>
+    <h3>FDO records</h3>
+    <ul>
+        <li>Specify how the handle record representation in JSON format maps to the attributes within an FDO record.</li>
+    </ul>
+</section>
+
+<section>
+    <h3>FDO profiles</h3>
+    <ul>
+        <li>Specify how the handle record of an FDO profile must look like, i.e., which attributes must/may be used.</li>
+        <li>The PID for the (Handle-based) root-FDO is: ...</li>
+        <li>The PID of the Handle-based Profile Profile is: ...</li>
+        <li>Open question: Do we need one profile definition profile and one root profile per implementation?</li>
+    </ul>
+</section>
+
+<section>
+    <h3>FDO attributes</h3>
+    <ul>
+        <li>Specify how attribute FDOs are build: the handle record of an FDO attribute must look like, i.e., which
+            attributes must/may be used. attributes consist of syntax definitions: Specify how the handle record of an
+            FDO syntax definition must look like, i.e., which attributes must/may be used.</li>
+        <li>The PID of the Handle-based attribute definition profile is: ...</li>
+        <li>The PID of the Handle-based syntax definition profile is: ...</li>
+        <li>Open question: Do we need one attribute definition profile per implementation?</li>
+        <li>My suggestion: exclude syntax definitions from FDO spec. This is too fine-grained in general. We can use it #
+            in the Handle Type System, but other implementations just need to have attributes, not syntax definitions.</li>
+    </ul>
+</section>
+
+<section>
+    <h3>Advanced Referencing</h3>
+    <ul>
+        <li>Move the whole content from FDO Spec to here and make it more handle specific. In the FDO spec, say that
+            referencing mechanisms can be defined. In the Handle spec, say in detail how they look like for handles. The
+            current referencing mechanisms in the FDO spec are to handle specific.</li>
+    </ul>
+</section>
+
+<section>
+    <h3>Validation</h3>
+    <ul>
+        <li>explain the steps how to perform a validation using the profile FDO and an FDO record that instantiates the profile</li>
+        <li>e.g. case 1: the profile can contain the JSON schema directly; case 2: we use Max type system</li>
+    </ul>
+</section>
+
+<section>
+    <h3>Attribute mapping</h3>
+     Map all conceptual (mandatory/optional) attributes that introduced in the technology agnostic spec to registered Handles.
+</section>
+
+<section>
+    <h3>FDO Types</h3>
+    <p>Nothing to do here?</p>
+    <p>We recommend to use these attributes to associate FDOs with operations: ...</p>
+</section>
+
+<section>
+    <h3>Updating FDOs</h3>
+    <p>Nothing to do here?</p>
+</section>
