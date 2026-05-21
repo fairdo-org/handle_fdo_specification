@@ -19,6 +19,8 @@ Each section within this chapter explains in detail how the FDO building blocks 
 <section>
     <h3>FDO records</h3>
 
+    This section specifies how an FDO record is implemented by Handle-based FDOs.
+
     <h4>The Handle record</h4>
     Each Handle record contains a list of Handle values. Each Handle value is represented as a JSON object with five
     types (see also <a href="https://www.handle.net/tech_manual/HN_Tech_Manual_9.pdf">Handle Technical Manual</a>):
@@ -30,21 +32,23 @@ Each section within this chapter explains in detail how the FDO building blocks 
              time, that expiration time as an ISO8601-formatted string))</li>
         <li> timestamp (an ISO8601-formatted string)</li>
     </ul>
-    The index of Handle values is unique, i.e., it is not possible to have several Handle values with the same index.
 
     <h4>The FDO record</h4>
-    <p>The conceptional FDO record contains tuples `(k_1:v_1), (k_2:v_2),…, (k_n:v_n)`.
+    <p>The conceptional FDO record (according to the FDO specification) consists tuples `(k_1:v_1), (k_2:v_2),…, (k_n:v_n)`.
 
     <h4>Mapping the FDO Record to the Handle Record</h4>
-    Each tuple `(k_1:v_1), (k_2:v_2),…, (k_n:v_n)` is assigned a positive integer f_i, where f_1, ..., f_n are
-    mutually different. Assigning integers to tuples should take conventions from Handle identifiers into account (e.g.,
-    if `k_i=HS_ADMIN`, then `f_i=100`). Then, the `f_i-th` Handle value is defined by setting:
+    We assume an FDO record which consists of FDO attributes (=tuples) `a_1=(k_1:v_1), a_2=(k_2:v_2),…, a_n=(k_n:v_n)`.
+    Mapping the FDO record to a Handle record means to map all FDO attributes `a_1,...,a_n` to a list of Handle values
+    `h_1,...,h_n` as follows:
+    Each attribute `a_i` is assigned a positive integer `f_i`, where `f_1, ..., f_n` are mutually different. Assigning integers to
+    tuples should take conventions from Handle identifiers into account (e.g., if `k_i=HS_ADMIN`, then `f_i=100`).
+    Then, the FDO attribute `a_i` is mapped to the Handle value `h_i` by setting:
     <ul>
         <li>`index:f_i`</li>
         <li>`type:k_i`</li>
         <li>`data.value:v_i`</li>
     </ul>
-    The other types of the `f_i-th` Handle value are usually set according to their default values, but possibly also
+    The remaining types of Handle value `h_i` are usually set according to their default values, but possibly also
     with different values, if this makes sense in the given context.
     <ul>
         <li> `data.format:string` (and `data.format=admin` if `k_i=HS_ADMIN`)</li>
@@ -103,6 +107,22 @@ Each section within this chapter explains in detail how the FDO building blocks 
     </code></pre>
 
     <h4>Mapping the Handle Record to the FDO Record</h4>
+    Mapping a handle record to a FDO record means to map each handle value `h_i` to an FDO attribute `a_i`. The Handle
+    value `h_i` is:
+    <pre>
+        {
+            "index": f_i,
+            "type": "k-i",
+            "data": {
+                "format": "string",
+                "value": "v_i"
+            },
+            "ttl": 86400,
+            "timestamp": "2025-05-06T12:30:44Z"
+        },
+    </pre>
+    `h_i` is mapped to the FDO attribute `(k_i, v_i)`. All other metadata (`index`, `data.value`, `ttl`, `timestamp`)
+    are dropped.
 </section>
 
 <section>
