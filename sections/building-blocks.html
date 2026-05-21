@@ -2,17 +2,16 @@ Each section within this chapter explains in detail how the FDO building blocks 
 <a href="https://fairdo-org.github.io/fdo-architecture-spec/">FDO specification</a> are implemented by Handle-based FDOs.
 
 <section>
-    <h3>PID</h3>
+    <h3>PID & Resolution</h3>
     <dl>
         <dt> [H1-1] PID System</dt>
-        <dd> Each Handle-based FDO has a Handle identifier as its PID, assigned using the <a href="https://www.handle.net/">Handle System</a>. </dd>
-        <dt> PID Syntax</dt>
-        <dd> This is the handle syntax as a regular expression: ...</dd>
-        <dt> [H1-2] PID Resolution</dt>
+        <dd> Each Handle-based FDO has a Handle identifier as its PID, assigned through the <a href="https://www.handle.net/">Handle System</a>. </dd>
+        <dt> [H1-2] PID Detection</dt>
+        <dd> The syntax of a Handle identifier follows the regular expression: `\d+(\.\d+)*\/\S+`</dd>
+        <dt> [H1-3] PID Resolution</dt>
         <dd> The resolution of a Handle-based FDO, which is identified by PID X, into an FDO record uses the
             <a href="https://www.handle.net/">global Handle Resolver</a> to receive the Handle record at
             `https://hdl.handle.net/api/handles/[X]`.
-        </dd>
     </dl>
 </section>
 
@@ -21,108 +20,131 @@ Each section within this chapter explains in detail how the FDO building blocks 
 
     This section specifies how an FDO record is implemented by Handle-based FDOs.
 
-    <h4>The Handle record</h4>
-    Each Handle record contains a list of Handle values. Each Handle value is represented as a JSON object with five
-    types (see also <a href="https://www.handle.net/tech_manual/HN_Tech_Manual_9.pdf">Handle Technical Manual</a>):
-    <ul>
-        <li> index (integer)</li>
-        <li> type (string)</li>
-        <li> data (object)</li>
-        <li> ttl (the time-to-live in seconds of the value, an integer (or, in the rare case of an absolute expiration
-             time, that expiration time as an ISO8601-formatted string))</li>
-        <li> timestamp (an ISO8601-formatted string)</li>
-    </ul>
+    <dl>
+        <dt>Handle record</dt>
+        <dd>
+            Each Handle record consists of a list of Handle values. Each Handle value is represented as a JSON object
+            with (at least) five types (see also <a href="https://www.handle.net/tech_manual/HN_Tech_Manual_9.pdf">
+            Handle Technical Manual</a>):
+            <ul>
+                <li> index (integer)</li>
+                <li> type (string)</li>
+                <li> data (object)</li>
+                <li> ttl (the time-to-live in seconds of the value, an integer (or, in the rare case of an absolute expiration
+                     time, that expiration time as an ISO8601-formatted string))</li>
+                <li> timestamp (an ISO8601-formatted string)</li>
+            </ul>
+        </dd>
+    </dl>
 
-    <h4>The FDO record</h4>
-    <p>The conceptional FDO record (according to the FDO specification) consists tuples `(k_1:v_1), (k_2:v_2),…, (k_n:v_n)`.
+    <dl>
+        <dt>
+            FDO record
+        </dt>
+        <dd>
+            The conceptional FDO record (according to the FDO specification) consists of tuples `(k_1:v_1),(k_2:v_2),…,(k_n:v_n)`.
+        </dd>
+    </dl>
 
-    <h4>Mapping the FDO Record to the Handle Record</h4>
-    We assume an FDO record which consists of FDO attributes (=tuples) `a_1=(k_1:v_1), a_2=(k_2:v_2),…, a_n=(k_n:v_n)`.
-    Mapping the FDO record to a Handle record means to map all FDO attributes `a_1,...,a_n` to a list of Handle values
-    `h_1,...,h_n` as follows:
-    Each attribute `a_i` is assigned a positive integer `f_i`, where `f_1, ..., f_n` are mutually different. Assigning integers to
-    tuples should take conventions from Handle identifiers into account (e.g., if `k_i=HS_ADMIN`, then `f_i=100`).
-    Then, the FDO attribute `a_i` is mapped to the Handle value `h_i` by setting:
-    <ul>
-        <li>`index:f_i`</li>
-        <li>`type:k_i`</li>
-        <li>`data.value:v_i`</li>
-    </ul>
-    The remaining types of Handle value `h_i` are usually set according to their default values, but possibly also
-    with different values, if this makes sense in the given context.
-    <ul>
-        <li> `data.format:string` (and `data.format=admin` if `k_i=HS_ADMIN`)</li>
-        <li> `ttl:86400` </li>
-        <li> `timestamp:current time`</li>
-    </ul>
+    <dl>
+        <dt>
+            [H2-1] Mapping the FDO Record to the Handle Record
+        </dt>
+        <dd>
+            We assume an FDO record which consists of FDO attributes/tuples `a_1=(k_1:v_1),a_2=(k_2:v_2),…, a_n=(k_n:v_n)`.
+            Mapping the FDO record to a Handle record means to map all FDO attributes `a_1,...,a_n` to a list of Handle values
+            `h_1,...,h_n` as follows:
+            Each attribute `a_i` is assigned a positive integer `f_i`, where `f_1, ..., f_n` are mutually different. Assigning integers to
+            tuples should take conventions from Handle identifiers into account (e.g., if `k_i=HS_ADMIN`, then `f_i=100`).
+            Then, the FDO attribute `a_i` is mapped to the Handle value `h_i` by setting:
+            <ul>
+                <li>`index: f_i`</li>
+                <li>`type: k_i`</li>
+                <li>`data.value: v_i`</li>
+            </ul>
+            The remaining types of Handle value `h_i` are usually set according to their default values, but possibly also
+            with different values, if this makes sense in the given context.
+            <ul>
+                <li> `data.format: string`   (and `data.format: admin`, if `k_i=HS_ADMIN`)</li>
+                <li> `ttl: 86400` </li>
+                <li> `timestamp: [current time]`</li>
+            </ul>
 
-    As an example, the FDO record with handle `123/abcde` containing the three FDO attributes
-    <ul>
-        <li>`(0.FDO/Type: 123/45678)`</li>
-        <li>`(0.FDO/Profile: 123/00001)`</li>
-        <li>`(HS_ADMIN: {"handle": "0.NA/21.T11971", "index": 200, "permissions": "111111111111"})`</li>
-    </ul>
-    is mapped to the following Handle record in JSON format:
+            As an example, the FDO record with handle identifier `123/abcde` containing the three FDO attributes
+            <ul>
+                <li>`(0.FDO/Type: 123/45678)`</li>
+                <li>`(0.FDO/Profile: 123/00001)`</li>
+                <li>`(HS_ADMIN: {"handle": "0.NA/21.T11971", "index": 200, "permissions": "111111111111"})`</li>
+            </ul>
+            is mapped to the following Handle record in JSON format:
 
-    <pre><code>{
-        "responseCode": 1,
-        "handle": "123/abcde",
-        "values": [
-            {
-                "index": 1,
-                "type": "0.FDO/Type",
-                "data": {
-                    "format": "string",
-                    "value": "123/45678"
-                },
-                "ttl": 86400,
-                "timestamp": "2025-05-06T12:30:44Z"
-            },
-            {
-                "index": 2,
-                "type": "0.FDO/Profile",
-                "data": {
-                    "format": "string",
-                    "value": "123/00001"
-                },
-                "ttl": 86400,
-                "timestamp": "2025-05-06T12:30:44Z"
-            },
-            {
-                "index": 100,
-                "type": "HS_ADMIN",
-                "data": {
-                    "format": "admin",
-                    "value": {
-                        "handle": "0.NA/21.T11971",
-                        "index": 200,
-                        "permissions": "111111111111"
-                    }
-                },
-                "ttl": 86400,
-                "timestamp": "2025-05-06T12:30:44Z"
-            }
-        ]
-    }
-    </code></pre>
-
-    <h4>Mapping the Handle Record to the FDO Record</h4>
-    Mapping a handle record to a FDO record means to map each handle value `h_i` to an FDO attribute `a_i`. The Handle
-    value `h_i` is:
-    <pre>
+<pre><code>{
+    "responseCode": 1,
+    "handle": "123/abcde",
+    "values": [
         {
-            "index": f_i,
-            "type": "k-i",
+            "index": 1,
+            "type": "0.FDO/Type",
             "data": {
                 "format": "string",
-                "value": "v_i"
+                "value": "123/45678"
             },
             "ttl": 86400,
             "timestamp": "2025-05-06T12:30:44Z"
         },
-    </pre>
-    `h_i` is mapped to the FDO attribute `(k_i, v_i)`. All other metadata (`index`, `data.value`, `ttl`, `timestamp`)
-    are dropped.
+        {
+            "index": 2,
+            "type": "0.FDO/Profile",
+            "data": {
+                "format": "string",
+                "value": "123/00001"
+            },
+            "ttl": 86400,
+            "timestamp": "2025-05-06T12:30:44Z"
+        },
+        {
+            "index": 100,
+            "type": "HS_ADMIN",
+            "data": {
+                "format": "admin",
+                "value": {
+                    "handle": "0.NA/21.T11971",
+                    "index": 200,
+                    "permissions": "111111111111"
+                }
+            },
+            "ttl": 86400,
+            "timestamp": "2025-05-06T12:30:44Z"
+        }
+    ]
+}
+</code></pre>
+        </dd>
+    </dl>
+
+
+    <dl>
+        <dt>
+            [H2-2] Mapping the Handle Record to the FDO Record
+        </dt>
+        <dd>
+            Mapping a handle record with handle values `h_1,...,h_n` to an FDO record with attributes `a_1,...,a_n`
+            means to map each handle value `h_i` to an FDO attribute `a_i`. The handle value `h_i`
+<pre><code>{
+    "index": f_i,
+    "type": "k_i",
+    "data": {
+        "format": "string",
+        "value": "v_i"
+    },
+    "ttl": 86400,
+    "timestamp": "2025-05-06T12:30:44Z"
+}
+</code></pre>
+            is mapped to the FDO attribute `a_i=(k_i, v_i)`. All other types (`index`, `data.value`, `ttl`, `timestamp`)
+            are dropped.
+        </dd>
+    </dl>
 </section>
 
 <section>
@@ -169,6 +191,7 @@ Each section within this chapter explains in detail how the FDO building blocks 
 <section>
     <h3>Validation</h3>
     <ul>
+        <li>explain which steps need to be taken to determine if an FDO record is a valid Handle-based FDO</li>
         <li>explain the steps how to perform a validation using the profile FDO and an FDO record that instantiates the profile</li>
         <li>e.g. case 1: the profile can contain the JSON schema directly; case 2: we use Max type system</li>
     </ul>
