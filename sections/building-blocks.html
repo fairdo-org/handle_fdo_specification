@@ -1,15 +1,17 @@
-Each section within this chapter "Building blocks" refers to one building block section in the main FDO spec.
+Each section within this chapter explains in detail how the FDO building blocks from the technology-agnostic
+<a href="https://fairdo-org.github.io/fdo-architecture-spec/">FDO specification</a> are implemented by Handle-based FDOs.
+
 <section>
-    <h3>PID & Resolution</h3>
-    <ul>
-        <li>
-            PID System: Each FDO following the Handle FDO spec is identified by a Handle.
-        </li>
-        <li>
-            Resolution process: A machine accesses the FDO record by visiting the location
-            `https://hdl.handle.net/api/handles/21.123/abc`. (Maybe exclude this because it doubles what will be defined
-            in the processing block.)</li>
-    </ul>
+    <h3>PID</h3>
+    <dl>
+        <dt> [H1-1] PID System</dt>
+        <dd> Each Handle-based FDO has a Handle identifier as its PID, assigned using the <a href="https://www.handle.net/">Handle System</a>. </dd>
+        <dt> [H1-2] PID Resolution</dt>
+        <dd> The resolution of a Handle-based FDO, which is identified by PID X, into an FDO record uses the
+            <a href="https://www.handle.net/">global Handle Resolver</a> to receive the JSON record at
+            `https://hdl.handle.net/api/handles/[X]`.
+        </dd>
+    </dl>
 </section>
 
 <section>
