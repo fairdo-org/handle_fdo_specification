@@ -1,6 +1,10 @@
 Each section within this chapter explains in detail how the FDO building blocks from the technology-agnostic
 <a href="https://fairdo-org.github.io/fdo-architecture-spec/">FDO specification</a> are implemented by Handle-based FDOs.
 
+<div style="background-color:LightPink;">
+        <b>TODO</b>: We need examples throughout the whole document.
+    </div>
+
 <section>
     <h3>PID & Resolution</h3>
     <dl>
@@ -355,26 +359,67 @@ Each section within this chapter explains in detail how the FDO building blocks 
 </section>
 
 <section>
-    <h3>FDO attributes</h3>
-    <ul>
-        <li>Specify how attribute FDOs are build: the handle record of an FDO attribute must look like, i.e., which
-            attributes must/may be used. attributes consist of syntax definitions: Specify how the handle record of an
-            FDO syntax definition must look like, i.e., which attributes must/may be used.</li>
-        <li>The PID of the Handle-based attribute definition profile is: ...</li>
-        <li>The PID of the Handle-based syntax definition profile is: ...</li>
-        <li>Open question: Do we need one attribute definition profile per implementation?</li>
-        <li>My suggestion: exclude syntax definitions from FDO spec. This is too fine-grained in general. We can use it #
-            in the Handle Type System, but other implementations just need to have attributes, not syntax definitions.</li>
-    </ul>
-</section>
+    <h3>FDO attribute definitions</h3>
+    <dl>
+        <dt>[H5-1] Representation of FDO attribute definitions</dt>
+        <dd>FDO attribute definitions specify the semantics and syntax of FDOs. Handle-based FDOs also implement the union
+            and composition of attribute definitions. Additionally, three additional validation rules, involving
+            relatively complex constructions, are introduced: profile referencing, attribute referencing, and external
+            vocabulary referencing.
+        </dd>
+        <dt>[H5-1a] Semantics</dt>
+        <dd>
+            Text here
+        </dd>
+        <dt>[H5-1b] Syntax</dt>
+        <dd>
+            The Handle-based syntax definition profile has the PID 0.FDO/SyntaxDef. More text here
+        </dd>
+        <dt>[H5-1c] Complex attributes</dt>
+        <dd>
+            Text here
+        </dd>
+        <dt>[H5-1d] Implementation-specific rules</dt>
+        <dd>
+            <ol>
+                <li>Profile Referencing</li>
+                <li>Attribute Referencing</li>
+                <li>External Vocabulary Referencing</li>
+            </ol>
+        </dd>
+        <dt>[H5-2] Attribute Definition Profile</dt>
+        <dd>The Handle-based attribute definition profile has the PID 0.FDO/ProfileDef. It is a composition of the two
+            sub-profiles described in Table 3 and Table 4, with the PIDs ...
+        </dd>
+    </dl>
 
-<section>
-    <h3>Advanced Referencing</h3>
-    <ul>
-        <li>Move the whole content from FDO Spec to here and make it more handle specific. In the FDO spec, say that
-            referencing mechanisms can be defined. In the Handle spec, say in detail how they look like for handles. The
-            current referencing mechanisms in the FDO spec are to handle specific.</li>
-    </ul>
+    <div style="background-color:LightPink;">
+        <b>TODO</b>:
+        <ul>
+            <li>Register the Handles 0.FDO/AttributeDef and 0.FDO/SyntaxDef.</li>
+            <li>Discuss whether each implementation should redefine the attribute definition profile (probably yes).</li>
+            <li>0.FDO/AttributeDef is a composition of two profiles, which both need to be registered (see table 3 and table 4)?</li>
+            <li>
+                Discuss the level of freedom each implementation has. It may be that different implementations have
+                different level of expressability. Open questions are:
+                <ul>
+                    <li>
+                        Can we fix existence of Syntax definitions on the FDO spec level? -> maybe not. My suggestion:
+                        exclude syntax definitions from FDO spec. This is too fine-grained in general. We can use it in
+                        the Handle Type System, but other implementations just need to have attributes, not syntax
+                        definitions.
+                    </li>
+                    <li>Can we fix a set of default validation rules on the FDO spec level? -> maybe yes</li>
+                    <li>
+                        Should we define advanced referencing on the FDO spec level? At least, maybe we should not
+                        specify the record structure on the FDO spec level. Maybe we can say that the three mechanisms
+                        are useful, and an implementation may specify how to represent them in their technology. Or we
+                        leave them out completely. They seem quite Handle-ish.
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
 </section>
 
 <section>
@@ -387,18 +432,14 @@ Each section within this chapter explains in detail how the FDO building blocks 
 </section>
 
 <section>
-    <h3>FDO Types</h3>
+    <h3>FDO Types & FDO Operations</h3>
     <p>Nothing to do here?</p>
     <p>We recommend to use these attributes to associate FDOs with operations: ...</p>
 </section>
 
-<section>
-    <h3>Updating FDOs</h3>
-    <p>Nothing to do here?</p>
-</section>
 
 <section>
-    <h3>Granularity</h3>
+    <h3>Granularity & Collection FDOs</h3>
     <ul>
         <li>Here we should specify (recommend?) how to build collections, e.g. which attributes to use and in which
             records they should be used.</li>
