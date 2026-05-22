@@ -165,21 +165,32 @@ Each section within this chapter explains in detail how the FDO building blocks 
 </section>
 
 <section>
-    <h3>Granularity</h3>
-    <ul>
-        <li>Here we should specify (recommend?) how to build collections, e.g. which attributes to use and in which
-            records they should be used.</li>
-    </ul>
-</section>
-
-<section>
     <h3>FDO profiles</h3>
-    <ul>
-        <li>Specify how the handle record of an FDO profile must look like, i.e., which attributes must/may be used.</li>
-        <li>The PID for the (Handle-based) root-FDO is: ...</li>
-        <li>The PID of the Handle-based Profile Profile is: ...</li>
-        <li>Open question: Do we need one profile definition profile and one root profile per implementation?</li>
-    </ul>
+    <dl>
+        <dt>[H3-1] Representation of FDO Profiles</dt>
+        <dd>Here we need to specify how Handle-based FDO profiles must look like.</dd>
+        <dt>[H3-2] Profile Definition Profile</dt>
+        <dd>The Handle-based profile definition profile has the PID 0.FDO/ProfileDef.</dd>
+        <dt>[H3-3] FDO Profiles Extension Mechanism</dt>
+        <dd>Here we need to specify how Handle-based FDO profiles can be extended.</dd>
+    </dl>
+
+    <div style="background-color:LightPink;">
+        <b>TODO</b>:
+        <ul>
+            <li>Register the Handles 0.FDO/ProfileDef and 0.FDO/Root.</li>
+            <li>Discuss whether each implementation should redefine the root profile (probably not) and the profile definition profile (probably yes).</li>
+            <li>
+                Discuss the level of freedom each implementation has. It may be that different implementations have
+                different level of expressability. Open questions are:
+                <ul>
+                    <li>Can we fix the attributes that constitute a FDO profile on the general FDO specification level?</li>
+                    <li>Can we fix the extension mechanism on the FDO specification level?</li>
+                    <li>Can we fix the available validation rules on the FDO specification level?</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
 </section>
 
 <section>
@@ -223,4 +234,12 @@ Each section within this chapter explains in detail how the FDO building blocks 
 <section>
     <h3>Updating FDOs</h3>
     <p>Nothing to do here?</p>
+</section>
+
+<section>
+    <h3>Granularity</h3>
+    <ul>
+        <li>Here we should specify (recommend?) how to build collections, e.g. which attributes to use and in which
+            records they should be used.</li>
+    </ul>
 </section>
