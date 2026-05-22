@@ -16,6 +16,23 @@ Each section within this chapter explains in detail how the FDO building blocks 
 </section>
 
 <section>
+    <h3>Attribute mapping</h3>
+    <p>
+        All mandatory and optional attributes that are given in the FDO spec are implemented as Handles. Handle-based
+        FDOs make direct use of these attributes. Hence, no additional mappings are required.
+    </p>
+
+    <div style="background-color:LightPink;">
+        <b>TODO</b>:
+        <ul>
+            <li>Register the attributes from the FDO spec using Handles in the namespace 0.FDO, and list them as
+                complete tables in the appendix.</li>
+            <li>Discuss whether specifying a mapping for each implementation is indeed necessary.</li>
+        </ul>
+    </div>
+</section>
+
+<section>
     <h3>FDO records</h3>
 
     This section specifies how an FDO record is implemented by Handle-based FDOs.
@@ -195,11 +212,6 @@ Each section within this chapter explains in detail how the FDO building blocks 
         <li>explain the steps how to perform a validation using the profile FDO and an FDO record that instantiates the profile</li>
         <li>e.g. case 1: the profile can contain the JSON schema directly; case 2: we use Max type system</li>
     </ul>
-</section>
-
-<section>
-    <h3>Attribute mapping</h3>
-     Map all conceptual (mandatory/optional) attributes that introduced in the technology agnostic spec to registered Handles.
 </section>
 
 <section>
