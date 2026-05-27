@@ -495,12 +495,12 @@ Each section within this chapter explains in detail how the FDO building blocks 
                     <td>
                         One of:
                         <ul>
-                            <li><em>Syntax</em></li>
-                            <li><em>Union</em></li>
-                            <li><em>InlineCombination</em></li>
-                            <li><em>AttributeReference</em> (see ...)</li>
-                            <li><em>ProfileReference</em> (see ...)</li>
-                            <li><em>ExternalVocabularyReference</em> (see ...)</li>
+                            <li><em>Syntax</em> (see [H5-1b])</li>
+                            <li><em>Union</em> (see [H5-1c])</li>
+                            <li><em>InlineCombination</em> (see [H5-1c])</li>
+                            <li><em>AttributeReference</em> (see [H5-1d])</li>
+                            <li><em>ProfileReference</em> (see [H5-1d])</li>
+                            <li><em>ExternalVocabularyReference</em> (see [H5-1d])</li>
                         </ul>
                     </td>
                     <td>3..*</td>
@@ -509,10 +509,10 @@ Each section within this chapter explains in detail how the FDO building blocks 
                     <td>0.FDO/DataType</td>
                     <td>A reference to one of:
                         <ul>
-                            <li>a syntax definition (see ...)</li>
-                            <li>an attribute definition (see ...)</li>
-                            <li>a profile (see ...)</li>
-                            <li>an external vocabulary namespace (see ...)</li>
+                            <li>a syntax definition (see [H5-1b])</li>
+                            <li>an attribute definition (see [H5-1c], [H5-1d])</li>
+                            <li>a profile (see [H5-1d])</li>
+                            <li>an external vocabulary namespace (see [H5-1d])</li>
                         </ul>
                     </td>
                     <td>1..*</td>
@@ -521,13 +521,152 @@ Each section within this chapter explains in detail how the FDO building blocks 
             <br/>
         </dd>
 
-        <dt>[H5-1a] Semantics</dt>
+        <dt>[H5-1a] Encoding Semantics</dt>
         <dd>
-            Text here
+            A name must be and a description may be included in a Handle-based attribute definition using the attributes
+            `0.FDO/Name` respectively `0.FDO/Description` in the FDO record.
+            <ul>
+                <li>
+                    <b>Way 1</b>: The name and the description can be repeated in the JSON schema using the keywords
+                    `title` and `description`.
+                </li>
+            </ul>
+
         </dd>
-        <dt>[H5-1b] Syntax</dt>
+        <dt>[H5-1b] Encoding Syntax</dt>
         <dd>
-            The Handle-based syntax definition profile has the PID 0.FDO/SyntaxDef. More text here
+            <ul>
+                <li>
+                    <b>Way 1</b>:
+                    The FDO record links to a JSON schema which contains all validation rules using the
+                    attribute `0.FDO/Data`. The JSON Schema encodes the following basic validation rules:
+                    <ol>
+                        <li>An attribute states to follow one of the primitive data types “string”, “number”, “integer”
+                            and “boolean” using the `type` keyword.
+                        </li>
+                        <li>
+                            An attribute states to comply with a regular expression using the `pattern` keyword.
+                        </li>
+                        <li>
+                            An attribute states to lie within a numeric range using the keywords `minimum`,
+                            `exclusiveMinimum`, `maximum` or `exclusiveMaximum`.
+                        </li>
+                        <li>
+                            An attribute states to be equal to one element from a whitelist through the `enum` keyword.
+                        </li>
+                        <li>
+                            An attribute states to be not equal to all elements from a blacklist through combining `not`
+                            with `enum`.
+                        </li>
+                    </ol>
+                    <aside class="example" title="JSON Schemas of simple attribute definitions">
+<pre><code>{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "publication year",
+    "description": "The publication year of the resource.",
+    "type": "integer",
+    "minimum": 0,
+    "maximum": 2026
+}</code></pre>
+
+<pre><code>{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "color",
+    "description": "The color of the resource.",
+    "type": "string",
+    "enum": ["red", "yellow", "green", "blue"],
+    "not":
+    {
+        "enum": ["black", "white"]
+    }
+}</code></pre>
+                    </aside>
+                </li>
+                <li>
+                    <b>Way 2</b>:
+                    To specify the syntax of an attribute, the following two attributes must be used in the FDO record:
+                    <ol>
+                        <li>`(0.FDO/ValidationMechanism, Syntax)`</li>
+                        <li>`
+                            (0.FDO/DataType, [reference to a syntax definition])`.
+                        </li>
+                    </ol>
+                    Syntax definitions are themselves FDOs and encode the basic validation rules in their records. They
+                    follow the syntax definition profile with the PID `0.FDO/SyntaxDef` and contain the attributes as in
+                    table 5.
+                    <table border="2">
+    <caption style="caption-side:bottom"><b>Table 5</b>: The list of attribute definitions specified by the FDO syntax
+        definition profile (0.FDO/SyntaxDef). These attributes MUST be used when defining any new syntax definition.
+        This table does not include all information about the attributes. Please resolve the attribute definition PIDs
+        via the Handle System or see the appendix of this document.
+    </caption>
+    <tr>
+        <th>PID of Attribute Definition</th>
+        <th>Description of the attribute</th>
+        <th>Cardinality of the attribute</th>
+    </tr>
+    <tr>
+        <td>0.FDO/Type</td>
+        <td>The string <em>FDO_Syntax_Definition</em>. Additional types may be added, if applicable.
+        </td>
+        <td>1..*</td>
+    </tr>
+    <tr>
+        <td>0.FDO/Profile</td>
+        <td>The string <em>0.FDO/SyntaxDef</em>. Additional profiles may be added, if applicable.
+        </td>
+        <td>1..*</td>
+    </tr>
+    <tr>
+        <td>0.FDO/Data</td>
+        <td>The string <em>Not_Applicable</em>.
+        </td>
+        <td>1..*</td>
+    </tr>
+    <tr>
+        <td>0.FDO/Name</td>
+        <td>Human-readable and localized labels for this syntax.</td>
+        <td>1..*</td>
+    </tr>
+    <tr>
+        <td>0.FDO/Description</td>
+        <td>Human-readable and localized descriptions for this syntax.</td>
+        <td>0..*</td>
+    </tr>
+    <tr>
+        <td>0.FDO/PrimitiveDataType</td>
+        <td>“string”, “number”, “integer”, or “boolean”
+        </td>
+        <td>1</td>
+    </tr>
+    <tr>
+        <td>0.FDO/Regex</td>
+        <td>regular expression in ECMA-262 syntax
+        </td>
+        <td>0..1</td>
+    </tr>
+    <tr>
+        <td>0.FDO/NumericInterval</td>
+        <td>An interval using one of the following forms: "[a,b]", "[a,b)", "(a,b]", "(a,b)".
+        </td>
+        <td>0..1</td>
+    </tr>
+    <tr>
+        <td>0.FDO/Whitelist</td>
+        <td>Any instance of the primitive data type. If <em>0.FDO/Whitelist</em> appears multiple times, this gives an
+            exhaustive list of allowed values for this attribute.
+        </td>
+        <td>0..*</td>
+    </tr>
+    <tr>
+        <td>0.FDO/Blacklist</td>
+        <td>Any instance of the primitive data type. If <em>0.FDO/Blacklist</em> appears multiple times, this gives a
+            non-exhaustive list of forbidden values for the attribute.
+        </td>
+        <td>0..*</td>
+    </tr>
+</table>
+                </li>
         </dd>
         <dt>[H5-1c] Complex attributes</dt>
         <dd>
