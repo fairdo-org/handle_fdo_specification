@@ -667,11 +667,118 @@ Each section within this chapter explains in detail how the FDO building blocks 
     </tr>
 </table>
                 </li>
+            </ul>
         </dd>
+
+
+
         <dt>[H5-1c] Complex attributes</dt>
         <dd>
-            Text here
+            <ul>
+                <li><b>Way 1</b>:
+                    <ol>
+                        <li>
+                            A composition of attributes is implemented in JSON schema as an object with properties. Each
+                            property links to the JSON schema of another attribute definitions using the keyword `$ref`.
+                            You can use the `required` keyword to make attributes within the composition mandatory and
+                            `additionalProperties` to prevent adding additional content to the composition.
+                            <aside class="example" title="JSON Schemas of a composition of attributes">
+<pre><code>{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "author",
+  "description": "An author is a composition of a first name and a last name.",
+  "type": "object",
+  "properties": {
+    "firstName": {
+      "$ref": "https://typeapi.lab.pidconsortium.net/v1/types/schema/21.T11969/3df63b7acb0522da685d"
+    },
+    "lastName": {
+      "$ref": "https://typeapi.lab.pidconsortium.net/v1/types/schema/21.T11969/3df63b7acb0522da685d"
+    }
+  },
+  "required": ["firstName", "lastName"],
+  "additionalProperties": false
+}</code></pre>
+                                This attribute composition validates:
+ <pre><code>{
+     "firstName": "Jon",
+     "lastName": "Doe"
+}</code></pre>
+
+
+                            </aside>
+
+                        </li>
+                        <li>
+                            A union of attributes is implemented by combining the keywords `oneof` and `$ref`to
+                            reference multiple existing JSON schemas, each representing an attribute definition.
+                            <aside class="example" title="JSON Schemas of a composition of attributes">
+<pre><code>{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Union of string and integer",
+  "description": "This attribute validates all strings and all integers.",
+  "anyOf": [
+    {
+      "$ref": "https://typeapi.lab.pidconsortium.net/v1/types/schema/21.T11969/3df63b7acb0522da685d"
+    },
+    {
+      "$ref": "https://typeapi.lab.pidconsortium.net/v1/types/schema/21.T11969/9edcffff4461c9083fbf"
+    }
+  ]
+}</code></pre>
+                                This attribute union validates:
+ <pre><code>123</code></pre>
+                                and
+                                <pre><code>"myString"</code></pre>
+                            </aside>
+                        </li>
+                    </ol>
+                </li>
+                <li><b>Way 2</b>:
+                    <ol>
+                        <li>
+                            A composition of attributes is implemented by setting two attributes in the FDO record:
+                            <ol>
+                                <li>`(0.FDO/ValidationMechanism, Composition)`</li>
+                                <li>` (0.FDO/DataType, [reference to attribute definition])`, repeated multiple times.</li>
+                            </ol>
+                            <aside class="example" title="JSON Schemas of a composition of attributes">
+                                The following three attributes define a composition of a string and an integer.
+                                <ol>
+                                    <li>`(0.FDO/ValidationMechanism, Composition)`,</li>
+                                    <li>` (0.FDO/DataType, 21.T11969/3df63b7acb0522da685d)`,</li>
+                                    <li>` (0.FDO/DataType, 21.T11969/9edcffff4461c9083fbf)`,</li>
+                                </ol>
+                                The composition is instantiated by the following JSON object (String and Integer are the
+                                names of the attributes -> we need to define better examples here):
+                                <pre><code>{"String": "abc", "Integer": 123}</code></pre>
+                            </aside>
+                        </li>
+                        <li>
+                            A union of attributes is implemented by setting two attributes in the FDO record:
+                            <ol>
+                                <li>`(0.FDO/ValidationMechanism, Union)`</li>
+                                <li>` (0.FDO/DataType, [reference to attribute definition])`, repeated multiple times.</li>
+                            </ol>
+                            <aside class="example" title="JSON Schemas of a composition of attributes">
+                                The following three attributes define a union of a string and an integer.
+                                <ol>
+                                    <li>`(0.FDO/ValidationMechanism, Union)`,</li>
+                                    <li>` (0.FDO/DataType, 21.T11969/3df63b7acb0522da685d)`,</li>
+                                    <li>` (0.FDO/DataType, 21.T11969/9edcffff4461c9083fbf)`.</li>
+                                </ol>
+                                This attribute union validates
+                                <pre><code>123</code></pre>
+                                and
+                                <pre><code>"myString"</code></pre>.
+                            </aside>
+                        </li>
+                    </ol>
+                </li>
+            </ul>
         </dd>
+
+
         <dt>[H5-1d] Implementation-specific rules</dt>
         <dd>
             <ol>
@@ -708,6 +815,16 @@ Each section within this chapter explains in detail how the FDO building blocks 
                         specify the record structure on the FDO spec level. Maybe we can say that the three mechanisms
                         are useful, and an implementation may specify how to represent them in their technology. Or we
                         leave them out completely. They seem quite Handle-ish.
+                    </li>
+                    <li>
+                        The DTR uses @id and does the schema compositions of complex attributes and profiles directly
+                        such that we do not get to see any $ref keywords. Do we require any changes in spec or DTR? It
+                        currently does not fit the descriptions in this document. It may make more sense to do
+                        composition without the $ref and without relying on other attributes. Just do one complex
+                        attribute definition.
+                    </li>
+                    <li>
+                        How are compositions instantiated using way 2? Is the given example correct?
                     </li>
                 </ul>
             </li>
