@@ -362,11 +362,165 @@ Each section within this chapter explains in detail how the FDO building blocks 
     <h3>FDO attribute definitions</h3>
     <dl>
         <dt>[H5-1] Representation of FDO attribute definitions</dt>
-        <dd>FDO attribute definitions specify the semantics and syntax of FDOs. Handle-based FDOs also implement the union
-            and composition of attribute definitions. Additionally, three additional validation rules, involving
-            relatively complex constructions, are introduced: profile referencing, attribute referencing, and external
-            vocabulary referencing.
+        <dd>
+            The Handle record of a Handle-based FDO attribute definition must contain a fixed, predefined set of FDO
+            attributes (see Tables 3 and 4). Note that there are two types of attributes in the Handle record:
+            <ol>
+                <li>
+                    <b>Meta information about the attribute definition</b>, to describe the FDO attribute definition
+                    itself: `0.FDO/Type`, `0.FDO/Profile`, `0.FDO/Name`, `0.FDO/Cardinality` (all mandatory),
+                    `0.FDO/Description` (optional).
+                </li>
+                <li>
+                    <b>The actual content of the attribute definition</b>, from which all validation rules (for attributes
+                    instantiating this attribute definition) can be derived. There are two ways how to define the
+                    validation rules:
+                    <ul>
+                        <li>
+                            <b>Way 1</b>:
+                            The FDO record links to a JSON schema which contains all validation rules using the
+                            attribute `0.FDO/Data`. For more details, see Table 3.
+                        </li>
+                        <li>
+                            <b>Way 2</b>:
+                            The FDO attribute definition is fully specified in the Handle record, simply relying on
+                            references to other attribute definitions, syntax definitions, or profiles (`0.FDO/DataType`)
+                            and a specified validation mechanism (`0.FDO/ValidationMechanism`). For more details, see
+                            Table 4.
+                        </li>
+                        <li>
+                            Note that both ways can be combined by using all attributes `0.FDO/Data`, `0.FDO/DataType`,
+                            `0.FDO/ValidationMechanism` simultaneously. In this case, when creating or updating this FDO
+                            attribute definition, it must be checked that both ways induce the same validation rules.
+                        </li>
+                    </ul>
+                </li>
+            </ol>
+
+            <table border="2">
+                <caption style="caption-side:bottom"><b>Table 3</b>: The list of attribute definitions which MUST be
+                    used when registering a new Handle-based FDO attribute definition according to way 1. This table
+                    does not include all information about the attribute definitions. For more information, please
+                    resolve the attribute definition PIDs via the Handle System.
+                </caption>
+                <tr>
+                    <th>PID of the attribute definition </th>
+                    <th>Attribute value</th>
+                    <th>Cardinality of the attribute</th>
+                </tr>
+                <tr>
+                    <td>0.FDO/Type</td>
+                    <td>The string <em>FDO_Attribute_Definition</em>. Additional types may be added, if applicable.</td>
+                    <td>1..*</td>
+                </tr>
+                <tr>
+                    <td>0.FDO/Profile</td>
+                    <td>The string <em>0.FDO/AttributeDef</em>. Additional profiles may be added, if applicable.</td>
+                    <td>1..*</td>
+                </tr>
+                <tr>
+                    <td>0.FDO/Name</td>
+                    <td>Human-readable and localized label(s) for the attribute definition. </td>
+                    <td>1..*</td>
+                </tr>
+                <tr>
+                    <td>0.FDO/Description</td>
+                    <td>Human-readable and localized description(s) for the attribute definition.</td>
+                <td>0..*</td>
+                </tr>
+                <tr>
+                    <td>0.FDO/Cardinality</td>
+                    <td>
+                        Description of the obligation and repeatability of this attribute in an FDO record.
+                    </td>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <td>0.FDO/Data</td>
+                    <td>
+                        URL pointing to a JSON schema which represents an FDO attribute definition. The JSON schema
+                        encodes syntax rules, unions and compositions. For more information, see [H5-1b].
+                    </td>
+                    <td>1</td>
+                </tr>
+            </table>
+            <br/>
+
+            <table border="2">
+                <caption style="caption-side:bottom"><b>Table 4</b>: The list of attribute definitions which MUST be
+                    used when defining a new Handle-based FDO attribute definition according to way 2. This table does
+                    not include all information about the attribute definitions. For more information, please resolve
+                    the attribute definition PIDs via the Handle System.
+                </caption>
+                <tr>
+                    <th>PID of the attribute definition </th>
+                    <th>Attribute value</th>
+                    <th>Cardinality of the attribute</th>
+                </tr>
+                <tr>
+                    <td>0.FDO/Type</td>
+                    <td>The string <em>FDO_Attribute_Definition</em>. Additional types may be added, if applicable.</td>
+                    <td>1..*</td>
+                </tr>
+                <tr>
+                    <td>0.FDO/Profile</td>
+                    <td>The string <em>0.FDO/AttributeDef</em>. Additional profiles may be added, if applicable.</td>
+                    <td>1..*</td>
+                </tr>
+                <tr>
+                    <td>0.FDO/Name</td>
+                    <td>Human-readable and localized label(s) for the attribute definition. </td>
+                    <td>1..*</td>
+                </tr>
+                <tr>
+                    <td>0.FDO/Description</td>
+                    <td>Human-readable and localized description(s) for the attribute definition.</td>
+                <td>0..*</td>
+                </tr>
+                <tr>
+                    <td>0.FDO/Cardinality</td>
+                    <td>
+                        Description of the obligation and repeatability of this attribute in an FDO record.
+                    </td>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <td>0.FDO/Data</td>
+                    <td> The string <em>Not_Applicable</em>.
+                    </td>
+                    <td>1..*</td>
+                </tr>
+                <tr>
+                    <td>0.FDO/ValidationMechanism</td>
+                    <td>
+                        One of:
+                        <ul>
+                            <li><em>Syntax</em></li>
+                            <li><em>Union</em></li>
+                            <li><em>InlineCombination</em></li>
+                            <li><em>AttributeReference</em> (see ...)</li>
+                            <li><em>ProfileReference</em> (see ...)</li>
+                            <li><em>ExternalVocabularyReference</em> (see ...)</li>
+                        </ul>
+                    </td>
+                    <td>3..*</td>
+                </tr>
+                <tr>
+                    <td>0.FDO/DataType</td>
+                    <td>A reference to one of:
+                        <ul>
+                            <li>a syntax definition (see ...)</li>
+                            <li>an attribute definition (see ...)</li>
+                            <li>a profile (see ...)</li>
+                            <li>an external vocabulary namespace (see ...)</li>
+                        </ul>
+                    </td>
+                    <td>1..*</td>
+                </tr>
+            </table>
+            <br/>
         </dd>
+
         <dt>[H5-1a] Semantics</dt>
         <dd>
             Text here
