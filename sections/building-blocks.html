@@ -781,11 +781,15 @@ Each section within this chapter explains in detail how the FDO building blocks 
 
         <dt>[H5-1d] Implementation-specific rules</dt>
         <dd>
+            Handle-based FDO attribute definitions introduce three <em>advanced validation mechanisms</em> that were
+            found helpful in the past. These validation mechanisms may be used in addition to syntax definitions,
+            compositions, and unions, where applicable and appropriate. The three mechanisms are:
             <ol>
                 <li>Profile Referencing</li>
                 <li>Attribute Referencing</li>
                 <li>External Vocabulary Referencing</li>
             </ol>
+            Each mechanism is introduced in the following.
         </dd>
         <dt>[H5-2] Attribute Definition Profile</dt>
         <dd>The Handle-based attribute definition profile has the PID 0.FDO/ProfileDef. It is a composition of the two
