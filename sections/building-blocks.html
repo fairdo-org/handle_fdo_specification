@@ -1009,14 +1009,75 @@ Each section within this chapter explains in detail how the FDO building blocks 
             </aside>
         </dd>
 
-
-
-
-
-
         <dt>
             [H5-1g] External Vocabulary Referencing
         </dt>
+        <dd>
+            It is essential for FDOs that existing vocabularies, ontologies and terminologies can be reused in records
+            (even if they are not in the strict format as described in [H5-1]). This can be carried out by applying
+            external vocabulary referencing.
+
+            <aside class="example" title="External Vocabulary Referencing: Using Schema.org in Handle-based FDOs">
+                <a href="#ex-vocab-ref">Figure 6</a> shows how schema.org terms can be used in an FDO record by applying external
+                vocabulary referencing.
+                <figure id="ex-vocab-ref">
+                    <img src="img/External_Vocab_Referencing.png" alt="External_Vocab_Referencing.png">
+                    <figcaption>
+                        This figure shows how schema.org terms are used in the FDO 21.123/456.
+                    </figcaption>
+                </figure>
+                <ul>
+                    <li>
+                        The attribute definition <em>0.FDO/SchemaOrgTerm</em> states that it uses external attribute referencing through the
+                        attribute <em>(0.FDO/ValidationMechanism, ExternalVocabularyReference)</em>.
+                    </li>
+                    <li>
+                        The syntax definition <em>0.FDO/SchemaOrgTermSyntax</em> specifies the syntax of the attribute definition, i.e., it
+                        must be instantiated by the string “https://schema.org”, which is the schema.org namespace.
+
+                    </li>
+                    <li>The FDO 21.123/456 contains the attribute <em>(0.FDO/SchemaOrgTerm, https://schema.org)</em> to indicate that it uses
+                        vocabulary from schema.org. Afterwards, any schema.org term can be used as an attribute in the form
+                        <em>(&ltURL of term&gt, &ltvalue&gt)</em>, such as <em>(https://schema.org/priceCurrency, USD)</em>.
+                    </li>
+                </ul>
+            </aside>
+            <p>The detailed requirements for External Vocabulary Referencing are:</p>
+            <p><b>Format of an Attribute Definition that Applies External Vocabulary Referencing:</b></p>
+            <p>The following detailed requirements must be fulfilled such that an attribute definition A applies external vocabulary referencing:</p>
+            <ul>
+                <li>
+                    The attribute definition A MUST explicitly state that it uses this feature by containing the attribute
+                    <em>(0.FDO/ValidationMechanism, ExternalVocabularyReference)</em>.
+                </li>
+                <li>
+                    The attribute definition A MUST specify the namespace of the external vocabulary using the attribute
+                    <em>0.FDO/DataType</em> which references a syntax definition that validates the namespace.
+                </li>
+            </ul>
+
+            <p><b>Instantiation of External Vocabulary Attributes in the Record:</b></p>
+
+            To use external vocabulary in the FDO record, the record MUST contain
+            <ul>
+                <li>an attribute a=(a<sub>def</sub>,a<sub>val</sub>) that instantiates attribute definition A, where A
+                    applies external vocabulary referencing
+                </li>
+                <li>an attribute b=(b<sub>def</sub>,b<sub>val</sub>) representing a vocabulary term</li>
+            </ul>
+            The following requirements must be fulfilled by a and b:
+            <ul>
+                <li>a<sub>val</sub> is a URL representing a namespace</li>
+                <li>b<sub>def</sub> = a<sub>val</sub>/&ltterm&gt, i.e., b<sub>def</sub> is a URL representing a term under a namespace</li>
+                <li>b<sub>val</sub> instantiates b<sub>def</sub>.</li>
+            </ul>
+            <p><b>Validation Rules:</b></p>
+            To validate an FDO that contains an attribute a=(a<sub>def</sub>,a<sub>val</sub>) applying external vocabulary referencing, it is
+            checked that the namespace a<sub>val</sub> is valid according to the syntax definition referenced from the
+            attribute definition.
+        </dd>
+    </dl>
+    <dl>
         <dt>[H5-2] Attribute Definition Profile</dt>
         <dd>
             The Handle-based attribute definition profile has the PID 0.FDO/ProfileDef. It is a composition of the two
