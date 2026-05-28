@@ -785,15 +785,11 @@ Each section within this chapter explains in detail how the FDO building blocks 
             found helpful in the past. These validation mechanisms may be used in addition to syntax definitions,
             compositions, and unions, where applicable and appropriate. The three mechanisms are:
             <ol>
-                <li>Profile Referencing</li>
-                <li>Attribute Referencing</li>
-                <li>External Vocabulary Referencing</li>
+                <li>Profile Referencing (see [H5-1e])</li>
+                <li>Attribute Referencing (see [H5-1f])</li>
+                <li>External Vocabulary Referencing (see [H5-1g])</li>
             </ol>
             Each mechanism is introduced in the following.
-        </dd>
-        <dt>[H5-2] Attribute Definition Profile</dt>
-        <dd>The Handle-based attribute definition profile has the PID 0.FDO/ProfileDef. It is a composition of the two
-            sub-profiles described in Table 3 and Table 4, with the PIDs ...
         </dd>
     </dl>
 
@@ -834,6 +830,77 @@ Each section within this chapter explains in detail how the FDO building blocks 
             </li>
         </ul>
     </div>
+    <dl>
+        <dt>[H5-1e] Profile Referencing</dt>
+        <dd>
+            Profile referencing permits an attribute definition A to specify that the value a<sub>val</sub> (of an
+            attribute a=(a<sub>def</sub>,a<sub>val</sub>) that instantiates A) MUST be a reference to an FDO following a
+            specific profile. Hence, it is a mechanism to enforce that specific attributes in FDO records reference
+            other FDOs that follow a certain profile.
+
+            <aside class="example" title="Profile Referencing: The 0.FDO/Profile Attribute.">
+                The attribute definition <i>0.FDO/Profile</i> uses profile referencing. It contains the following two
+                attributes:
+                <ul>
+                    <li>
+                        <i>(0.FDO/ValidationMechanism, ProfileReference</i>): This means that the attribute definition
+                        <i>0.FDO/Profile</i> applies the profile referencing mechanism.
+                    </li>
+                    <li>
+                        <i>(0.FDO/DataType, 0.FDO/ProfileDef)</i>: This means that if the attribute definition
+                        <i>0.FDO/Profile</i> is instantiated, the value must be a reference to an FDO that instantiates
+                        <i>0.FDO/ProfileDef</i> (i.e., it must be a reference to an FDO profile).
+                    </li>
+                </ul>
+                <figure id="profile-ref">
+                    <img src="img/Profile_Referencing.png" alt="Profile_Referencing.png" height=400>
+                    <figcaption>
+                        An example for profile referencing.
+                    </figcaption>
+                </figure>
+            </aside>
+
+            <p>The Detailed Requirements for Profile Referencing are:</p>
+
+            <b>Format of an Attribute Definition that Applies Profile Referencing:</b>
+
+            <ul>
+                <li>
+                    An attribute definition MUST explicitly state that it uses this feature by containing the attribute
+                    <i>(0.FDO/ValidationMechanism, ProfileReference)</i>.
+                </li>
+                <li>
+                    The attribute definition MAY also specify a list of profile PIDs P<sub>1</sub>,...,P<sub>n</sub>
+                    where at least one of them MUST validate (see <a href="#validation"></a>) the referenced FDO. This
+                    is done by adding the attribute (<i>0.FDO/DataType</i>, P<sub>i</sub>), i=1,...,n, into the
+                    attribute definition. If <i>0.FDO/DataType</i> is not contained in the attribute definition, it just
+                    means that the referenced entity is an FDO (hence, that the value is a validated reference complying
+                    to at least <i>0.FDO/Root</i>).
+                </li>
+            </ul>
+
+            <b>Validation Rule:</b>
+            <p>
+                To validate an FDO that contains an attribute applying profile referencing, it is checked that the value
+                of this attribute is either a reference to another FDO following at least one of the profiles specified
+                in the attribute definition, or an in-line serialization of an FDO that instantiates at least one of the
+                specified profiles.
+            </p>
+
+        <dt>
+            [H5-1f] Attribute Referencing
+        </dt>
+        <dt>
+            [H5-1g] External Vocabulary Referencing
+        </dt>
+        <dt>[H5-2] Attribute Definition Profile</dt>
+        <dd>
+            The Handle-based attribute definition profile has the PID 0.FDO/ProfileDef. It is a composition of the two
+            sub-profiles described in Table 3 and Table 4, with the PIDs ...
+        </dd>
+    </dl>
+    <div style="background-color:LightPink;">
+    </div>
 </section>
 
 <section>
@@ -843,6 +910,10 @@ Each section within this chapter explains in detail how the FDO building blocks 
         <li>explain the steps how to perform a validation using the profile FDO and an FDO record that instantiates the profile</li>
         <li>e.g. case 1: the profile can contain the JSON schema directly; case 2: we use Max type system</li>
     </ul>
+</section>
+
+<section>
+    <h3>Representation of Inline-FDOs</h3>
 </section>
 
 <section>
