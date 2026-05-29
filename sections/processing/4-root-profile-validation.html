@@ -1,0 +1,22 @@
+<h3>[S-4]: FDO Record Root Profile Validation</h3>
+<p><b>Input:</b> List of FDO attributes a<sub>1</sub>=(a<sub>1,def</sub>,a<sub>1,val</sub> ),...,
+    a<sub>n</sub>=(a<sub>n,def</sub>,a<sub>n,val</sub> ).</p>
+<p>
+    <b>Process:</b> Check that there are at least the attributes `0.FDO/Type`, `0.FDO/Profile` and `0.FDO/Data` in the
+    a<sub>1,def</sub>,...,a<sub>n,def</sub>.
+</p>
+<p>
+    <b>Output:</b> An integer
+</p>
+<ul>
+    <li>0 (COMPLETE; all three attributes were found)</li>
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+</ul>
+
+<div style="background-color:LightPink;">
+    <b>IMPORTANT</b>: It seems that all the steps are generic. Hence, writing down how the building blocks are
+    represented in the implementation seems enough to enable processing. However, maybe it makes sense to add some more
+    details in the FDO spec on where the implementation specifications come into play (e.g., attribute mappings, etc).
+</div>
