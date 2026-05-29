@@ -1,3 +1,11 @@
 <h3>[S-2] PID Resolution</h3>
-Access the location `https://hdl.handle.net/api/handles/[s]`. Resolution is successful if and only if a JSON is
-returned that has the property `responseCode: 1` at the top level. Else, resolution is unsuccessful.
+<p><b>Input:</b></p>
+<ol>
+    <li>the pid candidate `s`</li>
+    <li>the global handle resolver `hdl.handle.net/api/handles`</li>
+</ol>
+<p>
+    <b>Process:</b> Access the location `https://hdl.handle.net/api/handles/[s]`. Resolution is successful if and only
+    if a JSON is returned that has the property `responseCode: 1` at the top level. Else, resolution is unsuccessful.
+</p>
+<p><b>Output:</b> On Success: JSON</p>
