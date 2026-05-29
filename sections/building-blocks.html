@@ -1102,13 +1102,21 @@ Each section within this chapter explains in detail how the FDO building blocks 
     </div>
 </section>
 
-
-
-
-
-
 <section>
     <h3>Representation of Inline-FDOs</h3>
+    An inline-FDOs is represented as a JSON Object. The keys are either the PID of attribute definitions, or the names
+    of the attribute definitions. The inline-FDO must at least comply to the root profile.
+
+    <div style="background-color:LightPink;">
+        <b>TODOS:</b>
+        <ul>
+            <li>
+                For an inline FDO to be a valid JSON, no attributes can be repeated. Is there a better way to represent an
+                inline-FDO? Or should we recommend to not use inline-FDO/just use it for very simple FDOs that have no
+                attributes that are used multiple times in the record?
+            </li>
+        </ul>
+    </div>
 </section>
 
 <section>
