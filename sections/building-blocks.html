@@ -1103,9 +1103,14 @@ Each section within this chapter explains in detail how the FDO building blocks 
 </section>
 
 <section>
-    <h3>Representation of Inline-FDOs</h3>
-    An inline-FDOs is represented as a JSON Object. The keys are either the PID of attribute definitions, or the names
-    of the attribute definitions. The inline-FDO must at least comply to the root profile.
+    <h3>Inline-FDOs</h3>
+    <dl>
+        <dt>[H6-1] Representation of Inline-FDOs</dt>
+        <dd>
+             An inline-FDOs is represented as a JSON Object. The keys are either the PID of attribute definitions, or
+            the names of the attribute definitions. The inline-FDO must at least comply to the root profile.
+        </dd>
+    </dl>
 
     <div style="background-color:LightPink;">
         <b>TODOS:</b>
@@ -1115,21 +1120,26 @@ Each section within this chapter explains in detail how the FDO building blocks 
                 inline-FDO? Or should we recommend to not use inline-FDO/just use it for very simple FDOs that have no
                 attributes that are used multiple times in the record?
             </li>
+            <li>add an example for a valid inline-FDO</li>
         </ul>
     </div>
 </section>
 
 <section>
-    <h3>FDO Types & FDO Operations</h3>
-    <p>Nothing to do here?</p>
-    <p>We recommend to use these attributes to associate FDOs with operations: ...</p>
+    <h3>Collection FDOs</h3>
+    <div style="background-color:LightPink;">
+        <b>TODOS:</b>
+        <ul>
+            <li>
+                Here we should say how to build a collection FDO. Do we have already worked out something which we can
+                use here?
+            </li>
+        </ul>
+    </div>
 </section>
 
-
 <section>
-    <h3>Granularity & Collection FDOs</h3>
-    <ul>
-        <li>Here we should specify (recommend?) how to build collections, e.g. which attributes to use and in which
-            records they should be used.</li>
-    </ul>
+    <h3>FDO Operations</h3>
+    There is currently no agreed upon specification for the implementation of operations. A future version of this
+    specification will incorporate more details on operations.
 </section>
