@@ -1,0 +1,11 @@
+<h3>PID & Resolution</h3>
+<dl>
+    <dt> [H1-1] PID System</dt>
+    <dd> Each Handle-based FDO has a Handle identifier as its PID, assigned through the <a href="https://www.handle.net/">Handle System</a>. </dd>
+    <dt> [H1-2] PID Detection</dt>
+    <dd> The syntax of a Handle identifier follows the regular expression: `\d+(\.\d+)*\/\S+`</dd>
+    <dt> [H1-3] PID Resolution</dt>
+    <dd> The resolution of a Handle-based FDO, which is identified by PID X, into an FDO record uses the
+        <a href="https://www.handle.net/">global Handle Resolver</a> to receive the Handle record at
+        `https://hdl.handle.net/api/handles/[X]`.
+</dl>
