@@ -1,10 +1,124 @@
 <h3>Collection FDOs</h3>
-<div style="background-color:LightPink;">
-    <b>TODOS:</b>
-    <ul>
-        <li>
-            Here we should say how to build a collection FDO. Do we have already worked out something which we can
-            use here?
-        </li>
-    </ul>
-</div>
+<p>
+    Collection FDOs refer to one or more other FDOs.
+    This is useful to organize and connect FDOs in a hierarchical manner (e.g., when describing a dataset and all files
+    included within it).
+    A collection FDO MUST comply to the 0.FDO/Root profile like any other FDO.
+    It also has a 0.FDO/Data attribute that uses attribute referencing to refer to the FDOs that are included in the
+    collection.
+    This enables semantically correctly described relationships to other FDOs using the normal FDO referencing
+    mechanisms.
+</p>
+<aside class="example">
+    <p>
+        Lets assume one FDO that describes a dataset (aka. dataset FDO) and five FDOs for single files (aka. file FDO).
+        Every file FDO uses the root profile and adds some more information about the file it describes (e.g., file
+        name, file size, file format), but also the HTTP URL to access it.
+        The file FDO records could look similar to this:
+    <table>
+        <thead>
+        <tr>
+            <th scope="col">PID of Attribute Definition</th>
+            <th scope="col">Example Value</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>0.FDO/Profile</td>
+            <td>0.FDO/Root</td>
+        </tr>
+        <tr>
+            <td>0.FDO/Type</td>
+            <td>21.example/fileFormat</td>
+        </tr>
+        <tr>
+            <td>0.FDO/Data</td>
+            <td>21.example/HTTPURL</td>
+        </tr>
+        <tr>
+            <td>21.example/fileFormat</td>
+            <td>image/jpeg</td>
+        </tr>
+        <tr>
+            <td>21.example/HTTPURL</td>
+            <td>https://test.example/image01.jpg</td>
+        </tr>
+        <tr>
+            <td>21.example/fileSizeInKB</td>
+            <td>4242</td>
+        </tr>
+        <tr>
+            <td>0.FDO/Name</td>
+            <td>Placeholder01</td>
+        </tr>
+        <tr>
+            <td>21.example/isPartOf</td>
+            <td>21.example/dataset</td>
+        </tr>
+        </tbody>
+        <caption>
+            File FDO record (fictionary PID: <i>21.example/file01</i>)
+        </caption>
+    </table>
+    </p>
+    <p>
+        The dataset FDO with the PID <i>'21.example/dataset'</i> is a collection FDO referring to all file FDOs.
+        Furthermore, it has some additional information about the dataset (e.g., dataset title, creation date).
+        The 0.FDO/Type attribute refers to the profile used in the FDO, but could also refer to any other attribute or
+        an FDO defining an FDO type.
+        The dataset FDO record could look similar to this:
+    <table>
+        <thead>
+        <tr>
+            <th scope="col">PID of Attribute Definition</th>
+            <th scope="col">Example Value</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>0.FDO/Profile</td>
+            <td>0.FDO/Root</td>
+        </tr>
+        <tr>
+            <td>0.FDO/Type</td>
+            <td>0.FDO/Profile</td>
+        </tr>
+        <tr>
+            <td>0.FDO/Data</td>
+            <td>21.example/hasPart</td>
+        </tr>
+        <tr>
+            <td>21.example/hasPart</td>
+            <td>21.example/file01</td>
+        </tr>
+        <tr>
+            <td>21.example/hasPart</td>
+            <td>21.example/file02</td>
+        </tr>
+        <tr>
+            <td>21.example/hasPart</td>
+            <td>21.example/file03</td>
+        </tr>
+        <tr>
+            <td>21.example/hasPart</td>
+            <td>21.example/file04</td>
+        </tr>
+        <tr>
+            <td>21.example/hasPart</td>
+            <td>21.example/file05</td>
+        </tr>
+        <tr>
+            <td>0.FDO/Name</td>
+            <td>Example dataset</td>
+        </tr>
+        <tr>
+            <td>21.example/creationDate</td>
+            <td>2026-06-01T12:00:00Z</td>
+        </tr>
+        </tbody>
+        <caption>
+            Dataset Collection FDO record (fictionary PID: <i>21.example/dataset</i>)
+        </caption>
+    </table>
+    </p>
+</aside>
