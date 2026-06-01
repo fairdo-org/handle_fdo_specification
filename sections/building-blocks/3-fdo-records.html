@@ -6,8 +6,7 @@ This section specifies how an FDO record is implemented by Handle-based FDOs.
     <dt>Handle record</dt>
     <dd>
         Each Handle record consists of a list of Handle values. Each Handle value is represented as a JSON object
-        with (at least) five types (see also <a href="https://www.handle.net/tech_manual/HN_Tech_Manual_9.pdf">
-        Handle Technical Manual</a>):
+        with (at least) five types (see also [[HandleTechnical]]):
         <ul>
             <li> index (integer)</li>
             <li> type (string)</li>
@@ -34,8 +33,7 @@ This section specifies how an FDO record is implemented by Handle-based FDOs.
     </dt>
     <dd>
         We assume an FDO record which consists of FDO attributes/tuples `a_1=(k_1:v_1),a_2=(k_2:v_2),…, a_n=(k_n:v_n)`.
-        Mapping the FDO record to a Handle record means to map all FDO attributes `a_1,...,a_n` to a list of Handle values
-        `h_1,...,h_n` as follows:
+        Mapping the FDO record to a Handle record means to map all FDO attributes `a_1,...,a_n` to a list of Handle values `h_1,...,h_n` as follows:
         Each attribute `a_i` is assigned a positive integer `f_i`, where `f_1, ..., f_n` are mutually different. Assigning integers to
         tuples should take conventions from Handle identifiers into account (e.g., if `k_i=HS_ADMIN`, then `f_i=100`).
         Then, the FDO attribute `a_i` is mapped to the Handle value `h_i` by setting:

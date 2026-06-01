@@ -3,10 +3,23 @@
     <b>Input:</b> String `s`.
 </p>
 <p>
-    <b>Process:</b> Check whether `s` matches the pattern from [H1-2]. On success, return outputs below. If it does not match, this cannot be a Handle-based FDO - Stop.
+    <b>Process:</b>
+    Check whether `s` matches the pattern from [H1-2]. On success, return outputs below. If it does not
+    match, this cannot be a Handle-based FDO - Stop.
+<pre><code>function detectPID (input: string) -> PIDCandidate | undefined {
+    const REGEX = new RegExp('^([0-9A-Za-z])+.([0-9A-Za-z])+/([!-~])+$');  // regular expression from [H1-2]
+
+    if (REGEX.test(input)) { // Check if text matches
+        return new PIDCandidate(input);
+    } else {
+        return undefined; // This cannot be a Handle-based FDO. Stop!
+    }
+}</code></pre>
 </p>
-<p><b>Output:</b> On success:</p>
+<p>
+    <b>Output:</b> On success:
 <ol>
     <li>the pid candidate `s`</li>
     <li>the global handle resolver `hdl.handle.net/api/handles`</li>
 </ol>
+</p>

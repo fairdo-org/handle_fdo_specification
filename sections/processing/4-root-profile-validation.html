@@ -4,19 +4,78 @@
 <p>
     <b>Process:</b> Check that there are at least the attributes `0.FDO/Type`, `0.FDO/Profile` and `0.FDO/Data` in the
     a<sub>1,def</sub>,...,a<sub>n,def</sub>.
+<pre><code>enum Status {
+    COMPLETE, REQUIRED_FIELDS, PROFILE_ONLY, TYPE_ONLY, NON_COMPLIANT
+} // according to [S-4] in section 4 of the FDO Specifications
+
+function validateAgainstRootProfile (fdo: FDORecord) -> Status {
+    let status: Status = COMPLETE
+
+    if (!fdo.containsAttribute('0.FDO/Profile')) {
+        status = TYPE_ONLY // if 0.FDO/Profile is not found, at best the type can be found
+    } else {
+        if(!detectPID(typeValue)){
+            status = TYPE_ONLY
+        }
+    }
+
+    if (!fdo.containsAttribute('0.FDO/Type')) {
+        if (status == TYPE_ONLY) {
+            status = NON_COMPLIANT // Neither the type nor the profile has been found
+        } else {
+            status = PROFILE_ONLY // Only the profile has been found
+        }
+    } else {
+        const typeValues = fdo.getAllValuesForAttribute('0.FDO/Type');
+        for typeValue in typeValues {
+            if (typeValue === "FDO_Profile" || typeValue === "FDO_Attribute_Definition" || typeValue === "FDO_Syntax_Definition" || typeValue === "FDO_Type_Definition"){
+                continue; // This is the expected value for FDOs defining a profile, an attribute, a syntax definition, or an FDO type
+            } else if (fdo.containsAttribute(typeValue)) {
+                continue; // This is the expected case for attribute referencing
+            } else if (detectPID(typeValue)){
+                continue; // This is the expected case for profile referencing
+            } else {
+                if (status == PROFILE_ONLY) {
+                    status = NON_COMPLIANT // 0.FDO/Profile was found, but the value of 0.FDO/Type is not compliant with the specification
+                } else {
+                    status = TYPE_ONLY // 0.FDO/Type was found, but the value of 0.FDO/Type is not compliant with the specification
+                }
+            }
+        }
+    }
+
+    if (!fdo.containsAttribute("0.FDO/Data")){
+        if (status == COMPLETE) {
+            status = REQUIRED_FIELDS // Data has not been found, but profile and type were
+        }
+    } else {
+        const dataValues = fdo.getAllValuesForAttribute("0.FDO/Data");
+        boolean allValid = true;
+
+        for dataValue in dataValues { // Inspect the values of all 0.FDO/Data attributes
+            if (!fdo.containsAttribute(dataValue)){
+                allValid = false // Check that every attribute reference actually exists in the record
+            }
+        }
+
+        if (!allValid){ // Not all attribute references exist
+            if (status == COMPLETE) {
+                status = REQUIRED_FIELDS // The profile and type were found
+            }
+        }
+    }
+
+    return status
+}
+</code></pre>
 </p>
 <p>
-    <b>Output:</b> An integer
-</p>
+    <b>Output:</b> One value from an enumeration of possible results
 <ul>
-    <li>0 (COMPLETE; all three attributes were found)</li>
-    <li>1</li>
-    <li>2</li>
-    <li>3</li>
+    <li><b>COMPLETE:</b> 0.FDO/Profile, 0.FDO/Type, and 0.FDO/Data were found.</li>
+    <li><b>REQUIRED_FIELDS:</b> 0.FDO/Profile and 0.FDO/Type were found. 0.FDO/Data is missing or invalid.</li>
+    <li><b>PROFILE_ONLY:</b> 0.FDO/Profile has been found. 0.FDO/Type is missing or invalid. No assumption about 0.FDO/Data is made.</li>
+    <li><b>TYPE_ONLY:</b> 0.FDO/Type has been found. 0.FDO/Profile is missing or invalid. No assumption about 0.FDO/Data is made.</li>
+    <li><b>NON_COMPLIANT:</b> Neither 0.FDO/Profile nor 0.FDO/Type has been found.</li>
 </ul>
-
-<div style="background-color:LightPink;">
-    <b>IMPORTANT</b>: It seems that all the steps are generic. Hence, writing down how the building blocks are
-    represented in the implementation seems enough to enable processing. However, maybe it makes sense to add some more
-    details in the FDO spec on where the implementation specifications come into play (e.g., attribute mappings, etc).
-</div>
+</p>
