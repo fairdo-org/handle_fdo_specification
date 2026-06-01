@@ -7,5 +7,30 @@
 <p>
     <b>Process:</b> Access the location `https://hdl.handle.net/api/handles/[s]`. Resolution is successful if and only
     if a JSON is returned that has the property `responseCode: 1` at the top level. Else, resolution is unsuccessful.
+<pre><code>async function resolvePID(pid: PIDCandidate) -> HandleResponse throws ConnectionError, HandleError {
+    const API_BASE = 'https://hdl.handle.net/api/handles/';
+
+    const response = await http.get(API_BASE + pid); // HTTP GET to Handle system
+
+    if (!response) {
+        throw new ConnectionError("Handle system not reachable!");
+    } else if (response.status !== 200) {
+        throw new HandleError("Unexpected HTTP status from Handle", response);
+    }
+
+    const json = await response.json(); // extract JSON from HTTP response
+    if (!json){
+        throw new HandleError("Invalid response from Handle", response);
+    } else if (!json["responseCode"] || json["responseCode"] != 1) {
+        throw new HandleError("Unexpected response code from Handle", json);
+    } else if (!json["handle"] || json["handle"].length() < 3) {
+        throw new HandleError("Handle response does not contain valid PID", json);
+    } else if (!json["values"] || json["values"].length() <= 1) {
+        throw new HandleError("Empty Handle record", json);
+    } else {
+        return new HandleResponse(json);
+    }
+}
+</code></pre>
 </p>
-<p><b>Output:</b> On Success: JSON</p>
+<p><b>Output:</b> On Success: JSON from Handle System</p>

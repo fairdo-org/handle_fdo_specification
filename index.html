@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
   <head>
     <meta charset="utf-8" />
     <title>Handle-Based Fair Digital Objects Specification</title>
@@ -8,6 +8,7 @@
       class="remove"
       defer
     ></script>
+    <link href="global.css" rel="stylesheet" />
     <script class="remove">
       // All config options at https://respec.org/docs/
       var respecConfig = {
@@ -22,7 +23,8 @@
           {
             name: "M. Inckmann",
             company: "KIT",
-            orcid: "0009-0005-2800-4833"
+            orcid: "0009-0005-2800-4833",
+            companyUrl: "https://kit.edu"
           }
         ],
         github: "https://github.com/fairdo-org/handle_fdo_specification/",
@@ -31,13 +33,42 @@
         //group: "TSIG",
         latestVersion: null,
         edDraftURI: "https://github.com/fairdo-org/handle_fdo_specification/",
-        commitHistoryURL: "https://github.com/fairdo-org/handle_fdo_specification/commits/main/"
+        commitHistoryURL: "https://github.com/fairdo-org/handle_fdo_specification/commits/main/",
+        localBiblio: {
+          "FAIR": {
+            title: "The FAIR Guiding Principles for scientific data management and stewardship",
+            authors: ["Mark D. Wilkinson", "Michel Dumontier", "IJsbrand Jan Aalbersberg", "et al."],
+            publisher: "Scientific Data",
+            date: "2016",
+            href: "https://www.nature.com/articles/sdata201618",
+            doi: "10.1038/sdata.2016.18"
+          },
+          "ISO26324": {
+            title: "Information and documentation — Digital object identifier system",
+            authors: [
+                "ISO/TC 46 Information and documentation",
+                "ISO/TC 46/SC 9 Identification and description",
+                "NA 009-00-09-03 AK Numbering systems"
+            ],
+            date: "2025-03",
+            publisher: "International Organisation for Standardization",
+            href: "https://www.iso.org/standard/88862.html",
+            status: "published",
+          },
+          "HandleTechnical": {
+            title: "Handle Technical Manual",
+            version: 9,
+            href: "https://www.handle.net/tech_manual/HN_Tech_Manual_9.pdf",
+            date: "2018-06",
+            publisher: "Corporation for National Research Initiatives",
+          }
+        }
       };
     </script>
   </head>
   <body>
     <p class="copyright">
-      <a href="https://github.com/fairdo-org/handle_fdo_specification/">Handle-Based Fair Digital Objects Specification</a>
+      <a href="https://github.com/fairdo-org/handle_fdo_specification/">Handle-Based FAIR Digital Objects Specification</a>
       © 2026 by
       <a href="https://fairdo.org">FDO Forum</a>
       is licensed under
@@ -46,7 +77,8 @@
       <img src="https://mirrors.creativecommons.org/presskit/icons/by.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;">
     </p>
     <section id="abstract">
-      <p> This document specifies the architecture of Handle-based FAIR Digital Objects (FDOs). FDOs are persistent
+      <p>
+          This document specifies the architecture of Handle-based FAIR Digital Objects (FDOs). FDOs are persistent
           bundles of information identified by globally unique and resolvable persistent identifiers (PIDs) that resolve
           to structured FDO Records defined by explicit profiles and registered attributes. This document specifies how
           the core building blocks of FDOs, as described in the technology-agnostic
@@ -62,14 +94,10 @@
       </p>
     </section>
 
-
-
     <section>
       <h2>Introduction</h2>
       <div data-include="sections/introduction.html"></div>
     </section>
-
-
 
     <section>
       <h2>Building Blocks</h2>
@@ -90,8 +118,6 @@
       <section data-include="sections/building-blocks/7-collection-fdos.html"></section>
       <section data-include="sections/building-blocks/8-fdo-operations.html"></section>
     </section>
-
-
 
     <section>
       <h2>Processing</h2>
