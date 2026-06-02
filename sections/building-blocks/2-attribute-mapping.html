@@ -4,74 +4,92 @@
     attributes from the FDO specification have the format `0.FDO/Suffix` and each represent an FDO-related concept. They
     are mapped to Handle-based FDO attribute definitions by exchanging the prefix `0.FDO` with the prefix `21.T11969`.
     The Handle-based attributes are registered in the
-    <a href ="https://typeregistry.lab.pidconsortium.net/">Data Type Registry</a>. You can resolve the PIDs using
+    <a href="https://typeregistry.lab.pidconsortium.net/">Data Type Registry</a>. You can resolve the PIDs using
     the Handle System. A full mapping of the conceptual PIDs from the FDO specification to Handle-based attributes is
-    given in <a href="#table-mandatory-attr">Table 1</a> and <a href="#table-mandatory-attr">Table 2</a> for completeness.
+    given in <a href="#table-mandatory-attr">Table 1</a> and <a href="#table-mandatory-attr">Table 2</a> for
+    completeness.
     The third columns give more details on how each attribute is implemented using Handle-based FDOs.
 </p>
-
-<table id="table-mandatory-attr" border="2">
-    <caption style="caption-side:bottom"><b>Table 1</b>: Mapping of mandatory attribute definitions to Handle-based FDO
-        attribute definitions. This table does not include all information about the attribute definitions. Please
-        resolve the attribute definition PIDs via the Handle System for more details.
-    </caption>
-    <tr>
-        <th>Conceptual PID from FDO specification</th>
-        <th>PID of the mapped Handle-based attribute definition</th>
-        <th>Attribute value of Handle-based attribute definition </th>
-        <th>Cardinality (same as in FDO specification)</th>
-    </tr>
-    <tr>
-        <td>0.FDO/Type</td>
-        <td>21.T11969/Type</td>
-        <td>The type of the FDO as specified in section 3.10 of the FDO specification. For Handle-based FDOs, this
-            attribute uses attribute referencing, i.e., the value is a reference to another attribute which gives more
-            information about the type.
-        </td>
-        <td>1..*</td>
-    </tr>
-    <tr>
-        <td>0.FDO/Profile</td>
-        <td>21.T11969/Profile</td>
-        <td>
-            A PID that resolves to an FDO profile.
-        </td>
-        <td>1..*</td>
-    </tr>
-    <tr>
-        <td>0.FDO/Data</td>
-        <td>21.T11969/Data</td>
-        <td>
-            The data of the FDO. For Handle-based FDOs, this attribute uses attribute referencing, i.e., the value is a
-            reference to another attribute which gives more information on how the data are linked (e.g., through a PID
-            resolving to another FDO (collection), through a URL pointing to a file, or directly inline in the Handle
-            record). See also <a href="#example-attr-ref"></a>.
-        </td>
-        <td>1..*</td>
-    </tr>
-</table>
-<br/>
-
-<table border="2">
-    <caption style="caption-side:bottom"><b>Table 2</b>: Mapping of optional attribute definitions to Handle-based FDO
-        attribute definitions. This table does not include all information about the attribute definitions. Please
-        resolve the attribute definition PIDs via the Handle System for more details.
-    </caption>
-    <tr>
-        <th>Conceptual PID from FDO specification</th>
-        <th>PID of the mapped Handle-based attribute definition</th>
-        <th>Attribute value of Handle-based attribute definition</th>
-        <th>Cardinality (same as in FDO specification)</th>
-    </tr>
-    <tr>
-        <td>...</td>
-        <td>...</td>
-        <td>...
-        </td>
-        <td>...</td>
-    </tr>
-</table>
-<br/>
+<dl>
+    <dt>[H2-1] Mapping of FDO specification mandatory attribute definitions to Handle-based FDO attribute definitions
+    </dt>
+    <dd>
+        <table id="table-mandatory-attr" border="2">
+            <caption style="caption-side:bottom"><b>Table 1</b>: Mapping of mandatory attribute definitions to
+                Handle-based FDO
+                attribute definitions. This table does not include all information about the attribute definitions.
+                Please
+                resolve the attribute definition PIDs via the Handle System for more details.
+            </caption>
+            <tr>
+                <th>Conceptual PID from FDO specification</th>
+                <th>PID of the mapped Handle-based attribute definition</th>
+                <th>Attribute value of Handle-based attribute definition</th>
+                <th>Cardinality (same as in FDO specification)</th>
+            </tr>
+            <tr>
+                <td>0.FDO/Type</td>
+                <td>21.T11969/Type</td>
+                <td>The type of the FDO as specified in section 3.10 of the FDO specification. For Handle-based FDOs,
+                    this
+                    attribute uses attribute referencing, i.e., the value is a reference to another attribute which
+                    gives more
+                    information about the type.
+                </td>
+                <td>1..*</td>
+            </tr>
+            <tr>
+                <td>0.FDO/Profile</td>
+                <td>21.T11969/Profile</td>
+                <td>
+                    A PID that resolves to an FDO profile.
+                </td>
+                <td>1..*</td>
+            </tr>
+            <tr>
+                <td>0.FDO/Data</td>
+                <td>21.T11969/Data</td>
+                <td>
+                    The data of the FDO. For Handle-based FDOs, this attribute uses attribute referencing, i.e., the
+                    value is a
+                    reference to another attribute which gives more information on how the data are linked (e.g.,
+                    through a PID
+                    resolving to another FDO (collection), through a URL pointing to a file, or directly inline in the
+                    Handle
+                    record). See also <a href="#example-attr-ref"></a>.
+                </td>
+                <td>1..*</td>
+            </tr>
+        </table>
+        <br/>
+    </dd>
+    <dt>[H2-2] Mapping of FDO specification optional attribute definitions to Handle-based FDO attribute definitions
+    </dt>
+    <dd>
+        <table border="2">
+            <caption style="caption-side:bottom"><b>Table 2</b>: Mapping of optional attribute definitions to
+                Handle-based FDO
+                attribute definitions. This table does not include all information about the attribute definitions.
+                Please
+                resolve the attribute definition PIDs via the Handle System for more details.
+            </caption>
+            <tr>
+                <th>Conceptual PID from FDO specification</th>
+                <th>PID of the mapped Handle-based attribute definition</th>
+                <th>Attribute value of Handle-based attribute definition</th>
+                <th>Cardinality (same as in FDO specification)</th>
+            </tr>
+            <tr>
+                <td>...</td>
+                <td>...</td>
+                <td>...
+                </td>
+                <td>...</td>
+            </tr>
+        </table>
+        <br/>
+    </dd>
+</dl>
 
 <div style="background-color:LightPink;">
     <b>TODO</b>:
