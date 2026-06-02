@@ -22,3 +22,8 @@ table {
     border-collapse: collapse;
     border: 1px solid #999999;
 }
+
+code {
+    background: whitesmoke;
+    color: crimson;
+}
