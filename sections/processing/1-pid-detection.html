@@ -1,4 +1,4 @@
-<h3>[S-1] PID Detection</h3>
+<h3>[S-1] <a>PID Detection</a></h3>
 <p>
     <b>Input:</b> String `s`.
 </p>
@@ -10,7 +10,7 @@
     const REGEX = new RegExp('^([0-9A-Za-z])+.([0-9A-Za-z])+/([!-~])+$');  // regular expression from [H1-2]
 
     if (REGEX.test(input)) { // Check if text matches
-        return new PIDCandidate(input);
+        return new PIDCandidate(input, 'https://hdl.handle.net/api/handles');
     } else {
         return undefined; // This cannot be a Handle-based FDO. Stop!
     }
@@ -19,7 +19,7 @@
 <p>
     <b>Output:</b> On success:
 <ol>
-    <li>the pid candidate `s`</li>
-    <li>the global handle resolver `hdl.handle.net/api/handles`</li>
+    <li>the PID candidate `s`</li>
+    <li>the <a>global handle resolver</a> `hdl.handle.net/api/handles`</li>
 </ol>
 </p>

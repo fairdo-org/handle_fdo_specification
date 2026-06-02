@@ -1,22 +1,22 @@
 <h3>PID & Resolution</h3>
 <dl>
-    <dt> [H1-1] PID System</dt>
+    <dt> [H1-1] <dfn data-lt="PID system|Handle system">PID System</dfn></dt>
     <dd>
-        Each Handle-based FDO has a Handle identifier as its PID, assigned through the <a href="https://www.handle.net/">Handle System</a>.
+        Every Handle-based FDO has a <dfn data-lt="Handle identifier|identifier|Handle PID|Handles">Handle identifier</dfn> as its PID, assigned through the <a href="https://www.handle.net/">Handle System</a>.
     </dd>
-    <dt> [H1-2] PID Detection</dt>
+    <dt> [H1-2] <dfn data-lt="PID Detection|detection">PID Detection</dfn></dt>
     <dd>
-        According to [[RFC3650]], all Handle PIDs conform to this schema: <pre>&ltHandle Naming Authority&gt "/" &ltHandle Local Name&gt</pre>
-        The 'Handle Naming Authority' part of the Handle PID is also called a <dfn>Handle prefix</dfn>, is typically assigned to an organization, and MUST be unique.
-        The 'Handle Local Name' part of the Handle PID is also called a <dfn>Handle suffix</dfn> and must be unique within a Handle prefix.
-        According to [[RFC3650]], "Handles may consist of any printable characters from the Universal Character Set (UCS-2) of ISO/IEC 10646" with [[UTF-8]] encoding.
-        In practice, the syntax of a Handle PID follows the regular expression: <pre>^([0-9A-Za-z])+.([0-9A-Za-z])+/([!-~])+$</pre>
+        According to [[RFC3650]], all <a>Handle PIDs</a> conform to this schema: <pre><code>&ltHandle Naming Authority&gt "/" &ltHandle Local Name&gt</code></pre>
+        The 'Handle Naming Authority' part of the Handle PID is also called a <dfn data-lt="Handle prefix|prefix">Handle prefix</dfn>, is typically assigned to an organization, and MUST be unique.
+        The 'Handle Local Name' part of the Handle PID is also called a <dfn data-lt="Handle suffix|suffix">Handle suffix</dfn> and must be unique within a Handle prefix.
+        According to [[RFC3650]], "<a>Handles</a> may consist of any printable characters from the Universal Character Set (UCS-2) of ISO/IEC 10646" with [[UTF-8]] encoding.
+        In practice, the syntax of a Handle PID follows the regular expression: <pre><code>^([0-9A-Za-z])+.([0-9A-Za-z])+/([!-~])+$</code></pre>
     </dd>
-    <dt> [H1-3] PID Resolution</dt>
+    <dt> [H1-3] <dfn data-lt="PID Resolution|resolution">PID Resolution</dfn></dt>
     <dd>
-        The resolution of a Handle-based FDO, which is identified by PID X, into an FDO record uses the
-        <a href="https://www.handle.net/">global Handle Resolver</a> to receive the Handle record at
+        The <a>resolution</a> of a Handle-based FDO, which is identified by PID X, into an FDO record uses the
+        <a href="https://www.handle.net/"><dfn>Global Handle Resolver</dfn></a> to receive the Handle record at
         `https://hdl.handle.net/api/handles/[X]`.
-        This is further specified in [[RFC3652]] and [[HandleTechnical]].
+        This is further specified in [[RFC3652]] and [[Handle Technical Manual]].
     </dd>
 </dl>
