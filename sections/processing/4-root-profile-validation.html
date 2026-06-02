@@ -1,9 +1,9 @@
-<h3>[S-4]: FDO Record Root Profile Validation</h3>
-<p><b>Input:</b> List of FDO attributes a<sub>1</sub>=(a<sub>1,def</sub>,a<sub>1,val</sub> ),...,
-    a<sub>n</sub>=(a<sub>n,def</sub>,a<sub>n,val</sub> ).</p>
+<h3>[S-4]: FDO Record <a>Root Profile</a> Validation</h3>
+<p><b>Input:</b> List of FDO attributes <code>a<sub>1</sub>=(a<sub>1,def</sub>,a<sub>1,val</sub> ), ...,
+    a<sub>n</sub>=(a<sub>n,def</sub>,a<sub>n,val</sub>)</code>.</p>
 <p>
-    <b>Process:</b> Check that there are at least the attributes `0.FDO/Type`, `0.FDO/Profile` and `0.FDO/Data` in the
-    a<sub>1,def</sub>,...,a<sub>n,def</sub>.
+    <b>Process:</b> Check that there are at least the attributes <a>`0.FDO/Type`</a>, <a>`0.FDO/Profile`</a> and <a>`0.FDO/Data`</a> in the
+    <code>a<sub>1,def</sub>,...,a<sub>n,def</sub></code>.
 <pre><code>enum Status {
     COMPLETE, REQUIRED_FIELDS, PROFILE_ONLY, TYPE_ONLY, NON_COMPLIANT
 } // according to [S-4] in section 4 of the FDO Specifications

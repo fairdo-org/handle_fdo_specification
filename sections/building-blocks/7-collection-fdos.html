@@ -1,9 +1,9 @@
-<h3>Collection FDOs</h3>
+<h3><dfn>Collection FDOs</dfn></h3>
 <p>
     Collection FDOs refer to one or more other FDOs.
     This is useful to organize and connect FDOs in a hierarchical manner (e.g., when describing a dataset and all files
     included within it).
-    A collection FDO MUST comply to the 0.FDO/Root profile like any other FDO.
+    A [=Collection FDO=] MUST comply to the 0.FDO/Root profile like any other FDO.
     It also has a 0.FDO/Data attribute that uses attribute referencing to refer to the FDOs that are included in the
     collection.
     This enables semantically correctly described relationships to other FDOs using the normal FDO referencing
@@ -11,7 +11,7 @@
 </p>
 <aside class="example">
     <p>
-        Lets assume one FDO that describes a dataset (aka. dataset FDO) and five FDOs for single files (aka. file FDO).
+        As an example, we assume one [=Collection FDO=] that describes a dataset (aka. dataset FDO) and five FDOs for single files (aka. file FDO).
         Every file FDO uses the root profile and adds some more information about the file it describes (e.g., file
         name, file size, file format), but also the HTTP URL to access it.
         The file FDO records could look similar to this:

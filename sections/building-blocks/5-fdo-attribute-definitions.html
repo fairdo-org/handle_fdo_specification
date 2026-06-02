@@ -1,51 +1,51 @@
 <h3>FDO attribute definitions</h3>
 <dl>
-    <dt>[H5-1] Representation of FDO attribute definitions</dt>
+    <dt>[H5-1] Representation of <dfn data-lt="FDO attribute definition|attribute definition|0.FDO/Attribute|attribute|FDO attribute">FDO attribute definitions</dfn></dt>
     <dd>
-        The Handle record of a Handle-based FDO attribute definition must contain a fixed, predefined set of FDO
-        attributes (see Tables 3 and 4). Note that there are two types of attributes in the Handle record:
+        The <a>Handle record</a> of a Handle-based FDO <a>attribute definition</a> must contain a fixed, predefined set of FDO
+        attributes (see Tables 3 and 4). Note that there are two types of <a>attributes</a> in the <a>Handle record</a>:
         <ol>
             <li>
-                <b>Meta information about the attribute definition</b>, to describe the FDO attribute definition
+                <b>Meta information about the <a>attribute definition</a></b>, to describe the FDO <a>attribute definition</a>
                 itself: `0.FDO/Type`, `0.FDO/Profile`, `0.FDO/Name`, `0.FDO/Cardinality` (all mandatory),
                 `0.FDO/Description` (optional).
             </li>
             <li>
-                <b>The actual content of the attribute definition</b>, from which all validation rules (for attributes
-                instantiating this attribute definition) can be derived. There are two ways how to define the
+                <b>The actual content of the <a>attribute definition</a></b>, from which all validation rules (for attributes
+                instantiating this <a>attribute definition</a>) can be derived. There are two ways how to define the
                 validation rules:
                 <ul>
                     <li>
                         <b>Way 1</b>:
-                        The FDO record links to a JSON schema which contains all validation rules using the
+                        The  <a>FDO record</a> links to a JSON schema which contains all validation rules using the
                         attribute `0.FDO/Data`. For more details, see Table 3.
                     </li>
                     <li>
                         <b>Way 2</b>:
-                        The FDO attribute definition is fully specified in the Handle record, simply relying on
-                        references to other attribute definitions, syntax definitions, or profiles (`0.FDO/DataType`)
+                        The FDO <a>attribute definition</a> is fully specified in the  <a>Handle record</a>, simply relying on
+                        references to other <a>attribute definitions</a>,  <a>syntax definitions</a>, or  <a>profiles</a> (`0.FDO/DataType`)
                         and a specified validation mechanism (`0.FDO/ValidationMechanism`). For more details, see
                         Table 4.
                     </li>
                     <li>
-                        Note that both ways can be combined by using all attributes `0.FDO/Data`, `0.FDO/DataType`,
+                        Note that both ways can be combined by using all <a>attributes</a> `0.FDO/Data`, `0.FDO/DataType`,
                         `0.FDO/ValidationMechanism` simultaneously. In this case, when creating or updating this FDO
-                        attribute definition, it must be checked that both ways induce the same validation rules.
+                        <a>attribute definition</a>, it must be checked that both ways induce the same validation rules.
                     </li>
                 </ul>
             </li>
         </ol>
 
-        <table border="2">
-            <caption style="caption-side:bottom"><b>Table 3</b>: The list of attribute definitions which MUST be
-                used when registering a new Handle-based FDO attribute definition according to way 1. This table
-                does not include all information about the attribute definitions. For more information, please
-                resolve the attribute definition PIDs via the Handle System.
+        <table>
+            <caption style="caption-side:bottom"><b>Table 3</b>: The list of <a>attribute definitions</a> which MUST be
+                used when registering a new Handle-based FDO <a>attribute definition</a> according to way 1.
+                This table does not include all information about the <a>attribute definitions</a>.
+                For more information, please resolve the <a>attribute definition</a> PIDs via the <a>Handle System</a>.
             </caption>
             <tr>
-                <th>PID of the attribute definition </th>
+                <th>PID of the <a>attribute definition</a> </th>
                 <th>Attribute value</th>
-                <th>Cardinality of the attribute</th>
+                <th>Cardinality of the <a>attribute</a></th>
             </tr>
             <tr>
                 <td>0.FDO/Type</td>
@@ -54,47 +54,48 @@
             </tr>
             <tr>
                 <td>0.FDO/Profile</td>
-                <td>The string <em>0.FDO/AttributeDef</em>. Additional profiles may be added, if applicable.</td>
+                <td>The string <em>0.FDO/AttributeDef</em>. Additional  <a>profiles</a> may be added, if applicable.</td>
                 <td>1..*</td>
             </tr>
             <tr>
                 <td>0.FDO/Name</td>
-                <td>Human-readable and localized label(s) for the attribute definition. </td>
+                <td>Human-readable and localized label(s) for the <a>attribute definition</a>. </td>
                 <td>1..*</td>
             </tr>
             <tr>
                 <td>0.FDO/Description</td>
-                <td>Human-readable and localized description(s) for the attribute definition.</td>
+                <td>Human-readable and localized description(s) for the <a>attribute definition</a>.</td>
             <td>0..*</td>
             </tr>
             <tr>
                 <td>0.FDO/Cardinality</td>
                 <td>
-                    Description of the obligation and repeatability of this attribute in an FDO record.
+                    Description of the obligation and repeatability of this attribute in an <a>FDO record</a>.
                 </td>
                 <td>1</td>
             </tr>
             <tr>
                 <td>0.FDO/Data</td>
                 <td>
-                    URL pointing to a JSON schema which represents an FDO attribute definition. The JSON schema
-                    encodes syntax rules, unions and compositions. For more information, see [H5-1b].
+                    URL pointing to a JSON schema which represents an FDO <a>attribute definition</a>. The JSON schema
+                    encodes syntax rules, unions, and compositions. For more information, see [H5-1b].
                 </td>
                 <td>1</td>
             </tr>
         </table>
         <br/>
 
-        <table border="2">
-            <caption style="caption-side:bottom"><b>Table 4</b>: The list of attribute definitions which MUST be
-                used when defining a new Handle-based FDO attribute definition according to way 2. This table does
-                not include all information about the attribute definitions. For more information, please resolve
-                the attribute definition PIDs via the Handle System.
+        <table>
+            <caption>
+                <b>Table 4</b>: The list of <a>attribute definitions</a> which MUST be
+                used when defining a new Handle-based FDO <a>attribute definition</a> according to way 2. This table does
+                not include all information about the <a>attribute definitions</a>. For more information, please resolve
+                the <a>attribute definition</a> PIDs via the <a>Handle System</a>.
             </caption>
             <tr>
-                <th>PID of the attribute definition </th>
+                <th>PID of the <a>attribute definition</a> </th>
                 <th>Attribute value</th>
-                <th>Cardinality of the attribute</th>
+                <th>Cardinality of the <a>attribute</a></th>
             </tr>
             <tr>
                 <td>0.FDO/Type</td>
@@ -103,23 +104,23 @@
             </tr>
             <tr>
                 <td>0.FDO/Profile</td>
-                <td>The string <em>0.FDO/AttributeDef</em>. Additional profiles may be added, if applicable.</td>
+                <td>The string <em>0.FDO/AttributeDef</em>. Additional  <a>profiles</a> may be added, if applicable.</td>
                 <td>1..*</td>
             </tr>
             <tr>
                 <td>0.FDO/Name</td>
-                <td>Human-readable and localized label(s) for the attribute definition. </td>
+                <td>Human-readable and localized label(s) for the <a>attribute definition</a>. </td>
                 <td>1..*</td>
             </tr>
             <tr>
                 <td>0.FDO/Description</td>
-                <td>Human-readable and localized description(s) for the attribute definition.</td>
+                <td>Human-readable and localized description(s) for the <a>attribute definition</a>.</td>
             <td>0..*</td>
             </tr>
             <tr>
                 <td>0.FDO/Cardinality</td>
                 <td>
-                    Description of the obligation and repeatability of this attribute in an FDO record.
+                    Description of the obligation and repeatability of this <a>attribute</a> in an <a>FDO record</a>.
                 </td>
                 <td>1</td>
             </tr>
@@ -149,7 +150,7 @@
                 <td>A reference to one of:
                     <ul>
                         <li>a syntax definition (see [H5-1b])</li>
-                        <li>an attribute definition (see [H5-1c], [H5-1d])</li>
+                        <li>an <a>attribute definition</a> (see [H5-1c], [H5-1d])</li>
                         <li>a profile (see [H5-1d])</li>
                         <li>an external vocabulary namespace (see [H5-1d])</li>
                     </ul>
@@ -162,8 +163,8 @@
 
     <dt>[H5-1a] Encoding Semantics</dt>
     <dd>
-        A name must be and a description may be included in a Handle-based attribute definition using the attributes
-        `0.FDO/Name` respectively `0.FDO/Description` in the FDO record. If <b>way 1</b> is used, the name and the
+        A name must be and a description may be included in a Handle-based <a>attribute definition</a> using the attributes
+        `0.FDO/Name` respectively `0.FDO/Description` in the  <a>FDO record</a>. If <b>way 1</b> is used, the name and the
         description can be repeated in the JSON schema using the keywords `title` and `description`.
     </dd>
     <dt>[H5-1b] Encoding Syntax</dt>
@@ -171,7 +172,7 @@
         <ul>
             <li>
                 <b>Way 1</b>:
-                The FDO record links to a JSON schema which contains all validation rules using the
+                The  <a>FDO record</a> links to a JSON schema which contains all validation rules using the
                 attribute `0.FDO/Data`. The JSON Schema encodes the following basic validation rules:
                 <ol>
                     <li>An attribute states to follow one of the primitive data types “string”, “number”, “integer”
@@ -217,24 +218,25 @@
             </li>
             <li>
                 <b>Way 2</b>:
-                To specify the syntax of an attribute, the following two attributes must be used in the FDO record:
+                To specify the syntax of an attribute, the following two attributes must be used in the  <a>FDO record</a>:
                 <ol>
                     <li>`(0.FDO/ValidationMechanism, Syntax)`</li>
                     <li>`
                         (0.FDO/DataType, [reference to a syntax definition])`.
                     </li>
                 </ol>
-                Syntax definitions are themselves FDOs and encode the basic validation rules in their records. They
+                <dfn data-lt="Syntax definitions|0.FDO/SyntaxDef">Syntax definitions</dfn> are themselves FDOs and encode the basic validation rules in their records. They
                 follow the syntax definition profile with the PID `0.FDO/SyntaxDef` and contain the attributes as in
                 table 5.
                 <table border="2">
-<caption style="caption-side:bottom"><b>Table 5</b>: The list of attribute definitions specified by the FDO syntax
+<caption>
+    <b>Table 5</b>: The list of <a>attribute definitions</a> specified by the FDO syntax
     definition profile (0.FDO/SyntaxDef). These attributes MUST be used when defining any new syntax definition.
-    This table does not include all information about the attributes. Please resolve the attribute definition PIDs
+    This table does not include all information about the attributes. Please resolve the <a>attribute definition</a> PIDs
     via the Handle System or see the appendix of this document.
 </caption>
 <tr>
-    <th>PID of Attribute Definition</th>
+    <th>PID of <a>attribute definition</a></th>
     <th>Description of the attribute</th>
     <th>Cardinality of the attribute</th>
 </tr>
@@ -246,7 +248,7 @@
 </tr>
 <tr>
     <td>0.FDO/Profile</td>
-    <td>The string <em>0.FDO/SyntaxDef</em>. Additional profiles may be added, if applicable.
+    <td>The string <em>0.FDO/SyntaxDef</em>. Additional  <a>profiles</a> may be added, if applicable.
     </td>
     <td>1..*</td>
 </tr>
@@ -305,14 +307,14 @@
 
 
 
-    <dt>[H5-1c] Complex attributes</dt>
+    <dt>[H5-1c] <dfn>Complex attributes</dfn></dt>
     <dd>
         <ul>
             <li><b>Way 1</b>:
                 <ol>
                     <li>
                         A composition of attributes is implemented in JSON schema as an object with properties. Each
-                        property links to the JSON schema of another attribute definitions using the keyword `$ref`.
+                        property links to the JSON schema of another <a>attribute definitions</a> using the keyword `$ref`.
                         You can use the `required` keyword to make attributes within the composition mandatory and
                         `additionalProperties` to prevent adding additional content to the composition.
                         <aside class="example" title="JSON Schemas of a union of attributes">
@@ -344,7 +346,7 @@
                     </li>
                     <li>
                         A union of attributes is implemented by combining the keywords `oneof` and `$ref`to
-                        reference multiple existing JSON schemas, each representing an attribute definition.
+                        reference multiple existing JSON schemas, each representing an <a>attribute definition</a>.
                         <aside class="example" title="JSON Schemas of a composition of attributes">
 <pre><code>{
 "$schema": "http://json-schema.org/draft-04/schema#",
@@ -370,10 +372,10 @@
             <li><b>Way 2</b>:
                 <ol>
                     <li>
-                        A composition of attributes is implemented by setting two attributes in the FDO record:
+                        A composition of attributes is implemented by setting two attributes in the  <a>FDO record</a>:
                         <ol>
                             <li>`(0.FDO/ValidationMechanism, Composition)`</li>
-                            <li>` (0.FDO/DataType, [reference to attribute definition])`, repeated multiple times.</li>
+                            <li>` (0.FDO/DataType, [reference to <a>attribute definition</a>])`, repeated multiple times.</li>
                         </ol>
                         <aside class="example" title="JSON Schemas of a composition of attributes">
                             The following three attributes define a composition of a string and an integer.
@@ -388,10 +390,10 @@
                         </aside>
                     </li>
                     <li>
-                        A union of attributes is implemented by setting two attributes in the FDO record:
+                        A union of attributes is implemented by setting two attributes in the  <a>FDO record</a>:
                         <ol>
                             <li>`(0.FDO/ValidationMechanism, Union)`</li>
-                            <li>` (0.FDO/DataType, [reference to attribute definition])`, repeated multiple times.</li>
+                            <li>` (0.FDO/DataType, [reference to <a>attribute definition</a>])`, repeated multiple times.</li>
                         </ol>
                         <aside class="example" title="JSON Schemas of a composition of attributes">
                             The following three attributes define a union of a string and an integer.
@@ -412,10 +414,10 @@
     </dd>
 
 
-    <dt>[H5-1d] Implementation-specific rules</dt>
+    <dt>[H5-1d] <dfn>Implementation-specific rules</dfn></dt>
     <dd>
-        Handle-based FDO attribute definitions introduce three <em>advanced validation mechanisms</em> that were
-        found helpful in the past. These validation mechanisms may be used in addition to syntax definitions,
+        Handle-based FDO <a>attribute definitions</a> introduce three <em>advanced validation mechanisms</em> that were
+        found helpful in the past. These validation mechanisms may be used in addition to  <a>syntax definitions</a>,
         compositions, and unions, where applicable and appropriate. The three mechanisms are:
         <ol>
             <li>Profile Referencing (see [H5-1e])</li>
@@ -431,13 +433,13 @@
     <ul>
         <li>Register the Handles 0.FDO/AttributeDef and 0.FDO/SyntaxDef.</li>
         <li>Discuss whether each implementation should redefine the attribute definition profile (probably yes).</li>
-        <li>0.FDO/AttributeDef is a composition of two profiles, which both need to be registered (see table 3 and table 4)?</li>
+        <li>0.FDO/AttributeDef is a composition of two  <a>profiles</a>, which both need to be registered (see table 3 and table 4)?</li>
         <li>
             Discuss the level of freedom each implementation has. It may be that different implementations have
             different level of expressability. Open questions are:
             <ul>
                 <li>
-                    Can we fix existence of Syntax definitions on the FDO spec level? -> maybe not. My suggestion:
+                    Can we fix existence of syntax definitions on the FDO spec level? -> maybe not. My suggestion:
                     exclude syntax definitions from FDO spec. This is too fine-grained in general. We can use it in
                     the Handle Type System, but other implementations just need to have attributes, not syntax
                     definitions.
@@ -450,7 +452,7 @@
                     leave them out completely. They seem quite Handle-ish.
                 </li>
                 <li>
-                    The DTR uses @id and does the schema compositions of complex attributes and profiles directly
+                    The DTR uses @id and does the schema compositions of complex attributes and  <a>profiles</a> directly
                     such that we do not get to see any $ref keywords. Do we require any changes in spec or DTR? It
                     currently does not fit the descriptions in this document. It may make more sense to do
                     composition without the $ref and without relying on other attributes. Just do one complex
@@ -464,23 +466,23 @@
     </ul>
 </div>
 <dl>
-    <dt>[H5-1e] Profile Referencing</dt>
+    <dt>[H5-1e] <dfn>Profile Referencing</dfn></dt>
     <dd>
-        Profile referencing permits an attribute definition A to specify that the value a<sub>val</sub> (of an
+        Profile referencing permits an <a>attribute definition</a> A to specify that the value a<sub>val</sub> (of an
         attribute a=(a<sub>def</sub>,a<sub>val</sub>) that instantiates A) MUST be a reference to an FDO following a
-        specific profile. Hence, it is a mechanism to enforce that specific attributes in FDO records reference
+        specific profile. Hence, it is a mechanism to enforce that specific attributes in  <a>FDO record</a> reference
         other FDOs that follow a certain profile.
 
         <aside class="example" title="Profile Referencing: The 0.FDO/Profile Attribute.">
-            The attribute definition <i>0.FDO/Profile</i> uses profile referencing. It contains the following two
+            The <a>attribute definition</a> <i>0.FDO/Profile</i> uses profile referencing. It contains the following two
             attributes:
             <ul>
                 <li>
-                    <i>(0.FDO/ValidationMechanism, ProfileReference</i>): This means that the attribute definition
+                    <i>(0.FDO/ValidationMechanism, ProfileReference</i>): This means that the <a>attribute definition</a>
                     <i>0.FDO/Profile</i> applies the profile referencing mechanism.
                 </li>
                 <li>
-                    <i>(0.FDO/DataType, 0.FDO/ProfileDef)</i>: This means that if the attribute definition
+                    <i>(0.FDO/DataType, 0.FDO/ProfileDef)</i>: This means that if the <a>attribute definition</a>
                     <i>0.FDO/Profile</i> is instantiated, the value must be a reference to an FDO that instantiates
                     <i>0.FDO/ProfileDef</i> (i.e., it must be a reference to an FDO profile).
                 </li>
@@ -495,18 +497,18 @@
 
         <p>The Detailed Requirements for Profile Referencing are:</p>
 
-        <b>Format of an Attribute Definition that Applies Profile Referencing:</b>
+        <b>Format of an <a>attribute definition</a> that Applies Profile Referencing:</b>
 
         <ul>
             <li>
-                An attribute definition MUST explicitly state that it uses this feature by containing the attribute
+                An <a>attribute definition</a> MUST explicitly state that it uses this feature by containing the attribute
                 <i>(0.FDO/ValidationMechanism, ProfileReference)</i>.
             </li>
             <li>
-                The attribute definition MAY also specify a list of profile PIDs P<sub>1</sub>,...,P<sub>n</sub>
+                The <a>attribute definition</a> MAY also specify a list of profile PIDs P<sub>1</sub>,...,P<sub>n</sub>
                 where at least one of them MUST validate the referenced FDO. This
                 is done by adding the attribute (<i>0.FDO/DataType</i>, P<sub>i</sub>), i=1,...,n, into the
-                attribute definition. If <i>0.FDO/DataType</i> is not contained in the attribute definition, it just
+                <a>attribute definition</a>. If <i>0.FDO/DataType</i> is not contained in the <a>attribute definition</a>, it just
                 means that the referenced entity is an FDO (hence, that the value is a validated reference complying
                 to at least <i>0.FDO/Root</i>).
             </li>
@@ -515,17 +517,17 @@
         <b>Validation Rule:</b>
         <p>
             To validate an FDO that contains an attribute applying profile referencing, it is checked that the value
-            of this attribute is either a reference to another FDO following at least one of the profiles specified
-            in the attribute definition, or an in-line serialization of an FDO that instantiates at least one of the
-            specified profiles.
+            of this attribute is either a reference to another FDO following at least one of the  <a>profiles</a> specified
+            in the <a>attribute definition</a>, or an in-line serialization of an FDO that instantiates at least one of the
+            specified  <a>profiles</a>.
         </p>
 
-    <dt>[H5-1f] Attribute Referencing</dt>
+    <dt>[H5-1f] <dfn> Attribute Referencing</dfn></dt>
     <dd>
         Attribute referencing is a generic mechanism for redirecting to one or multiple other attribute(s) in the
         same record. Attribute referencing can, for example, be used to group information for different purposes. Or
         it can be used very similarly to unions, i.e., to state that an attribute is effectively realized through
-        one or several other attributes in the record, which follow more specific attribute definitions. To start
+        one or several other attributes in the record, which follow more specific <a>attribute definitions</a>. To start
         with, here is an example:
 
         <aside class="example" id="example-attr-ref" title="Attribute referencing: The 0.FDO/Data Attribute">
@@ -550,30 +552,30 @@
             <figure id="attr-ref-1">
                 <img src="img/Attribute_Referencing_3.png" alt="Attribute_Referencing_1.png" height=400>
                 <figcaption>
-                    Four examples for how the 0.FDO/Data attribute definition can be instantiated in FDO records. In
-                    all examples, the <em>0.FDO/Data</em> attribute references another attribute definition that
+                    Four examples for how the 0.FDO/Data <a>attribute definition</a> can be instantiated in  <a>FDO records</a>. In
+                    all examples, the <em>0.FDO/Data</em> attribute references another <a>attribute definition</a> that
                     specifies the way how the data are represented in this FDO.
                 </figcaption>
             </figure>
             As <em>0.FDO/Data</em> uses attribute referencing, all these different notions of data references can be
-            unified in one common and standardized attribute definition <em>0.FDO/Data</em>.
+            unified in one common and standardized <a>attribute definition</a> <em>0.FDO/Data</em>.
         </aside>
 
         <p>The detailed requirements for Attribute Referencing are:</p>
 
-        <p><b>Format of an Attribute Definition that Applies Attribute Referencing:</b></p>
+        <p><b>Format of an <a>attribute definition</a> that Applies Attribute Referencing:</b></p>
 
         <p>
-            The following requirements must be fulfilled such that an attribute definition A applies attribute
+            The following requirements must be fulfilled such that an <a>attribute definition</a> A applies attribute
             referencing:
         </p>
         <ul>
             <li>
-                The attribute definition A MUST explicitly state that it uses this feature by containing the
+                The <a>attribute definition</a> A MUST explicitly state that it uses this feature by containing the
                 attribute <em>(0.FDO/ValidationMechanism, AttributeReference)</em>.
             </li>
             <li>
-                The attribute definition A MAY specify a whitelist of attribute definition PIDs
+                The <a>attribute definition</a> A MAY specify a whitelist of <a>attribute definition</a> PIDs
                 B<sub>1</sub>,...,B<sub>n</sub> using the attribute <em>(0.FDO/DataType, B<sub>i</sub>)</em>,
                 i=1,...,n, in its record. If A specifies this whitelist, an attribute a (instantiating A) MUST
                 reference an attribute b that instantiates any of B<sub>1</sub>,...,B<sub>n</sub>. If the
@@ -581,24 +583,24 @@
                 there is no whitelist.
             </li>
             <li>
-                The cardinality of the attribute definition A only specifies the occurrence of instances of A itself
+                The cardinality of the <a>attribute definition</a> A only specifies the occurrence of instances of A itself
                 (and not the occurrence of instances of any of B<sub>1</sub>,...,B<sub>n</sub>). The cardinality of
                 B<sub>1</sub>,...,B<sub>n</sub> cannot be influenced by A.
             </li>
         </ul>
 
         <p><b>Instantiating an attribute that applies attribute referencing</b></p>
-        An attribute a=(a<sub>def</sub>,a<sub>val</sub>) (instantiating attribute definition A) is a reference to an
-        attribute b=(b<sub>def</sub>,b<sub>val</sub>) (instantiating attribute definition B) if and only if
+        An attribute a=(a<sub>def</sub>,a<sub>val</sub>) (instantiating <a>attribute definition</a> A) is a reference to an
+        attribute b=(b<sub>def</sub>,b<sub>val</sub>) (instantiating <a>attribute definition</a> B) if and only if
         <ul>
-            <li>a<sub>val</sub> is a PID resolving to an attribute definition</li>
-            <li>the referenced attribute b is instantiated in the same FDO record as attribute a</li>
+            <li>a<sub>val</sub> is a PID resolving to an <a>attribute definition</a></li>
+            <li>the referenced attribute b is instantiated in the same  <a>FDO record</a> as attribute a</li>
             <li>a<sub>val</sub> = b<sub>def</sub></li>
             <li>b<sub>val</sub> is validated by b<sub>def</sub>. This ensures, the reference is actually fulfilled.</li>
         </ul>
         See also <a href="#attr-ref-2">Figures 4</a> and <a href="#attr-ref-3">5</a> for illustration.
         There may be cases of consecutive referencing (e.g., a references b, b references c, …). All such references
-        within an FDO record must form a directed acyclic graph (no loops allowed).
+        within an  <a>FDO record</a> must form a directed acyclic graph (no loops allowed).
         <figure id="attr-ref-2">
             <img src="img/Attribute_Referencing_1.png" alt="Attribute_Referencing_2.png" style="width: 45%; height: 45%">
             <figcaption>
@@ -623,10 +625,10 @@
         </p>
         <ol>
             <li>
-                a<sub>val</sub> is a PID resolving to an attribute definition.
+                a<sub>val</sub> is a PID resolving to an <a>attribute definition</a>.
             </li>
             <li>
-                There is another attribute b=(b<sub>def</sub>,b<sub>val</sub>) in the FDO record such that
+                There is another attribute b=(b<sub>def</sub>,b<sub>val</sub>) in the  <a>FDO record</a> such that
                 a<sub>val</sub> = b<sub>def</sub>.
             </li>
             <li>
@@ -641,23 +643,23 @@
         </aside>
 
         <aside class="note">
-            Attribute referencing is very similar to unions of attribute definitions: In both cases, an
-            attribute definition states that its instantiation validates one of several attribute definitions. However, the slight
-            difference is that for attribute referencing, the instantiating record also states which of the attribute definitions is
+            Attribute referencing is very similar to unions of <a>attribute definitions</a>: In both cases, an
+            <a>attribute definition</a> states that its instantiation validates one of several <a>attribute definitions</a>. However, the slight
+            difference is that for attribute referencing, the instantiating record also states which of the <a>attribute definitions</a> is
             actually chosen, while this is not stated in the case of unions.
         </aside>
     </dd>
 
     <dt>
-        [H5-1g] External Vocabulary Referencing
+        [H5-1g] <dfn>External Vocabulary Referencing</dfn>
     </dt>
     <dd>
-        It is essential for FDOs that existing vocabularies, ontologies and terminologies can be reused in records
+        It is essential for FDOs that existing vocabularies, ontologies, and terminologies can be reused in records
         (even if they are not in the strict format as described in [H5-1]). This can be carried out by applying
         external vocabulary referencing.
 
         <aside class="example" title="External Vocabulary Referencing: Using Schema.org in Handle-based FDOs">
-            <a href="#ex-vocab-ref">Figure 6</a> shows how schema.org terms can be used in an FDO record by applying external
+            <a href="#ex-vocab-ref">Figure 6</a> shows how schema.org terms can be used in an  <a>FDO record</a> by applying external
             vocabulary referencing.
             <figure id="ex-vocab-ref">
                 <img src="img/External_Vocab_Referencing.png" alt="External_Vocab_Referencing.png">
@@ -667,11 +669,11 @@
             </figure>
             <ul>
                 <li>
-                    The attribute definition <em>0.FDO/SchemaOrgTerm</em> states that it uses external attribute referencing through the
+                    The <a>attribute definition</a> <em>0.FDO/SchemaOrgTerm</em> states that it uses external attribute referencing through the
                     attribute <em>(0.FDO/ValidationMechanism, ExternalVocabularyReference)</em>.
                 </li>
                 <li>
-                    The syntax definition <em>0.FDO/SchemaOrgTermSyntax</em> specifies the syntax of the attribute definition, i.e., it
+                    The syntax definition <em>0.FDO/SchemaOrgTermSyntax</em> specifies the syntax of the <a>attribute definition</a>, i.e., it
                     must be instantiated by the string “https://schema.org”, which is the schema.org namespace.
 
                 </li>
@@ -682,24 +684,24 @@
             </ul>
         </aside>
         <p>The detailed requirements for External Vocabulary Referencing are:</p>
-        <p><b>Format of an Attribute Definition that Applies External Vocabulary Referencing:</b></p>
-        <p>The following detailed requirements must be fulfilled such that an attribute definition A applies external vocabulary referencing:</p>
+        <p><b>Format of an <a>attribute definition</a> that Applies External Vocabulary Referencing:</b></p>
+        <p>The following detailed requirements must be fulfilled such that an <a>attribute definition</a> A applies external vocabulary referencing:</p>
         <ul>
             <li>
-                The attribute definition A MUST explicitly state that it uses this feature by containing the attribute
+                The <a>attribute definition</a> A MUST explicitly state that it uses this feature by containing the attribute
                 <em>(0.FDO/ValidationMechanism, ExternalVocabularyReference)</em>.
             </li>
             <li>
-                The attribute definition A MUST specify the namespace of the external vocabulary using the attribute
+                The <a>attribute definition</a> A MUST specify the namespace of the external vocabulary using the attribute
                 <em>0.FDO/DataType</em> which references a syntax definition that validates the namespace.
             </li>
         </ul>
 
         <p><b>Instantiation of External Vocabulary Attributes in the Record:</b></p>
 
-        To use external vocabulary in the FDO record, the record MUST contain
+        To use external vocabulary in the  <a>FDO record</a>, the record MUST contain
         <ul>
-            <li>an attribute a=(a<sub>def</sub>,a<sub>val</sub>) that instantiates attribute definition A, where A
+            <li>an attribute a=(a<sub>def</sub>,a<sub>val</sub>) that instantiates <a>attribute definition</a> A, where A
                 applies external vocabulary referencing
             </li>
             <li>an attribute b=(b<sub>def</sub>,b<sub>val</sub>) representing a vocabulary term</li>
@@ -713,14 +715,14 @@
         <p><b>Validation Rules:</b></p>
         To validate an FDO that contains an attribute a=(a<sub>def</sub>,a<sub>val</sub>) applying external vocabulary referencing, it is
         checked that the namespace a<sub>val</sub> is valid according to the syntax definition referenced from the
-        attribute definition.
+        <a>attribute definition</a>.
     </dd>
 </dl>
 <dl>
-    <dt>[H5-2] Attribute Definition Profile</dt>
+    <dt>[H5-2] <dfn data-lt="Attribute Definition Profile|0.FDO/AttributeDef">Attribute Definition Profile</dfn></dt>
     <dd>
-        The Handle-based attribute definition profile has the PID 0.FDO/ProfileDef. It is a composition of the two
-        sub-profiles described in Table 3 and Table 4, with the PIDs ...
+        The Handle-based <a>attribute definition</a> profile has the PID 0.FDO/ProfileDef. It is a composition of the two
+        sub- <a>profiles</a> described in Table 3 and Table 4, with the PIDs ...
     </dd>
 </dl>
 

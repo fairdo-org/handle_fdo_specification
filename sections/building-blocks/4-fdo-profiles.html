@@ -1,41 +1,41 @@
 <h3>FDO profiles</h3>
 <dl>
-    <dt>[H4-1] Representation of FDO Profiles</dt>
+    <dt>[H4-1] Representation of <dfn data-lt="FDO Profiles|profiles|Profile|profile|0.FDO/Profile">FDO Profiles</dfn></dt>
     <dd>
-        The Handle record of a Handle-based FDO profile must contain a fixed, predefined set of FDO attributes (see
-        <a href="#table-profile-def">Table 3</a>). Note that there are two types of attributes in the Handle record:
+        The <a>Handle record</a> of a Handle-based <a>FDO profile</a> must contain a fixed, predefined set of <a>FDO attributes</a> (see
+        <a href="#table-profile-def">Table 3</a>). Note that there are two types of <a>FDO attributes</a> in the <a>Handle record</a>:
         <ol>
             <li>
-                <b>Meta information about the profile</b>, to describe the FDO profile itself: <code>21.T11969/Type</code>,
+                <b>Meta information about the <a>profile</a></b>, to describe the <a>FDO profile</a> itself: <code>21.T11969/Type</code>,
                 <code>21.T11969/Profile</code>, <code>21.T11969/Name</code> (all mandatory), <code>21.T11969/Description</code> (optional).
             </li>
             <li>
-                <b>The actual content of the profile</b>, from which validation rules (for FDOs instantiating this
-                profile) can be derived: <code>21.T11969/Data</code>, <code>21.T11969/JsonSchema</code>,
+                <b>The actual content of the <a>profile</a></b>, from which validation rules (for FDOs instantiating this
+                <a>profile</a>) can be derived: <code>21.T11969/Data</code>, <code>21.T11969/JsonSchema</code>,
                 <code>21.T11969/Attribute</code>, <code>21.T11969/Extends</code>, and
                 <code>21.T11969/denyAdditionalAttributes</code>. There are two equivalent ways how to define the validation rules:
                 <ul>
                     <li>
                         <b>Way 1</b>:
-                        The FDO record links to a JSON schema which contains validation rules.
+                        The <a>FDO record</a> links to a JSON schema which contains validation rules.
                         <ul>
                             <li>
-                                The linking is done by using the attribute <code>21.T11969/Data</code>. This attribute applies
-                                attribute referencing to point to the attribute <code>21.T11969/JsonSchema</code>, which
+                                The linking is done by using the <a>attribute</a> <code>21.T11969/Data</code>. This <a>attribute</a> applies
+                                <a>attribute referencing</a> to point to the <a>attribute</a> <code>21.T11969/JsonSchema</code>, which
                                 has as its value a URL. This URL references a JSON schema.
                             </li>
                             <li>
-                                The JSON schema must have attribute PIDs as its properties. If the profile
+                                The JSON schema must have attribute PIDs as its properties. If the <a>profile</a>
                                 is not an extension of an existing profile, it must at least contain the mandatory
-                                attributes <code>21.T11969/Type</code>, <code>21.T11969/Profile</code>, and
-                                <code>21.T11969/Data</code>. Furthermore, it may specify that it extends another FDO
-                                profile by using the JSON schema <code>$ref</code> keyword to reference the JSON schema
-                                of a parent profile. It may also specify whether it allows instantiating FDOs to contain
-                                additional attributes by using the <code>additionalProperties</code> keyword.
+                                <a>attributes</a> <code>21.T11969/Type</code>, <code>21.T11969/Profile</code>, and
+                                <code>21.T11969/Data</code>. Furthermore, it may specify that it extends another <a>FDO
+                                profile</a> by using the JSON schema <code>$ref</code> keyword to reference the JSON schema
+                                of a parent <a>profile</a>. It may also specify whether it allows instantiating FDOs to contain
+                                additional <a>attribute</a> by using the <code>additionalProperties</code> keyword.
                             </li>
                         </ul>
                         <aside class="example" id="example-profile-json" title="FDO Profile using JSON schema (way 1)">
-                            The Handle record of a profile that is constructed according to way 1 looks as follows:
+                            The <a>Handle record</a> of a <a>profile</a> that is constructed according to way 1 looks as follows:
                             <table>
                                 <thead>
                                 <tr>
@@ -76,7 +76,7 @@
                                 </caption>
                             </table>
                             The fictionary URL <code>https://typeapi.lab.pidconsortium.net/v1/types/schema/21.example/profile01</code>,
-                            the value of the attribute <code>21.T11969/JsonSchema</code>, references a fictionary JSON
+                            the value of the <a>attribute</a> <code>21.T11969/JsonSchema</code>, references a fictionary JSON
                             schema. The JSON schema could look like this:
                             <pre><code>{
     "$schema": "http://json-schema.org/draft-04/schema#",
@@ -108,35 +108,35 @@
                     </li>
                     <li>
                         <b>Way 2</b>:
-                        The FDO profile is fully specified in the Handle record, simply relying on references to
-                        other attributes, potential profile extension and a boolean. In more detail:
+                        The <a>FDO profile</a> is fully specified in the <a>Handle record</a>, simply relying on references to
+                        other attributes, potential <a>profile extension</a> and a boolean. In more detail:
                         <ul>
                             <li>
-                                The attrinbute <code>21.T11969/Attribute</code> defines the list of attribute definitions that MUST be
-                                instantiated in any FDO instantiating this profile. In case that no extension is used,
-                                the attribute <code>21.T11969/Attribute</code> MUST be repeated at least three times, once
+                                The <a>attribute</a> <code>21.T11969/Attribute</code> defines the list of <a>attribute definitions</a> that MUST be
+                                instantiated in any FDO instantiating this <a>profile</a>. In case that no extension is used,
+                                the <a>attribute</a> <code>21.T11969/Attribute</code> MUST be repeated at least three times, once
                                 with each of the values <code>21.T11969/Type</code>, <code>21.T11969/Profile</code>,
-                                <code>21.T11969/Data</code>, because these are the mandatory attributes that MUST be
-                                contained in any FDO. Additional attributes can be added by further repeating the
+                                <code>21.T11969/Data</code>, because these are the mandatory <a>attribute</a> that MUST be
+                                contained in any FDO. Additional <a>attribute</a> can be added by further repeating the
                                 <code>21.T11969/Attribute</code> with other values.
                             </li>
                             <li>
-                                If this profile is an extension of another profile, the value of the attribute <code>21.T11969/Extends</code>
-                                specifies the PID of the parent profile (see [H4-3]).
+                                If this profile is an extension of another profile, the value of the <a>attribute</a> <code>21.T11969/Extends</code>
+                                specifies the PID of the parent <a>profile</a> (see [H4-3]).
                             </li>
                             <li>
-                                The attribute <code>21.T11969/denyAdditionalAttributes</code> is an optional boolean flag
+                                The <a>attribute</a> <code>21.T11969/denyAdditionalAttributes</code> is an optional boolean flag
                                 indicating whether an FDO that instantiates the respective profile MUST NOT have additional
-                                attributes than those given by the profile. This restriction is only active if the value is set
+                                <a>attribute</a> than those given by the profile. This restriction is only active if the value is set
                                 to a truthy boolean.
                             </li>
                             <li>
-                                The mandatory attribute <code>21.T11969/Data</code> is set to <code>Not_Applicable</code>.
+                                The mandatory <a>attribute</a> <code>21.T11969/Data</code> is set to <code>Not_Applicable</code>.
                             </li>
                         </ul>
 
                         <aside class="example" id="example-profile-record" title="Defining a profile on Handle record-level">
-                            The same profile as in <a href="#example-profile-json"></a> looks like this when it is
+                            The same <a>profile</a> as in <a href="#example-profile-json"></a> looks like this when it is
                             represented using way 2:
                             <table>
                                 <thead>
@@ -196,23 +196,24 @@
                         </aside>
                     </li>
                     <li>
-                        Note that both ways can be combined by using all attributes <code>21.T11969/Data</code>,
+                        Both ways can be combined by using all <a>attributes</a> <code>21.T11969/Data</code>,
                         <code>21.T11969/JsonSchema</code>, <code>21.T11969/Attribute</code>,
                         <code>21.T11969/Extends</code>, and <code>21.T11969/denyAdditionalAttributes</code> simultaneously.
-                        In this case, when creating or updating this FDO profile, it must be checked that both ways
+                        In this case, when creating or updating this <a>FDO profile</a>, it must be checked that both ways
                         induce the same validation rules.
                     </li>
                 </ul>
             </li>
         </ol>
 
-        <table id="table-profile-def" border="2">
-            <caption style="caption-side:bottom"><b>Table 3</b>: The list of attribute definitions which MUST be used when defining a
-                new Handle-based FDO profile. This table does not include all information about the attribute
-                definitions. For more information, please resolve the attribute definition PIDs via the Handle System.
+        <table id="table-profile-def">
+            <caption style="caption-side:bottom"><b>Table 3</b>: The list of <a>attribute definitions</a> which MUST be
+                used when defining a new Handle-based <a>FDO profile</a> according to way 2.
+                This table does not include all information about the <a>attribute definitions</a>.
+                For more information, please resolve the <a>attribute definition</a> PIDs via the <a>Handle System</a>.
             </caption>
             <tr>
-                <th>PID of the attribute definition </th>
+                <th>PID of the <a>attribute definition</a> </th>
                 <th>Attribute value</th>
                 <th>Cardinality of the attribute</th>
             </tr>
@@ -223,17 +224,17 @@
             </tr>
             <tr>
                 <td><code>21.T11969/Profile</code></td>
-                <td>The string <code>21.T11969/ProfileDef</code>. Additional profiles may be added, if applicable.</td>
+                <td>The string <code>21.T11969/ProfileDef</code>. Additional <a>profiles</a> may be added, if applicable.</td>
                 <td>1..*</td>
             </tr>
             <tr>
                 <td><code>21.T11969/Name</code></td>
-                <td>Human-readable and localized label(s) for the profile. </td>
+                <td>Human-readable and localized label(s) for the <a>profile</a>. </td>
                 <td>1..*</td>
             </tr>
             <tr>
                 <td><code>21.T11969/Description</code></td>
-                <td>Human-readable and localized description(s) for the profile.</td>
+                <td>Human-readable and localized description(s) for the <a>profile</a>.</td>
             <td>0..*</td>
             </tr>
             <tr>
@@ -247,18 +248,18 @@
             <tr>
                 <td><code>21.T11969/JsonSchema</code></td>
                 <td>
-                    This attribute is just used when the attribute is represented according to way 1. In this case, it
-                    is a URL pointing to a JSON schema.
+                    This <a>attribute</a> is just used when the <a>attribute</a> is represented according to way 1.
+                    In this case, it is a URL pointing to a JSON schema.
                 </td>
                 <td>0..1</td>
             </tr>
             <tr>
                 <td><code>21.T11969/Attribute</code></td>
                 <td>
-                    This attribute is just used when the attribute is represented according to way 2.
-                    The attribute <code>0.FDO/Attribute</code> defines the list of attribute definitions that MUST be
-                    instantiated in any FDO using this profile. The attribute <code>0.FDO/Attribute</code> is repeated
-                    once for each attribute definition that should be in the profile.
+                    This <a>attribute</a> is used when the <a>attribute</a> is represented according to way 2.
+                    The <a>attribute</a> <code>0.FDO/Attribute</code> defines the list of <a>attribute definitions</a> that MUST be
+                    instantiated in any FDO using this <a>profile</a>. The <a>attribute</a> <code>0.FDO/Attribute</code> is repeated
+                    once for each <a>attribute definition</a> that should be in the <a>profile</a>.
                 </td>
                 <td>0..*</td>
             </tr>
@@ -276,7 +277,7 @@
                 <td>
                     This attribute is just used when the attribute is represented according to way 2.
                     The value is an optional boolean flag indicating whether an FDO that instantiates the respective
-                    profile MUST NOT have additional attributes than those given by the profile. This restriction is
+                    <a>profile</a> MUST NOT have additional <a>attributes</a> than those given by the <a>profile</a>. This restriction is
                     only active if the value is set to a truthy boolean.
                 </td>
                 <td>0..1</td>
@@ -285,29 +286,29 @@
         <br/>
     </dd>
 
-    <dt>[H4-2] Profile Definition Profile</dt>
+    <dt>[H4-2] <dfn data-lt="Profile Definition Profile|Profile Definition|0.FDO/ProfileDef">Profile Definition Profile</dfn></dt>
     <dd>
-        The Handle-based profile definition profile has the PID <code>21.T11969/ProfileDef</code> and is the Handle-based
+        The Handle-based <a>profile definition</a> profile has the PID <code>21.T11969/ProfileDef</code> and is the Handle-based
         implementation of <a href="#table-profile-def">Table 3</a>. It uses both mechanisms way 1 and way 2 (see [H4-1]).
     </dd>
-    <dt>[H4-3] Root Profile</dt>
+    <dt>[H4-3] <dfn data-lt="Root Profile|0.FDO/Root">Root Profile</dfn></dt>
     <dd>
         The Handle-based root profile has the PID <code>21.T11969/Root</code>. It uses both mechanisms way 1 and way 2
-        (see [H4-1]). It can be used as a parent profile for profile extension.
+        (see [H4-1]). It can be used as a parent <a>profile</a> for <a>profile extension</a>.
     </dd>
-    <dt>[H4-4] FDO Profiles Extension Mechanism</dt>
+    <dt>[H4-4] <dfn data-lt="FDO Profiles Extension|Profile Extension|0.FDO/Extends">FDO Profiles Extension</dfn> Mechanism</dt>
     <dd>
         <ul>
-            <li>An FDO profile constructed as JSON Schema (way 1) embeds a parent JSON schema from a parent
-                FDO profile through a combination of `allOf` and `$ref`.
+            <li>An <a>FDO profile</a> constructed as JSON Schema (way 1) embeds a parent JSON schema from a parent
+                <a>FDO profile</a> through a combination of `allOf` and `$ref`.
                 <aside class="note">
-                    When you use JSON schemas in combination with profile extension, it is technically not possible to
+                    When you use JSON schemas in combination with <a>profile extension</a>, it is technically not possible to
                     deny additional attributes. If you need to use extension and deny additional attributes, you have to
                     go for way 2 to represent your profile.
                 </aside>
                 <aside class="example" id="example-profile-extension-json" title="FDO Profile using JSON schema (way 1) and Extension">
-                    We represent the profile from <a href="#example-profile-json"></a> using way 1 and profile extension:
-                    The Hande record is exactly the same as in <a href="#example-profile-json"></a>. The JSON schema looks like this:
+                    We represent the <a>profile</a> from <a href="#example-profile-json"></a> using way 1 and <a>profile extension</a>:
+                    The <a>Hande record</a> is exactly the same as in <a href="#example-profile-json"></a>. The JSON schema looks like this:
                     <pre><code>{
     "$schema": "http://json-schema.org/draft-04/schema#",
     "title": "Simple_Profile",
@@ -329,11 +330,11 @@
                         </aside>
             </li>
             <li>
-                An FDO profile constructed on Handle record level (way 2) references a parent FDO profile using the attribute
-                <code>21.T11969/Extends</code>. Its value must be a PID pointing to another FDO profile.
+                An <a>FDO profile</a> constructed on <a>Handle record</a> level (way 2) references a parent <a>FDO profile</a> using the <a>attribute</a>
+                <code>21.T11969/Extends</code>. Its value must be a PID pointing to another <a>FDO profile</a>.
                 <aside class="example" id="example-profile-extension-record" title="FDO profile on Handle record-level (way 2) and Extension">
-                            The same profile as in <a href="#example-profile-json"></a> looks like this when it is
-                            represented using way 2 in combination with extension:
+                    The same <a>profile</a> as in <a href="#example-profile-json"></a> looks like this when it is
+                    represented using way 2 in combination with <a>profile extension</a>:
                             <table>
                                 <thead>
                                 <tr>
