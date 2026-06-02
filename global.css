@@ -3,6 +3,7 @@ table {
     width: 90%;
     margin: 10px auto;
     border-collapse: collapse;
+    border: 1px solid #999999;
 }
 
 th, td {

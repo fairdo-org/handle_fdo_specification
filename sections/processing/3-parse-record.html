@@ -1,12 +1,13 @@
 <h3>[S-3] PID Record Parsing into an FDO Record</h3>
 <p><b>Input:</b> JSON</p>
 <p>
-    <b>Process:</b> Map all handle values from the JSON to FDO attributes as described in [H2-2].
+    <b>Process:</b> Map all handle values from the JSON to FDO attributes as described in [H3-2].
+</p>
 <aside class="note">
     Some of the attributes in the HandleResponse are related to the functioning of the Handle system.
     A client MAY heuristically exclude them from processing since they are clearly distinguishable from the FDO-related attributes.
 
-    <br><b>Beware:</b> Excluding such attributes on modification of an Handle record can have severe consequences!
+    <br><b>Beware:</b> Excluding such attributes on modification of a Handle record can have severe consequences!
     For example, removing the <i>`HS_ADMIN`</i> attribute causes the record to be never editable again.
 
     <br>There exists no official list of such Handle-related attributes, but an incomplete list can be found here:
@@ -37,7 +38,6 @@
     return new FDORecord(pid, attributes);
 </code></pre>
 }
-</p>
 <p>
     <b>Output:</b> List of attributes a<sub>1</sub>=(a<sub>1,def</sub>,a<sub>1,val</sub> ),...,
     a<sub>n</sub>=(a<sub>n,def</sub>,a<sub>n,val</sub> ). The a<sub>i,def</sub> can either be attribute definition PIDs
