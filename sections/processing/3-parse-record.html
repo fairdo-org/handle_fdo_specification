@@ -1,15 +1,15 @@
 <h3>[S-3] PID Record Parsing into an <a>FDO Record</a></h3>
 <p><b>Input:</b> JSON</p>
 <p>
-    <b>Process:</b> Map all handle values from the JSON <a>Handle Record</a> to <a>FDO attributes</a> as described in [H2-2].
+    <b>Process:</b> Map all values from the JSON <a>Handle Record</a> to <a>FDO attributes</a> as described in [H2-2].
 <aside class="note">
-    Some of the <a>attributes</a> in the HandleResponse are related to the functioning of the Handle system.
-    A client MAY heuristically exclude them from processing since they are clearly distinguishable from the FDO-related attributes.
+    Some of the <a>attributes</a> in the HandleResponse are related to the functioning of the <a>Handle system</a>.
+    A client MAY heuristically exclude them from processing since they are clearly distinguishable from the FDO-related <a>attributes</a>.
 
     <br><b>Beware:</b> Excluding such attributes on modification of a <a>Handle record</a> can have severe consequences!
-    For example, removing the <i>`HS_ADMIN`</i> attribute causes the record to be never editable again.
+    For example, removing the <code>HS_ADMIN</code> <a>attribute</a> causes the record to be never editable again.
 
-    <br>There exists no official list of such Handle-related attributes, but an incomplete list can be found here:
+    <br>There exists no official list of such Handle-related <a>attribute</a>, but an incomplete list can be found here:
     <ul>
         <li>HS_* (everything starting with HS; e.g., HS_ADMIN, HS_SITE)</li>
         <li>0* (Handle root records can be ignored; except 0.FDO prefix)</li>
@@ -39,7 +39,6 @@
 }
 </p>
 <p>
-    <b>Output:</b> List of attributes <code>a<sub>1</sub>=(a<sub>1,def</sub>,a<sub>1,val</sub> ), ...,
-    a<sub>n</sub>=(a<sub>n,def</sub>,a<sub>n,val</sub>)</code>. The a<sub>i,def</sub> can either be attribute definition PIDs
-    or attribute names.
+    <b>Output:</b> List of attributes <code>a<sub>1</sub>=(a<sub>1,def</sub>,a<sub>1,val</sub> ), ..., a<sub>n</sub>=(a<sub>n,def</sub>,a<sub>n,val</sub>)</code>.
+    According to the [[FDO specifications]], the <code>a<sub>i,def</sub></code> can either be PIDs identifying the <a>attribute definition</a> or human-readable names.
 </p>
