@@ -25,7 +25,7 @@
                                 has as its value a URL. This URL references a JSON schema.
                             </li>
                             <li>
-                                The JSON schema must have a list of FDO attribute PIDs as its properties. If the profile
+                                The JSON schema must have attribute PIDs as its properties. If the profile
                                 is not an extension of an existing profile, it must at least contain the mandatory
                                 attributes <code>21.T11969/Type</code>, <code>21.T11969/Profile</code>, and
                                 <code>21.T11969/Data</code>. Furthermore, it may specify that it extends another FDO
@@ -34,8 +34,76 @@
                                 additional attributes by using the <code>additionalProperties</code> keyword.
                             </li>
                         </ul>
-                        <aside class="example" id="example-profile-json" title="Defining a profile using JSON schema">
-                            todo: an example for how the FDO record looks like, and how the JSON schema looks like
+                        <aside class="example" id="example-profile-json" title="FDO Profile using JSON schema (way 1)">
+                            The Handle record of a profile that is constructed according to way 1 looks as follows:
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th scope="col">PID of Attribute Definition</th>
+                                    <th scope="col">Example Value</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>21.T11969/Type</td>
+                                    <td>FDO_Profile</td>
+                                </tr>
+                                <tr>
+                                    <td>21.T11969/Profile</td>
+                                    <td>21.T11969/ProfileDef</td>
+                                </tr>
+                                <tr>
+                                    <td>21.T11969/Name</td>
+                                    <td>Simple_Profile</td>
+                                </tr>
+                                <tr>
+                                    <td>21.T11969/Description</td>
+                                    <td>This is a very simple profile which only contains the mandatory attributes and
+                                        a reference to a metadata file.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>21.T11969/Data</td>
+                                    <td>21.T11969/JsonSchema</td>
+                                </tr>
+                                <tr>
+                                    <td>21.T11969/JsonSchema</td>
+                                    <td>https://typeapi.lab.pidconsortium.net/v1/types/schema/21.example/profile01</td>
+                                </tr>
+                                </tbody>
+                                <caption>
+                                    Profile FDO record (fictionary PID: <i>21.example/profile01</i>)
+                                </caption>
+                            </table>
+                            The fictionary URL <code>https://typeapi.lab.pidconsortium.net/v1/types/schema/21.example/profile01</code>,
+                            the value of the attribute <code>21.T11969/JsonSchema</code>, references a fictionary JSON
+                            schema. The JSON schema could look like this:
+                            <pre><code>{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Simple_Profile",
+    "description": "This is a very simple profile which only contains the mandatory attributes and a reference to a
+                                metadata file.",
+    "type": "object",
+    "properties": {
+        "21.T11969/Type": {
+            "$ref": "https://typeapi.lab.pidconsortium.net/v1/types/schema/21.T11969/Type"
+        },
+        "21.T11969/Profile": {
+            "$ref": "https://typeapi.lab.pidconsortium.net/v1/types/schema/21.T11969/Profile"
+        },
+        "21.T11969/Data": {
+            "$ref": "https://typeapi.lab.pidconsortium.net/v1/types/schema/21.T11969/Data"
+        },
+        "21.T11969/Metadata": {
+            "title": "Metadata_file",
+            "description": "URL pointing to a file that contains metadata",
+            "type": "string",
+            "pattern": "^http(s)?:(\/\/([^/?#]*))?([^?#]*)(\?([^#]*))?(#(.*))?$"
+        }
+    },
+    "additionalProperties": false
+}
+                            </code></pre>
                         </aside>
                     </li>
                     <li>
@@ -68,7 +136,63 @@
                         </ul>
 
                         <aside class="example" id="example-profile-record" title="Defining a profile on Handle record-level">
-                            todo: an example for how the FDO record looks like
+                            The same profile as in <a href="#example-profile-json"></a> looks like this when it is
+                            represented using way 2:
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th scope="col">PID of Attribute Definition</th>
+                                    <th scope="col">Example Value</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>21.T11969/Type</td>
+                                    <td>FDO_Profile</td>
+                                </tr>
+                                <tr>
+                                    <td>21.T11969/Profile</td>
+                                    <td>21.T11969/ProfileDef</td>
+                                </tr>
+                                <tr>
+                                    <td>21.T11969/Name</td>
+                                    <td>Simple_Profile</td>
+                                </tr>
+                                <tr>
+                                    <td>21.T11969/Description</td>
+                                    <td>This is a very simple profile which only contains the mandatory attributes and
+                                        a reference to a metadata file.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>21.T11969/Data</td>
+                                    <td>Not_Applicable</td>
+                                </tr>
+                                <tr>
+                                    <td>21.T11969/Attribute</td>
+                                    <td>21.T11969/Type</td>
+                                </tr>
+                                <tr>
+                                    <td>21.T11969/Attribute</td>
+                                    <td>21.T11969/Profile</td>
+                                </tr>
+                                <tr>
+                                    <td>21.T11969/Attribute</td>
+                                    <td>21.T11969/Data</td>
+                                </tr>
+                                <tr>
+                                    <td>21.T11969/Attribute</td>
+                                    <td>21.T11969/Metadata</td>
+                                </tr>
+                                <tr>
+                                    <td>21.T11969/denyAdditionalAttributes</td>
+                                    <td>True</td>
+                                </tr>
+                                </tbody>
+                                <caption>
+                                    Profile FDO record (fictionary PID: <i>21.example/profile01</i>)
+                                </caption>
+                            </table>
                         </aside>
                     </li>
                     <li>
@@ -174,12 +298,90 @@
     <dt>[H4-4] FDO Profiles Extension Mechanism</dt>
     <dd>
         <ul>
-            <li>An FDO profile constructed as JSON Schema (way 1) references a parent JSON schema from a parent
-                FDO profile using the keyword `$ref`.
+            <li>An FDO profile constructed as JSON Schema (way 1) embeds a parent JSON schema from a parent
+                FDO profile through a combination of `allOf` and `$ref`.
+                <aside class="note">
+                    When you use JSON schemas in combination with profile extension, it is technically not possible to
+                    deny additional attributes. If you need to use extension and deny additional attributes, you have to
+                    go for way 2 to represent your profile.
+                </aside>
+                <aside class="example" id="example-profile-extension-json" title="FDO Profile using JSON schema (way 1) and Extension">
+                    We represent the profile from <a href="#example-profile-json"></a> using way 1 and profile extension:
+                    The Hande record is exactly the same as in <a href="#example-profile-json"></a>. The JSON schema looks like this:
+                    <pre><code>{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Simple_Profile",
+    "description": "This is a very simple profile which only contains the mandatory attributes and a reference to a
+                                metadata file.",
+    "type": "object",
+    "allOf": [{ "$ref": "https://typeapi.lab.pidconsortium.net/v1/types/schema/21.T11969/Root"}],
+    "properties": {
+        "21.T11969/Metadata": {
+            "title": "Metadata_file",
+            "description": "URL pointing to a file that contains metadata",
+            "type": "string",
+            "pattern": "^http(s)?:(\/\/([^/?#]*))?([^?#]*)(\?([^#]*))?(#(.*))?$"
+        }
+    }
+}
+                            </code></pre>
+                    However, it was not possible to keep the <code>additionalProperties: false</code>.
+                        </aside>
             </li>
             <li>
                 An FDO profile constructed on Handle record level (way 2) references a parent FDO profile using the attribute
                 <code>21.T11969/Extends</code>. Its value must be a PID pointing to another FDO profile.
+                <aside class="example" id="example-profile-extension-record" title="FDO profile on Handle record-level (way 2) and Extension">
+                            The same profile as in <a href="#example-profile-json"></a> looks like this when it is
+                            represented using way 2 in combination with extension:
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th scope="col">PID of Attribute Definition</th>
+                                    <th scope="col">Example Value</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>21.T11969/Type</td>
+                                    <td>FDO_Profile</td>
+                                </tr>
+                                <tr>
+                                    <td>21.T11969/Profile</td>
+                                    <td>21.T11969/ProfileDef</td>
+                                </tr>
+                                <tr>
+                                    <td>21.T11969/Name</td>
+                                    <td>Simple_Profile</td>
+                                </tr>
+                                <tr>
+                                    <td>21.T11969/Description</td>
+                                    <td>This is a very simple profile which only contains the mandatory attributes and
+                                        a reference to a metadata file.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>21.T11969/Data</td>
+                                    <td>Not_Applicable</td>
+                                </tr>
+                                <tr>
+                                    <td>21.T11969/Attribute</td>
+                                    <td>21.T11969/Metadata</td>
+                                </tr>
+                                <tr>
+                                    <td>21.T11969/Extends</td>
+                                    <td>21.T11969/Root</td>
+                                </tr>
+                                <tr>
+                                    <td>21.T11969/denyAdditionalAttributes</td>
+                                    <td>True</td>
+                                </tr>
+                                </tbody>
+                                <caption>
+                                    Profile FDO record (fictionary PID: <i>21.example/profile01</i>)
+                                </caption>
+                            </table>
+                        </aside>
             </li>
         </ul>
     </dd>
@@ -192,6 +394,11 @@
         <li>
             Actually, 21.T11969/Type and 21.T11969/Data apply attribute referencing. This is not yet covered in the
             current version and needs to be updated as soon as adequate "referenced attributes" are agreed upon.
+        </li>
+        <li>
+            Is there a way to combine the extension mechanism with denyAdditionalAttributes when using JSON Schema (see
+            Example 4)
+            ?
         </li>
     </ul>
 </div>
