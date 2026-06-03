@@ -1,8 +1,8 @@
 <h3>[S-3] PID Record Parsing into an <a>FDO Record</a></h3>
-<p><b>Input:</b> JSON</p>
-<p>
-    <b>Process:</b> Map all values from the JSON <a>Handle Record</a> to <a>FDO attributes</a> as described in [H3-2].
-</p>
+<h4 class="notoc">Input</h4>
+JSON
+<h4 class="notoc">Process</h4>
+Map all values from the JSON <a>Handle Record</a> to <a>FDO attributes</a> as described in [H3-2].
 <aside class="note">
     Some of the <a>attributes</a> in the HandleResponse are related to the functioning of the <a>Handle system</a>.
     A client MAY heuristically exclude them from processing since they are clearly distinguishable from the FDO-related <a>attributes</a>.
@@ -38,7 +38,7 @@
     return new FDORecord(pid, attributes);
 </code></pre>
 }
-<p>
-    <b>Output:</b> List of attributes <code>a<sub>1</sub>=(a<sub>1,def</sub>,a<sub>1,val</sub> ), ..., a<sub>n</sub>=(a<sub>n,def</sub>,a<sub>n,val</sub>)</code>.
-    According to the [[FDO specification]], the <code>a<sub>i,def</sub></code> can either be PIDs identifying the <a>attribute definition</a> or human-readable names.
-</p>
+
+<h4 class="notoc">Output</h4>
+List of attributes <code>a<sub>1</sub>=(a<sub>1,def</sub>,a<sub>1,val</sub> ), ..., a<sub>n</sub>=(a<sub>n,def</sub>,a<sub>n,val</sub>)</code>.
+According to the [[FDO specification]], the <code>a<sub>i,def</sub></code> can either be PIDs identifying the <a>attribute definition</a> or human-readable names.

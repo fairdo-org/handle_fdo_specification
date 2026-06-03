@@ -1,19 +1,17 @@
 <h3>[S-5] <a>FDO Record</a> Type(s) Inspection</h3>
 This step is only executed if <a href="#s-4">the root profile validation</a> returns <code>COMPLETE</code>, <code>REQUIRED_FIELDS</code>, or <code>TYPE_ONLY</code>.
 
-<p>
-    <b>Input:</b>
-    <ul>
-        <li>the FDO record</li>
-        <li>a user-specified list of expected <a>FDO types</a></li>
-        <li>the Type_Matching flag configuring the matching process (<code>MATCH_ALL</code>, <code>EXACT_MATCH</code>, <code>DERIVED_MATCH</code>)</li>
-    </ul>
-</p>
+<h4 class="notoc">Input</h4>
+<ul>
+    <li>the FDO record</li>
+    <li>a user-specified list of expected <a>FDO types</a></li>
+    <li>the Type_Matching flag configuring the matching process (<code>MATCH_ALL</code>, <code>EXACT_MATCH</code>, <code>DERIVED_MATCH</code>)</li>
+</ul>
 
-<p>
-    <b>Process:</b> The client compares the list of FDO types in the FDO record with the expected FDO type list looking for matches. The following lists the possible scenarios:
-    <pre><code>
-enum TypeMatching { MATCH_ALL, EXACT_MATCH, DERIVED_MATCH }
+<h4 class="notoc">Process</h4>
+The client compares the list of FDO types in the FDO record with the expected FDO type list looking for matches. The following lists the possible scenarios:
+
+<pre><code>enum TypeMatching { MATCH_ALL, EXACT_MATCH, DERIVED_MATCH }
 enum ResultState { FULL_MATCH, ALL_MATCH, PARTIAL_MATCH, DERIVED_MATCH, NO_MATCH }
 struct TypeInspectionResult {
     state: ResultState;
@@ -73,13 +71,9 @@ private function getDerivedFrom (fdoType: string): PID[] {
     }).flat(); // Flatten the array of arrays into a single array
 
     return parents; // Returns all types that the given FDO type is derived from
-}
-</code></pre>
-</p>
+}</code></pre>
 
-<p>
-    <b>Output:</b>
-    The status of the match as well as a list of the FDO types that match or are derived from the expected types.
-    If the list is empty, it indicates that none were found.
-    The client can determine from the number of FDO type matches whether the match is full or partial.
-</p>
+<h4 class="notoc">Output</h4>
+The status of the match as well as a list of the FDO types that match or are derived from the expected types.
+If the list is empty, it indicates that none were found.
+The client can determine from the number of FDO type matches whether the match is full or partial.

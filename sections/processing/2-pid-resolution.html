@@ -1,13 +1,15 @@
 <h3>[S-2] <a>PID Resolution</a></h3>
-<p><b>Input:</b></p>
+
+<h4 class="notoc">Input</h4>
 <ol>
     <li>the PID candidate `s`</li>
     <li>the <a>global handle resolver</a> `hdl.handle.net/api/handles`</li>
 </ol>
-<p>
-    <b>Process:</b> Access the location `https://hdl.handle.net/api/handles/[s]`.
-    Resolution is successful if and only if a JSON is returned that has the property `responseCode: 1` at the top level.
-    Else, resolution is unsuccessful.
+
+<h4 class="notoc">Process</h4>
+Access the location `https://hdl.handle.net/api/handles/[s]`.
+Resolution is successful if and only if a JSON is returned that has the property `responseCode: 1` at the top level.
+Else, resolution is unsuccessful.
 <pre><code>async function resolvePID(pid: PIDCandidate) -> HandleResponse throws ConnectionError, HandleError {
     const API_BASE = 'https://hdl.handle.net/api/handles/';
 
@@ -33,5 +35,6 @@
     }
 }
 </code></pre>
-</p>
-<p><b>Output:</b> On Success: JSON from <a>Handle System</a></p>
+
+<h4 class="notoc">Output</h4>
+On Success: JSON from <a>Handle System</a>
