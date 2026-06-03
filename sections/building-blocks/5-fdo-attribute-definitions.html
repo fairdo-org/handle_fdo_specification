@@ -161,35 +161,18 @@
         in the JSON schema using the keywords <code>title</code> and <code>description</code>.
     </dd>
 </dl>
-    There are two ways how to encode these validation rules in the Handle record:
-                <ul>
-                    <li>
-                        <b>Way 1</b>:
-                        The FDO record links to a JSON schema which contains all validation rules using the
-                        attribute `0.FDO/Data`. For more details, see Table 3.
-                    </li>
-                    <li>
-                        <b>Way 2</b>:
-                        The FDO attribute definition is fully specified in the Handle record, simply relying on
-                        references to other attribute definitions, syntax definitions, or profiles (`0.FDO/DataType`)
-                        and a specified validation mechanism (`0.FDO/ValidationMechanism`). For more details, see
-                        Table 4.
-                    </li>
-                    <li>
-                        Note that both ways can be combined by using all attributes `0.FDO/Data`, `0.FDO/DataType`,
-                        `0.FDO/ValidationMechanism` simultaneously. In this case, when creating or updating this FDO
-                        attribute definition, it must be checked that both ways induce the same validation rules.
-                    </li>
-                </ul>
 
-
-    <dt>[H5-1b] Encoding Syntax</dt>
+<dl>
+    <dt>[H5-5] Syntax</dt>
     <dd>
+        There are two ways how to encode syntactical validation rules in the Handle record:
         <ul>
             <li>
                 <b>Way 1</b>:
-                The FDO record links to a JSON schema which contains all validation rules using the
-                attribute `0.FDO/Data`. The JSON Schema encodes the following basic validation rules:
+                The FDO record specifies a JSON schema which contains all validation rules through the attribute
+                <code>21.T11969/Data</code>. This attribute applies attribute referencing to point to the attribute
+                <code>21.T11969/JsonSchema</code>, which has as its value a JSON schema. The JSON Schema encodes the
+                following basic validation rules:
                 <ol>
                     <li>An attribute states to follow one of the primitive data types “string”, “number”, “integer”
                         and “boolean” using the `type` keyword.
@@ -209,32 +192,126 @@
                         with `enum`.
                     </li>
                 </ol>
-                <aside class="example" title="JSON Schemas of simple attribute definitions">
-<pre><code>{
-"$schema": "http://json-schema.org/draft-04/schema#",
-"title": "publication year",
-"description": "The publication year of the resource.",
-"type": "integer",
-"minimum": 0,
-"maximum": 2026
+                <aside class="example" title="Simple attribute definitions using JSON schema (Way 1)">
+                    In the first example, the JSON schema is directly written into the FDO record of the FDO attribute
+                    definition.
+                    <table>
+                        <thead>
+                        <tr>
+                            <th scope="col">PID of Attribute Definition</th>
+                            <th scope="col">Example Value</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>21.T11969/Type</td>
+                            <td>FDO_Attribute</td>
+                        </tr>
+                        <tr>
+                            <td>21.T11969/Profile</td>
+                            <td>21.T11969/AttributeDef</td>
+                        </tr>
+                        <tr>
+                            <td>21.T11969/Name</td>
+                            <td>publication year</td>
+                        </tr>
+                        <tr>
+                            <td>21.T11969/Description</td>
+                            <td>The publication year of the resource.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>21.T11969/Cardinality</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>21.T11969/Data</td>
+                            <td>21.T11969/JsonSchema</td>
+                        </tr>
+                        <tr>
+                            <td>21.T11969/JsonSchema</td>
+                            <td>
+                                <pre><code>{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "publication year",
+    "description": "The publication year of the resource.",
+    "type": "integer",
+    "minimum": 0,
+    "maximum": 2026
 }</code></pre>
+                            </td>
+                        </tr>
+                        </tbody>
+                        <caption>
+                            Profile FDO record (fictionary PID: <i>21.example/attribute01</i>)
+                        </caption>
+                    </table>
+                    In the second example, the JSON schema is stored somewhere else and is referenced in
+                    the FDO record.
+                    <table>
+                        <thead>
+                        <tr>
+                            <th scope="col">PID of Attribute Definition</th>
+                            <th scope="col">Example Value</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>21.T11969/Type</td>
+                            <td>FDO_Attribute</td>
+                        </tr>
+                        <tr>
+                            <td>21.T11969/Profile</td>
+                            <td>21.T11969/AttributeDef</td>
+                        </tr>
+                        <tr>
+                            <td>21.T11969/Name</td>
+                            <td>color</td>
+                        </tr>
+                        <tr>
+                            <td>21.T11969/Description</td>
+                            <td>The color of the resource.</td>
+                        </tr>
+                        <tr>
+                            <td>21.T11969/Cardinality</td>
+                            <td>0..*</td>
+                        </tr>
+                        <tr>
+                            <td>21.T11969/Data</td>
+                            <td>21.T11969/JsonSchema</td>
+                        </tr>
+                        <tr>
+                            <td>21.T11969/JsonSchema</td>
+                            <td>
+                                <pre><code>{"$ref": "https://typeapi.lab.pidconsortium.net/v1/types/schema/21.example/attribute02"}</code></pre>
+                            </td>
+                        </tr>
+                        </tbody>
+                        <caption>
+                            Profile FDO record (fictionary PID: <i>21.example/attribute02</i>)
+                        </caption>
+                    </table>
 
+                    The JSON schema can be found under the URL
+                    <code>https://typeapi.lab.pidconsortium.net/v1/types/schema/21.example/attribute02</code>:
 <pre><code>{
-"$schema": "http://json-schema.org/draft-04/schema#",
-"title": "color",
-"description": "The color of the resource.",
-"type": "string",
-"enum": ["red", "yellow", "green", "blue"],
-"not":
-{
-    "enum": ["black", "white"]
-}
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "color",
+    "description": "The color of the resource.",
+    "type": "string",
+    "enum": ["red", "yellow", "green", "blue"],
+    "not":
+    {
+        "enum": ["black", "white"]
+    }
 }</code></pre>
                 </aside>
             </li>
             <li>
                 <b>Way 2</b>:
-                To specify the syntax of an attribute, the following two attributes must be used in the FDO record:
+                The FDO attribute definition is fully encoded on the Handle record level, simply relying on references
+                to other attribute definitions, syntax definitions, or profiles. To specify the syntax of an attribute,
+                the following two attributes must be used in the FDO record:
                 <ol>
                     <li>`(0.FDO/ValidationMechanism, Syntax)`</li>
                     <li>`
@@ -317,9 +394,15 @@
 </tr>
 </table>
             </li>
+            <li>
+                Note that both ways can be combined by using all attributes <code>21.T11969/Data</code>,
+                <code>21.T11969/JsonSchema</code>, <code>21.T11969/DataType</code>, and
+                <code>21.T11969/ValidationMechanism</code> simultaneously. In this case, when creating or updating this
+                FDO attribute definition, it must be checked that both ways induce the same validation rules.
+            </li>
         </ul>
     </dd>
-
+</dl>
 
 
     <dt>[H5-1c] Complex attributes</dt>
