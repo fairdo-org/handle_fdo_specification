@@ -1,14 +1,14 @@
 <h3>FDO attribute definitions</h3>
 <dl>
-    <dt>[H5-1] Representation of <dfn data-lt="FDO attribute definition|attribute definition|0.FDO/Attribute|attribute|FDO attribute">FDO attribute definitions</dfn></dt>
+    <dt>[H5-1] Representation of <dfn data-lt="FDO attribute definition|attribute definition|0.FDO/Attribute|21.T11969/Attribute|attribute|FDO attribute">FDO attribute definitions</dfn></dt>
     <dd>
         The <a>Handle record</a> of a Handle-based FDO <a>attribute definition</a> must contain a fixed, predefined set of FDO
         attributes (see Tables 3 and 4). Note that there are two types of <a>attributes</a> in the <a>Handle record</a>:
         <ol>
             <li>
                 <b>Meta information about the <a>attribute definition</a></b>, to describe the FDO <a>attribute definition</a>
-                itself: `0.FDO/Type`, `0.FDO/Profile`, `0.FDO/Name`, `0.FDO/Cardinality` (all mandatory),
-                `0.FDO/Description` (optional).
+                itself: <code>21.T11969/Type</code>, <code>21.T11969/Profile</code>, <code>21.T11969/Name</code>, <code>21.T11969/Cardinality</code> (all mandatory),
+                <code>21.T11969/Description</code> (optional).
             </li>
             <li>
                 <b>The actual content of the <a>attribute definition</a></b>, from which all validation rules (for <a>attributes</a>
@@ -18,18 +18,18 @@
                     <li>
                         <b>Way 1</b>:
                         The  <a>FDO record</a> links to a JSON schema which contains all validation rules using the
-                        attribute `0.FDO/Data`. For more details, see Table 3.
+                        attribute <code>21.T11969/Data</code>. For more details, see Table 3.
                     </li>
                     <li>
                         <b>Way 2</b>:
                         The FDO <a>attribute definition</a> is fully specified in the  <a>Handle record</a>, simply relying on
-                        references to other <a>attribute definitions</a>,  <a>syntax definitions</a>, or  <a>profiles</a> (`0.FDO/DataType`)
-                        and a specified validation mechanism (`0.FDO/ValidationMechanism`). For more details, see
+                        references to other <a>attribute definitions</a>,  <a>syntax definitions</a>, or  <a>profiles</a> (<code>21.T11969/DataType</code>)
+                        and a specified validation mechanism (`<code>21.T11969/ValidationMechanism</code>`). For more details, see
                         Table 4.
                     </li>
                     <li>
-                        Note that both ways can be combined by using all <a>attributes</a> `0.FDO/Data`, `0.FDO/DataType`,
-                        `0.FDO/ValidationMechanism` simultaneously. In this case, when creating or updating this FDO
+                        Note that both ways can be combined by using all <a>attributes</a> <code>21.T11969/Data</code>, <code>21.T11969/DataType</code>,
+                        `<code>21.T11969/ValidationMechanism</code>` simultaneously. In this case, when creating or updating this FDO
                         <a>attribute definition</a>, it must be checked that both ways induce the same validation rules.
                     </li>
                 </ul>
@@ -48,34 +48,34 @@
                 <th>Cardinality of the <a>attribute</a></th>
             </tr>
             <tr>
-                <td>0.FDO/Type</td>
+                <td><code>21.T11969/Type</code></td>
                 <td>The string <code>FDO_Attribute_Definition</code>. Additional types may be added, if applicable.</td>
                 <td>1..*</td>
             </tr>
             <tr>
-                <td>0.FDO/Profile</td>
-                <td>The string <code>0.FDO/AttributeDef</code>. Additional  <a>profiles</a> may be added, if applicable.</td>
+                <td><code>21.T11969/Profile</code></td>
+                <td>The string <code><code>21.T11969/AttributeDef</code></code>. Additional  <a>profiles</a> may be added, if applicable.</td>
                 <td>1..*</td>
             </tr>
             <tr>
-                <td>0.FDO/Name</td>
+                <td><code>21.T11969/Name</code></td>
                 <td>Human-readable and localized label(s) for the <a>attribute definition</a>. </td>
                 <td>1..*</td>
             </tr>
             <tr>
-                <td>0.FDO/Description</td>
+                <td><code>21.T11969/Description</code></td>
                 <td>Human-readable and localized description(s) for the <a>attribute definition</a>.</td>
             <td>0..*</td>
             </tr>
             <tr>
-                <td>0.FDO/Cardinality</td>
+                <td><code>21.T11969/Cardinality</code></td>
                 <td>
                     Description of the obligation and repeatability of this <a>attribute</a> in an <a>FDO record</a>.
                 </td>
                 <td>1</td>
             </tr>
             <tr>
-                <td>0.FDO/Data</td>
+                <td><code>21.T11969/Data</code></td>
                 <td>
                     URL pointing to a JSON schema which represents an FDO <a>attribute definition</a>. The JSON schema
                     encodes syntax rules, unions, and compositions. For more information, see [H5-1b].
@@ -98,40 +98,40 @@
                 <th>Cardinality of the <a>attribute</a></th>
             </tr>
             <tr>
-                <td>0.FDO/Type</td>
+                <td><code>21.T11969/Type</code></td>
                 <td>The string <code>FDO_Attribute_Definition</code>. Additional types may be added, if applicable.</td>
                 <td>1..*</td>
             </tr>
             <tr>
-                <td>0.FDO/Profile</td>
-                <td>The string <code><a>0.FDO/AttributeDef</a></code>. Additional <a>profiles</a> may be added, if applicable.</td>
+                <td><code>21.T11969/Profile</code></td>
+                <td>The string <a><code>21.T11969/AttributeDef</code></a>. Additional <a>profiles</a> may be added, if applicable.</td>
                 <td>1..*</td>
             </tr>
             <tr>
-                <td>0.FDO/Name</td>
+                <td><code>21.T11969/Name</code></td>
                 <td>Human-readable and localized label(s) for the <a>attribute definition</a>. </td>
                 <td>1..*</td>
             </tr>
             <tr>
-                <td>0.FDO/Description</td>
+                <td><code>21.T11969/Description</code></td>
                 <td>Human-readable and localized description(s) for the <a>attribute definition</a>.</td>
             <td>0..*</td>
             </tr>
             <tr>
-                <td>0.FDO/Cardinality</td>
+                <td><code>21.T11969/Cardinality</code></td>
                 <td>
                     Description of the obligation and repeatability of this <a>attribute</a> in an <a>FDO record</a>.
                 </td>
                 <td>1</td>
             </tr>
             <tr>
-                <td>0.FDO/Data</td>
+                <td><code>21.T11969/Data</code></td>
                 <td> The string <code>Not_Applicable</code>.
                 </td>
                 <td>1..*</td>
             </tr>
             <tr>
-                <td>0.FDO/ValidationMechanism</td>
+                <td><code>21.T11969/ValidationMechanism</code></td>
                 <td>
                     One of:
                     <ul>
@@ -146,7 +146,7 @@
                 <td>3..*</td>
             </tr>
             <tr>
-                <td>0.FDO/DataType</td>
+                <td><code>21.T11969/Data</code></td>
                 <td>A reference to one of:
                     <ul>
                         <li>a syntax definition (see [H5-1b])</li>
@@ -164,17 +164,17 @@
     <dt>[H5-1a] <dfn>Encoding Semantics</dfn></dt>
     <dd>
         A name must be and a description may be included in a Handle-based <a>attribute definition</a> using the attributes
-        `0.FDO/Name` respectively `0.FDO/Description` in the  <a>FDO record</a>. If <b>way 1</b> is used, the name and the
+        `<code>21.T11969/Name</code>` respectively `<code>21.T11969/Description</code>` in the  <a>FDO record</a>. If <b>way 1</b> is used, the name and the
         description can be repeated in the JSON schema using the keywords `title` and `description`.
     </dd>
 
-    <dt>[H5-1b] <dfn data-lt="Syntax Definitions|0.FDO/SyntaxDef">Syntax Definitions</dfn></dt>
+    <dt>[H5-1b] <dfn data-lt="Syntax Definitions|21.T11969/SyntaxDef|0.FDO/SyntaxDef">Syntax Definitions</dfn></dt>
     <dd>
         <ul>
             <li>
                 <b>Way 1</b>:
                 The  <a>FDO record</a> links to a JSON schema which contains all validation rules using the
-                attribute `0.FDO/Data`. The JSON Schema encodes the following basic validation rules:
+                attribute <code>21.T11969/Data</code>. The JSON Schema encodes the following basic validation rules:
                 <ol>
                     <li>An attribute states to follow one of the primitive data types “string”, “number”, “integer”
                         and “boolean” using the `type` keyword.
@@ -221,18 +221,18 @@
                 <b>Way 2</b>:
                 To specify the syntax of an attribute, the following two attributes must be used in the  <a>FDO record</a>:
                 <ol>
-                    <li>`(0.FDO/ValidationMechanism, Syntax)`</li>
+                    <li>`(<code>21.T11969/ValidationMechanism</code>, Syntax)`</li>
                     <li>`
-                        (0.FDO/DataType, [reference to a syntax definition])`.
+                        (<code>21.T11969/Data</code>, [reference to a syntax definition])`.
                     </li>
                 </ol>
-                <dfn data-lt="Syntax definitions|0.FDO/SyntaxDef">Syntax definitions</dfn> are themselves FDOs and encode the basic validation rules in their records. They
-                follow the syntax definition profile with the PID `0.FDO/SyntaxDef` and contain the attributes as in
+                <dfn data-lt="Syntax definitions|21.T11969/SyntaxDef">Syntax definitions</dfn> are themselves FDOs and encode the basic validation rules in their records. They
+                follow the syntax definition profile with the PID `<code>21.T11969/SyntaxDef</code>` and contain the attributes as in
                 table 5.
                 <table border="2">
 <caption>
     <b>Table 5</b>: The list of <a>attribute definitions</a> specified by the FDO syntax
-    definition profile (0.FDO/SyntaxDef). These attributes MUST be used when defining any new syntax definition.
+    definition profile (<code>21.T11969/SyntaxDef</code>). These attributes MUST be used when defining any new syntax definition.
     This table does not include all information about the attributes. Please resolve the <a>attribute definition</a> PIDs
     via the Handle System or see the appendix of this document.
 </caption>
@@ -242,61 +242,61 @@
     <th>Cardinality of the attribute</th>
 </tr>
 <tr>
-    <td>0.FDO/Type</td>
+    <td><code>21.T11969/Type</code></td>
     <td>The string <code>FDO_Syntax_Definition</code>. Additional types may be added, if applicable.
     </td>
     <td>1..*</td>
 </tr>
 <tr>
-    <td>0.FDO/Profile</td>
-    <td>The string <code><a>0.FDO/SyntaxDef</a></code>. Additional  <a>profiles</a> may be added, if applicable.
+    <td><code>21.T11969/Profile</code></td>
+    <td>The string <a><code>21.T11969/SyntaxDef</code></a>. Additional  <a>profiles</a> may be added, if applicable.
     </td>
     <td>1..*</td>
 </tr>
 <tr>
-    <td>0.FDO/Data</td>
+    <td><code>21.T11969/Data</code></td>
     <td>The string <code>Not_Applicable</code>.
     </td>
     <td>1..*</td>
 </tr>
 <tr>
-    <td>0.FDO/Name</td>
+    <td><code>21.T11969/Name</code></td>
     <td>Human-readable and localized labels for this syntax.</td>
     <td>1..*</td>
 </tr>
 <tr>
-    <td>0.FDO/Description</td>
+    <td><code>21.T11969/Description</code></td>
     <td>Human-readable and localized descriptions for this syntax.</td>
     <td>0..*</td>
 </tr>
 <tr>
-    <td>0.FDO/PrimitiveDataType</td>
+    <td><code>21.T11969/PrimitiveDataType</code></td>
     <td>“string”, “number”, “integer”, or “boolean”
     </td>
     <td>1</td>
 </tr>
 <tr>
-    <td>0.FDO/Regex</td>
+    <td><code>21.T11969/Regex</code></td>
     <td>regular expression in ECMA-262 syntax
     </td>
     <td>0..1</td>
 </tr>
 <tr>
-    <td>0.FDO/NumericInterval</td>
+    <td><code>21.T11969/NumericInterval</code></td>
     <td>An interval using one of the following forms: "[a,b]", "[a,b)", "(a,b]", "(a,b)".
     </td>
     <td>0..1</td>
 </tr>
 <tr>
-    <td>0.FDO/Whitelist</td>
-    <td>Any instance of the primitive data type. If <code>0.FDO/Whitelist</code> appears multiple times, this gives an
+    <td><code>21.T11969/Whitelist</code></td>
+    <td>Any instance of the primitive data type. If <code>21.T11969/Whitelist</code> appears multiple times, this gives an
         exhaustive list of allowed values for this attribute.
     </td>
     <td>0..*</td>
 </tr>
 <tr>
-    <td>0.FDO/Blacklist</td>
-    <td>Any instance of the primitive data type. If <code>0.FDO/Blacklist</code> appears multiple times, this gives a
+    <td><code>21.T11969/Blacklist</code></td>
+    <td>Any instance of the primitive data type. If <code>21.T11969/Blacklist</code> appears multiple times, this gives a
         non-exhaustive list of forbidden values for the attribute.
     </td>
     <td>0..*</td>
@@ -373,15 +373,15 @@
                     <li>
                         A composition of attributes is implemented by setting two attributes in the  <a>FDO record</a>:
                         <ol>
-                            <li>`(0.FDO/ValidationMechanism, Composition)`</li>
-                            <li>` (0.FDO/DataType, [reference to <a>attribute definition</a>])`, repeated multiple times.</li>
+                            <li><code>(21.T11969/ValidationMechanism, Composition)</code></li>
+                            <li><code>(21.T11969/Data, [reference to <a>attribute definition</a>])</code>, repeated multiple times.</li>
                         </ol>
                         <aside class="example" title="JSON Schemas of a composition of attributes">
                             The following three attributes define a composition of a string and an integer.
                             <ol>
-                                <li>`(0.FDO/ValidationMechanism, Composition)`,</li>
-                                <li>` (0.FDO/DataType, 21.T11969/3df63b7acb0522da685d)`,</li>
-                                <li>` (0.FDO/DataType, 21.T11969/9edcffff4461c9083fbf)`,</li>
+                                <li><code>`(21.T11969/ValidationMechanism, Composition)</code>,</li>
+                                <li><code>(21.T11969/Data, 21.T11969/3df63b7acb0522da685d)</code>,</li>
+                                <li><code>(21.T11969/Data, 21.T11969/9edcffff4461c9083fbf)</code>,</li>
                             </ol>
                             The composition is instantiated by the following JSON object (String and Integer are the
                             names of the attributes -> we need to define better examples here):
@@ -391,15 +391,15 @@
                     <li>
                         A union of attributes is implemented by setting two attributes in the  <a>FDO record</a>:
                         <ol>
-                            <li>`(0.FDO/ValidationMechanism, Union)`</li>
-                            <li>` (0.FDO/DataType, [reference to <a>attribute definition</a>])`, repeated multiple times.</li>
+                            <li><code>(21.T11969/ValidationMechanism, Union)</code></li>
+                            <li><code>(21.T11969/Data, [reference to <a>attribute definition</a>])</code>, repeated multiple times.</li>
                         </ol>
                         <aside class="example" title="JSON Schemas of a composition of attributes">
                             The following three attributes define a union of a string and an integer.
                             <ol>
-                                <li>`(0.FDO/ValidationMechanism, Union)`,</li>
-                                <li>` (0.FDO/DataType, 21.T11969/3df63b7acb0522da685d)`,</li>
-                                <li>` (0.FDO/DataType, 21.T11969/9edcffff4461c9083fbf)`.</li>
+                                <li><code>(21.T11969/ValidationMechanism, Union)</code>,</li>
+                                <li><code>(21.T11969/Data, 21.T11969/3df63b7acb0522da685d)</code>,</li>
+                                <li><code>(21.T11969/Data, 21.T11969/9edcffff4461c9083fbf)</code>.</li>
                             </ol>
                             This attribute union validates
                             <pre><code>123</code></pre>
@@ -428,9 +428,9 @@
 <div style="background-color:LightPink;">
     <b>TODO</b>:
     <ul>
-        <li>Register the Handles 0.FDO/AttributeDef and 0.FDO/SyntaxDef.</li>
+        <li>Register the Handles <code>21.T11969/AttributeDef</code> and <code>21.T11969/SyntaxDef</code>.</li>
         <li>Discuss whether each implementation should redefine the attribute definition profile (probably yes).</li>
-        <li>0.FDO/AttributeDef is a composition of two  <a>profiles</a>, which both need to be registered (see table 3 and table 4)?</li>
+        <li><code>21.T11969/AttributeDef</code> is a composition of two <a>profiles</a>, which both need to be registered (see table 3 and table 4)?</li>
         <li>
             Discuss the level of freedom each implementation has. It may be that different implementations have
             different level of expressability. Open questions are:
@@ -470,18 +470,18 @@
         specific profile. Hence, it is a mechanism to enforce that specific attributes in  <a>FDO record</a> reference
         other FDOs that follow a certain profile.
 
-        <aside class="example" title="Profile Referencing: The 0.FDO/Profile Attribute.">
-            The <a>attribute definition</a> <i>0.FDO/Profile</i> uses profile referencing. It contains the following two
+        <aside class="example" title="Profile Referencing: The 21.T11969/Profile Attribute.">
+            The <a>attribute definition</a> <code>21.T11969/Profile</code> uses profile referencing. It contains the following two
             attributes:
             <ul>
                 <li>
-                    <i>(0.FDO/ValidationMechanism, ProfileReference</i>): This means that the <a>attribute definition</a>
-                    <i>0.FDO/Profile</i> applies the profile referencing mechanism.
+                    <i>(<code>21.T11969/ValidationMechanism</code>, ProfileReference</i>): This means that the <a>attribute definition</a>
+                    <i><code>21.T11969/Profile</code></i> applies the profile referencing mechanism.
                 </li>
                 <li>
-                    <i>(0.FDO/DataType, 0.FDO/ProfileDef)</i>: This means that if the <a>attribute definition</a>
-                    <i>0.FDO/Profile</i> is instantiated, the value must be a reference to an FDO that instantiates
-                    <i>0.FDO/ProfileDef</i> (i.e., it must be a reference to an FDO profile).
+                    <i>(<code>21.T11969/Data</code>, <code>21.T11969/Profile</code>Def)</i>: This means that if the <a>attribute definition</a>
+                    <i><code>21.T11969/Profile</code></i> is instantiated, the value must be a reference to an FDO that instantiates
+                    <i><code>21.T11969/Profile</code>Def</i> (i.e., it must be a reference to an FDO profile).
                 </li>
             </ul>
             <figure id="profile-ref">
@@ -499,15 +499,15 @@
         <ul>
             <li>
                 An <a>attribute definition</a> MUST explicitly state that it uses this feature by containing the attribute
-                <i>(0.FDO/ValidationMechanism, ProfileReference)</i>.
+                <i>(<code>21.T11969/ValidationMechanism</code>, ProfileReference)</i>.
             </li>
             <li>
                 The <a>attribute definition</a> MAY also specify a list of profile PIDs P<sub>1</sub>,...,P<sub>n</sub>
                 where at least one of them MUST validate the referenced FDO. This
-                is done by adding the attribute (<i>0.FDO/DataType</i>, P<sub>i</sub>), i=1,...,n, into the
-                <a>attribute definition</a>. If <i>0.FDO/DataType</i> is not contained in the <a>attribute definition</a>, it just
+                is done by adding the attribute (<code>21.T11969/Data</code>, P<sub>i</sub>), i=1,...,n, into the
+                <a>attribute definition</a>. If <code>21.T11969/Data</code> is not contained in the <a>attribute definition</a>, it just
                 means that the referenced entity is an FDO (hence, that the value is a validated reference complying
-                to at least <i>0.FDO/Root</i>).
+                to at least <code>21.T11969/Root</code>).
             </li>
         </ul>
 
@@ -528,35 +528,35 @@
         one or several other attributes in the record, which follow more specific <a>attribute definitions</a>. To start
         with, here is an example:
 
-        <aside class="example" id="example-attr-ref" title="Attribute referencing: The 0.FDO/Data Attribute">
-            The mandatory attribute 0.FDO/Data (and actually also the 0.FDO/Type attribute) apply attribute
+        <aside class="example" id="example-attr-ref" title="Attribute referencing: The 21.T11969/Data Attribute">
+            The mandatory attribute <code>21.T11969/Data</code> (and actually also the <code>21.T11969/Type</code> attribute) apply attribute
             referencing. The reason for this is that data can appear in different forms (see also
             <a href="#attr-ref-1">Figure 3</a>):
             <ul>
                 <li>
-                    Data may be given by a reference to an external bit-sequence. Then, the <code><a>0.FDO/Data</a></code>
+                    Data may be given by a reference to an external bit-sequence. Then, the <a><code>21.T11969/Data</code></a>
                     attribute would have as its value a URL. (<a href="#attr-ref-1">Figure 3</a>, top-right)
                 </li>
                 <li>
                     Data could also be encapsulated in its own FDO, especially, if the FDO is a <a>collection</a>. Then,
-                    the <code><a>0.FDO/Data</a></code> <a>attribute</a> would have as its value a reference to an FDO, which possibly
+                    the <a><code>21.T11969/Data</code></a> <a>attribute</a> would have as its value a reference to an FDO, which possibly
                     follows a specific profile (<a href="#attr-ref-1">Figure 3</a>, bottom-left).
                 </li>
                 <li>
-                    Data could also be in-line in the <a>record</a>. Then, the <code><a>0.FDO/Data</a></code> attribute would have as
+                    Data could also be in-line in the <a>record</a>. Then, the <a><code>21.T11969/Data</code></a> attribute would have as
                     its value a simple data bit-sequence (<a href="#attr-ref-1">Figure 3</a>, top-left).
                 </li>
             </ul>
             <figure id="attr-ref-1">
                 <img src="img/Attribute_Referencing_3.png" alt="Attribute_Referencing_1.png" height=400>
                 <figcaption>
-                    Four examples for how the 0.FDO/Data <a>attribute definition</a> can be instantiated in  <a>FDO records</a>. In
-                    all examples, the <code><a>0.FDO/Data</a></code> <a>attribute references</a> another <a>attribute definition</a> that
+                    Four examples for how the <code>21.T11969/Data</code> <a>attribute definition</a> can be instantiated in  <a>FDO records</a>. In
+                    all examples, the <a><code>21.T11969/Data</code></a> <a>attribute references</a> another <a>attribute definition</a> that
                     specifies the way how the data are represented in this FDO.
                 </figcaption>
             </figure>
-            As <code><a>0.FDO/Data</a></code> uses <a>attribute referencing</a>, all these different notions of data references can be
-            unified in one common and standardized <a>attribute definition</a> <code><a>0.FDO/Data</a></code>.
+            As <a><code>21.T11969/Data</code></a> uses <a>attribute referencing</a>, all these different notions of data references can be
+            unified in one common and standardized <a>attribute definition</a> <a><code>21.T11969/Data</code></a>.
         </aside>
 
         <p>The detailed requirements for <a>Attribute Referencing</a> are:</p>
@@ -570,14 +570,14 @@
         <ul>
             <li>
                 The <a>attribute definition</a> A MUST explicitly state that it uses this feature by containing the
-                attribute <code>(0.FDO/ValidationMechanism, AttributeReference)</code>.
+                attribute <code>(21.T11969/ValidationMechanism, AttributeReference)</code>.
             </li>
             <li>
                 The <a>attribute definition</a> A MAY specify a whitelist of <a>attribute definition</a> PIDs
-                <code>B<sub>1</sub>,...,B<sub>n</sub></code> using the attribute <code>(<a>0.FDO/DataType</a>, B<sub>i</sub>)</code>,
+                <code>B<sub>1</sub>,...,B<sub>n</sub></code> using the attribute <code>(<a>21.T11969/Data</a>, B<sub>i</sub>)</code>,
                 i=1,...,n, in its record. If A specifies this whitelist, an attribute a (instantiating A) MUST
                 reference an attribute b that instantiates any of <code>B<sub>1</sub>,...,B<sub>n</sub></code>. If the
-                <a>0.FDO/DataType</a> <a>attribute</a> is not contained in A, any <a>attribute</a> b may be referenced by a, as
+                <a><code>21.T11969/Data</code></a> <a>attribute</a> is not contained in A, any <a>attribute</a> b may be referenced by a, as
                 there is no whitelist.
             </li>
             <li>
@@ -664,15 +664,15 @@
             </figure>
             <ul>
                 <li>
-                    The <a>attribute definition</a> <code>0.FDO/SchemaOrgTerm</code> states that it uses external <a>attribute referencing</a> through the
-                    <a>attribute</a> <code>(0.FDO/ValidationMechanism, ExternalVocabularyReference)</code>.
+                    The <a>attribute definition</a> <code>21.T11969/SchemaOrgTerm</code> states that it uses external <a>attribute referencing</a> through the
+                    <a>attribute</a> <code>(21.T11969/ValidationMechanism, ExternalVocabularyReference)</code>.
                 </li>
                 <li>
-                    The <a>syntax definition</a> <code>0.FDO/SchemaOrgTermSyntax</code> specifies the syntax of the <a>attribute definition</a>, i.e., it
+                    The <a>syntax definition</a> <code>21.T11969/SchemaOrgTermSyntax</code> specifies the syntax of the <a>attribute definition</a>, i.e., it
                     must be instantiated by the string “https://schema.org”, which is the schema.org namespace.
 
                 </li>
-                <li>The FDO <code>21.123/456</code> contains the <a>attribute</a> <code>(0.FDO/SchemaOrgTerm, https://schema.org)</code> to indicate that it uses
+                <li>The FDO <code>21.123/456</code> contains the <a>attribute</a> <code>(21.T11969/SchemaOrgTerm, https://schema.org)</code> to indicate that it uses
                     vocabulary from schema.org.
                     Afterwards, any schema.org term can be used as an <a>attribute</a> in the form <code>(&ltURL of term&gt, &ltvalue&gt)</code>, such as <code>(https://schema.org/priceCurrency, USD)</code>.
                 </li>
@@ -684,11 +684,11 @@
         <ul>
             <li>
                 The <a>attribute definition</a> A MUST explicitly state that it uses this feature by containing the <a>attribute</a>
-                <code>(<a>0.FDO/ValidationMechanism</a>, ExternalVocabularyReference)</code>.
+                <code>(<a>21.T11969/ValidationMechanism</a>, ExternalVocabularyReference)</code>.
             </li>
             <li>
                 The <a>attribute definition</a> A MUST specify the namespace of the external vocabulary using the <a>attribute</a>
-                <code><a>0.FDO/DataType</a></code> which references a syntax definition that validates the namespace.
+                <a><code>21.T11969/Data</code></a> which references a syntax definition that validates the namespace.
             </li>
         </ul>
 
@@ -712,9 +712,9 @@
         checked that the namespace a<sub>val</sub> is valid according to the <a>syntax definition</a> referenced from the <a>attribute definition</a>.
     </dd>
 
-    <dt>[H5-2] <dfn data-lt="Attribute Definition Profile|0.FDO/AttributeDef">Attribute Definition Profile</dfn></dt>
+    <dt>[H5-2] <dfn data-lt="Attribute Definition Profile|21.T11969/AttributeDef|0.FDO/AttributeDef">Attribute Definition Profile</dfn></dt>
     <dd>
-        The Handle-based <a>attribute definition</a> profile has the PID <a>0.FDO/ProfileDef</a>. It is a composition of the two
+        The Handle-based <a>attribute definition</a> profile has the PID <a><code>21.T11969/ProfileDef</code></a>. It is a composition of the two
         sub- <a>profiles</a> described in Table 3 and Table 4, with the PIDs ...
     </dd>
 </dl>
@@ -728,8 +728,8 @@
             Handle spec, or describe these mechanisms more broadly and without specifying the FDO records?
         </li>
         <li>
-            The 0.FDO/Type, 0.FDO/Data, 0.FDO/Profile attributes should be defined more broadly. Each implementation
-            may specify in more detail whether 0.FDO/Data points to a URL, a PID following a patter, or if other
+            The <code>21.T11969/Type</code>, <code>21.T11969/Data</code>, <code>21.T11969/Profile</code> attributes should be defined more broadly. Each implementation
+            may specify in more detail whether <code>21.T11969/Data</code> points to a URL, a PID following a patter, or if other
             advanced validation mechanisms are applied.
         </li>
     </ul>

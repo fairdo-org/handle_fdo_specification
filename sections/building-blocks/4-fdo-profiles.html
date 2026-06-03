@@ -1,6 +1,6 @@
 <h3>FDO profiles</h3>
 <dl>
-    <dt>[H4-1] Representation of <dfn data-lt="FDO Profiles|profiles|Profile|profile|0.FDO/Profile">FDO Profiles</dfn></dt>
+    <dt>[H4-1] Representation of <dfn data-lt="FDO Profiles|profiles|Profile|profile|0.FDO/Profile|21.T11969/Profile">FDO Profiles</dfn></dt>
     <dd>
         The <a>Handle record</a> of a Handle-based <a>FDO profile</a> must contain a fixed, predefined set of <a>FDO attributes</a> (see
         <a href="#table-profile-def">Table 3</a>). Note that there are two types of <a>FDO attributes</a> in the <a>Handle record</a>:
@@ -257,8 +257,8 @@
                 <td><code>21.T11969/Attribute</code></td>
                 <td>
                     This <a>attribute</a> is used when the <a>attribute</a> is represented according to way 2.
-                    The <a>attribute</a> <code>0.FDO/Attribute</code> defines the list of <a>attribute definitions</a> that MUST be
-                    instantiated in any FDO using this <a>profile</a>. The <a>attribute</a> <code>0.FDO/Attribute</code> is repeated
+                    The <a>attribute</a> <code>21.T11969/Attribute</code> defines the list of <a>attribute definitions</a> that MUST be
+                    instantiated in any FDO using this <a>profile</a>. The <a>attribute</a> <code>21.T11969/Attribute</code> is repeated
                     once for each <a>attribute definition</a> that should be in the <a>profile</a>.
                 </td>
                 <td>0..*</td>
@@ -286,17 +286,17 @@
         <br/>
     </dd>
 
-    <dt>[H4-2] <dfn data-lt="Profile Definition Profile|Profile Definition|0.FDO/ProfileDef">Profile Definition Profile</dfn></dt>
+    <dt>[H4-2] <dfn data-lt="Profile Definition Profile|Profile Definition|0.FDO/ProfileDef|21.T11969/ProfileDef">Profile Definition Profile</dfn></dt>
     <dd>
         The Handle-based <a>profile definition</a> profile has the PID <code>21.T11969/ProfileDef</code> and is the Handle-based
         implementation of <a href="#table-profile-def">Table 3</a>. It uses both mechanisms way 1 and way 2 (see [H4-1]).
     </dd>
-    <dt>[H4-3] <dfn data-lt="Root Profile|0.FDO/Root">Root Profile</dfn></dt>
+    <dt>[H4-3] <dfn data-lt="Root Profile|0.FDO/Root|21.T11969/Root">Root Profile</dfn></dt>
     <dd>
         The Handle-based root profile has the PID <code>21.T11969/Root</code>. It uses both mechanisms way 1 and way 2
         (see [H4-1]). It can be used as a parent <a>profile</a> for <a>profile extension</a>.
     </dd>
-    <dt>[H4-4] <dfn data-lt="FDO Profiles Extension|Profile Extension|0.FDO/Extends">FDO Profiles Extension</dfn> Mechanism</dt>
+    <dt>[H4-4] <dfn data-lt="FDO Profiles Extension|Profile Extension|0.FDO/Extends|21.T11969/Extends">FDO Profiles Extension</dfn> Mechanism</dt>
     <dd>
         <ul>
             <li>An <a>FDO profile</a> constructed as JSON Schema (way 1) embeds a parent JSON schema from a parent
