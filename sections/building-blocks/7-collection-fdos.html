@@ -14,51 +14,51 @@
         Every file FDO uses the root profile and adds some more information about the file it describes (e.g., file
         name, file size, file format), but also the HTTP URL to access it.
         The file FDO records could look similar to this:
-    <table>
-        <thead>
-        <tr>
-            <th scope="col">PID of Attribute Definition</th>
-            <th scope="col">Example Value</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td><code>21.T11969/Profile</code></td>
-            <td><code>21.T11969/Root</code></td>
-        </tr>
-        <tr>
-            <td><code>21.T11969/Type</code></td>
-            <td><code>21.example/fileFormat</code></td>
-        </tr>
-        <tr>
-            <td><code>21.T11969/Data</code></td>
-            <td><code>21.example/HTTPURL</code></td>
-        </tr>
-        <tr>
-            <td><code>21.example/fileFormat</code></td>
-            <td><code>image/jpeg</code></td>
-        </tr>
-        <tr>
-            <td><code>21.example/HTTPURL</code></td>
-            <td><code>https://test.example/image01.jpg</code></td>
-        </tr>
-        <tr>
-            <td><code>21.example/fileSizeInKB</code></td>
-            <td><code>4242</code></td>
-        </tr>
-        <tr>
-            <td><code>21.T11969/Name</code></td>
-            <td><code>Placeholder01</code></td>
-        </tr>
-        <tr>
-            <td><code>21.example/isPartOf</code></td>
-            <td><code>21.example/dataset</code></td>
-        </tr>
-        </tbody>
-        <caption>
-            File FDO record (fictionary PID: <code>21.example/file01</code>)
-        </caption>
-    </table>
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col">PID of Attribute Definition</th>
+                    <th scope="col">Example Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>21.T11969/Profile</code></td>
+                    <td><code>21.T11969/Root</code></td>
+                </tr>
+                <tr>
+                    <td><code>21.T11969/Type</code></td>
+                    <td><code>21.example/fileFormat</code></td>
+                </tr>
+                <tr>
+                    <td><code>21.T11969/Data</code></td>
+                    <td><code>21.example/HTTPURL</code></td>
+                </tr>
+                <tr>
+                    <td><code>21.example/fileFormat</code></td>
+                    <td><code>image/jpeg</code></td>
+                </tr>
+                <tr>
+                    <td><code>21.example/HTTPURL</code></td>
+                    <td><code>https://test.example/image01.jpg</code></td>
+                </tr>
+                <tr>
+                    <td><code>21.example/fileSizeInKB</code></td>
+                    <td><code>4242</code></td>
+                </tr>
+                <tr>
+                    <td><code>21.T11969/Name</code></td>
+                    <td><code>Placeholder01</code></td>
+                </tr>
+                <tr>
+                    <td><code>21.example/isPartOf</code></td>
+                    <td><code>21.example/dataset</code></td>
+                </tr>
+            </tbody>
+            <caption>
+                File FDO record (fictionary PID: <code>21.example/file01</code>)
+            </caption>
+        </table>
     </p>
     <p>
         The dataset FDO with the PID <code>21.example/dataset</code> is a collection FDO referring to all file FDOs.
@@ -66,58 +66,58 @@
         The <code>21.T11969/Type</code> attribute refers to the profile used in the FDO, but could also refer to any other attribute or
         an FDO defining an FDO type.
         The dataset FDO record could look similar to this:
-    <table>
-        <thead>
-        <tr>
-            <th scope="col">PID of Attribute Definition</th>
-            <th scope="col">Example Value</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td><code>21.T11969/Profile</code></td>
-            <td><code>21.T11969/Root</code></td>
-        </tr>
-        <tr>
-            <td><code>21.T11969/Type</code></td>
-            <td><code>21.T11969/Profile</code></td>
-        </tr>
-        <tr>
-            <td><code>21.T11969/Data</code></td>
-            <td><code>21.example/hasPart</code></td>
-        </tr>
-        <tr>
-            <td><code>21.example/hasPart</code></td>
-            <td><code>21.example/file01</code></td>
-        </tr>
-        <tr>
-            <td><code>21.example/hasPart</code></td>
-            <td><code>21.example/file02</code></td>>
-        </tr>
-        <tr>
-            <td><code>21.example/hasPart</code></td>
-            <td><code>21.example/file03</code></td>
-        </tr>
-        <tr>
-            <td><code>21.example/hasPart</code></td>
-            <td><code>21.example/file04</code></td>
-        </tr>
-        <tr>
-            <td><code>21.example/hasPart</code></td>
-            <td><code>21.example/file05</code></td>
-        </tr>
-        <tr>
-            <td><code>21.T11969/Name</code></td>
-            <td><code>Example dataset</code></td>
-        </tr>
-        <tr>
-            <td><code>21.example/creationDate</code></td>
-            <td><code>2026-06-01T12:00:00Z</code></td>
-        </tr>
-        </tbody>
-        <caption>
-            Dataset Collection FDO record (fictionary PID: <code>21.example/dataset</code>)
-        </caption>
-    </table>
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col">PID of Attribute Definition</th>
+                    <th scope="col">Example Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>21.T11969/Profile</code></td>
+                    <td><code>21.T11969/Root</code></td>
+                </tr>
+                <tr>
+                    <td><code>21.T11969/Type</code></td>
+                    <td><code>21.T11969/Profile</code></td>
+                </tr>
+                <tr>
+                    <td><code>21.T11969/Data</code></td>
+                    <td><code>21.example/hasPart</code></td>
+                </tr>
+                <tr>
+                    <td><code>21.example/hasPart</code></td>
+                    <td><code>21.example/file01</code></td>
+                </tr>
+                <tr>
+                    <td><code>21.example/hasPart</code></td>
+                    <td><code>21.example/file02</code></td>>
+                </tr>
+                <tr>
+                    <td><code>21.example/hasPart</code></td>
+                    <td><code>21.example/file03</code></td>
+                </tr>
+                <tr>
+                    <td><code>21.example/hasPart</code></td>
+                    <td><code>21.example/file04</code></td>
+                </tr>
+                <tr>
+                    <td><code>21.example/hasPart</code></td>
+                    <td><code>21.example/file05</code></td>
+                </tr>
+                <tr>
+                    <td><code>21.T11969/Name</code></td>
+                    <td><code>Example dataset</code></td>
+                </tr>
+                <tr>
+                    <td><code>21.example/creationDate</code></td>
+                    <td><code>2026-06-01T12:00:00Z</code></td>
+                </tr>
+            </tbody>
+            <caption>
+                Dataset Collection FDO record (fictionary PID: <code>21.example/dataset</code>)
+            </caption>
+        </table>
     </p>
 </aside>
