@@ -24,12 +24,11 @@
                         <b>Way 2</b>:
                         The FDO <a>attribute definition</a> is fully specified in the  <a>Handle record</a>, simply relying on
                         references to other <a>attribute definitions</a>,  <a>syntax definitions</a>, or  <a>profiles</a> (<code>21.T11969/DataType</code>)
-                        and a specified validation mechanism (`<code>21.T11969/ValidationMechanism</code>`). For more details, see
-                        Table 4.
+                        and a specified validation mechanism (`<code>21.T11969/ValidationMechanism</code>`). For more details, see Table 4.
                     </li>
                     <li>
                         Note that both ways can be combined by using all <a>attributes</a> <code>21.T11969/Data</code>, <code>21.T11969/DataType</code>,
-                        `<code>21.T11969/ValidationMechanism</code>` simultaneously. In this case, when creating or updating this FDO
+                        <code>21.T11969/ValidationMechanism</code> simultaneously. In this case, when creating or updating this FDO
                         <a>attribute definition</a>, it must be checked that both ways induce the same validation rules.
                     </li>
                 </ul>
@@ -131,7 +130,7 @@
                 <td>1..*</td>
             </tr>
             <tr>
-                <td><code>21.T11969/ValidationMechanism</code></td>
+                <td><dfn><code>21.T11969/ValidationMechanism</code></dfn></td>
                 <td>
                     One of:
                     <ul>
@@ -168,7 +167,7 @@
         description can be repeated in the JSON schema using the keywords `title` and `description`.
     </dd>
 
-    <dt>[H5-1b] <dfn data-lt="Syntax Definitions|21.T11969/SyntaxDef|0.FDO/SyntaxDef">Syntax Definitions</dfn></dt>
+    <dt>[H5-1b] <dfn data-lt="Syntax Definitions|Syntax Definition|21.T11969/SyntaxDef|0.FDO/SyntaxDef">Syntax Definitions</dfn></dt>
     <dd>
         <ul>
             <li>
@@ -221,13 +220,12 @@
                 <b>Way 2</b>:
                 To specify the syntax of an attribute, the following two attributes must be used in the  <a>FDO record</a>:
                 <ol>
-                    <li>`(<code>21.T11969/ValidationMechanism</code>, Syntax)`</li>
-                    <li>`
-                        (<code>21.T11969/Data</code>, [reference to a syntax definition])`.
+                    <li><code>(21.T11969/ValidationMechanism, Syntax)</code></li>
+                    <li><code>(<code>21.T11969/Data</code>, [reference to a syntax definition])</code>.
                     </li>
                 </ol>
-                <dfn data-lt="Syntax definitions|21.T11969/SyntaxDef">Syntax definitions</dfn> are themselves FDOs and encode the basic validation rules in their records. They
-                follow the syntax definition profile with the PID `<code>21.T11969/SyntaxDef</code>` and contain the attributes as in
+                <a>Syntax definitions</a> are themselves FDOs and encode the basic validation rules in their records. They
+                follow the syntax definition profile with the PID <code>21.T11969/SyntaxDef</code> and contain the attributes as in
                 table 5.
                 <table border="2">
 <caption>
