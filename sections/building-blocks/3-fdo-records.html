@@ -3,10 +3,10 @@
 This section specifies how an FDO record is implemented by Handle-based FDOs.
 
 <dl>
-    <dt>Handle record</dt>
+    <dt><dfn>Handle record</dfn></dt>
     <dd>
-        Each Handle record consists of a list of Handle values. Each Handle value is represented as a JSON object
-        with (at least) five types (see also [[HandleTechnical]]):
+        Each <a>Handle record</a> consists of a list of Handle values. Each Handle value is represented as a JSON object
+        with (at least) five types (see also [[Handle Technical Manual]]):
         <ul>
             <li> <code>index</code> (integer)</li>
             <li> <code>type</code> (string)</li>
@@ -19,61 +19,59 @@ This section specifies how an FDO record is implemented by Handle-based FDOs.
 </dl>
 
 <dl>
-    <dt>
-        FDO record
-    </dt>
+    <dt><dfn>FDO record</dfn></dt>
     <dd>
-        The conceptional FDO record (according to the FDO specification) consists of tuples
-        (k<sub>1</sub>: v<sub>1</sub>), (k<sub>2</sub>: v<sub>2</sub>),..., (k<sub>n</sub>: v<sub>n</sub>), where each
-        k<sub>i</sub> is either a PID identifying an attribute definition, or a human-readable label of an attribute.
+        The conceptional <a>FDO record</a> (according to the [[FDO specification]]) consists of tuples
+        <code>(k<sub>1</sub>: v<sub>1</sub>), (k<sub>2</sub>: v<sub>2</sub>), ..., (k<sub>n</sub>: v<sub>n</sub>)</code>, where each
+        <code>k<sub>i</sub></code> is either a PID identifying an <a>attribute definition</a>, or a human-readable label of an <a>attribute</a>.
     </dd>
 </dl>
 
 <dl>
     <dt>
-        [H3-1] Mapping the FDO Record to the Handle Record
+        [H3-1] Mapping the <a>FDO Record</a> to the <a>Handle Record</a>
     </dt>
     <dd>
         <p>
-            We assume an FDO record which consists of FDO attributes/tuples
-            a<sub>1</sub> = (k<sub>1</sub> : v<sub>1</sub>), a<sub>2</sub> =
-            (k<sub>2</sub> : v<sub>2</sub>),..., a<sub>n</sub> = (k<sub>n</sub> : v<sub>n</sub>).
-            Mapping the FDO record to a Handle record means to map all FDO attributes a<sub>1</sub>,...,a<sub>n</sub> to a
-            list of Handle values h<sub>1</sub>,...,h<sub>n</sub> as follows:
+            We assume an <a>FDO record</a> which consists of FDO attributes/tuples
+            <code>a<sub>1</sub> = (k<sub>1</sub> : v<sub>1</sub>), a<sub>2</sub> =
+            (k<sub>2</sub> : v<sub>2</sub>), ..., a<sub>n</sub> = (k<sub>n</sub> : v<sub>n</sub>)</code>.
+            Mapping the <a>FDO record</a> to a <a>Handle record</a> means to map all FDO attributes <code>a<sub>1</sub>, ..., a<sub>n</sub></code> to a
+            list of Handle values <code>h<sub>1</sub>, ..., h<sub>n</sub></code> as follows:
         </p>
         <p>
-            Each attribute a<sub>i</sub> is assigned a positive integer f<sub>i</sub>, where
-            f<sub>1</sub>, ..., f<sub>n</sub> are mutually different. Assigning integers to tuples should take conventions
-            from Handle identifiers into account (e.g., if k<sub>i</sub> = <code>HS_ADMIN</code>, then f<sub>i</sub> = 100).
-            Then, the FDO attribute a<sub>i</sub> is mapped to the Handle value h<sub>i</sub> by setting:
+            Each attribute <code>a<sub>i</sub></code> is assigned a positive integer <code>f<sub>i</sub></code>, where
+            <code>f<sub>1</sub>, ..., f<sub>n</sub></code> are mutually different. Assigning integers to tuples should take conventions
+            from <a>Handle identifiers</a> into account (e.g., if <code>k<sub>i</sub> = HS_ADMIN</code>, then <code>f<sub>i</sub> = 100</code>).
+            Then, the FDO <a>attribute</a> <code>a<sub>i</sub></code> is mapped to the Handle value <code>h<sub>i</sub></code> by setting:
         </p>
         <ul>
-            <li><code>index</code>: f<sub>i</sub></li>
+            <li><code>index</code>: f<sub>i</sub></code></li>
             <li>
-                <code>type</code>: k<sub>i</sub>' (Here, k<sub>i</sub>' = k<sub>i</sub> if k<sub>i</sub> is an attribute
-                name or a community attribute, and k<sub>i</sub>' = <code>21.T11969/[X]</code> if k<sub>i</sub> is a
+                <code>type: k<sub>i</sub>'</code> (Here, <code>k<sub>i</sub>' = k<sub>i</sub></code> if <code>k<sub>i</sub></code> is an attribute
+                name or a community attribute, and <code>k<sub>i</sub>' = 21.T11969/[X]</code> if <code>k<sub>i</sub></code> is a
                 conceptual attribute PID <code>0.FDO/[X]</code> that is listed in
                 <a href="#table-mandatory-attr">Table 1</a> or <a href="#table-optional-attr">Table 2</a>.)
             </li>
-            <li><code>data.value</code>: v<sub>i</sub></li>
+            <li><code>data.value: v<sub>i</sub></code></li>
         </ul>
-        The remaining types of Handle value h<sub>i</sub> are usually set according to their default values, but possibly also
+        The remaining types of Handle value <code>h<sub>i</sub></code> are usually set according to their default values, but possibly also
         with different values, if this makes sense in the given context:
         <ul>
-            <li> <code>data.format: string</code>   (and <code>data.format: admin</code>, if k<sub>i</sub> = <code>HS_ADMIN</code>)</li>
-            <li> <code>ttl: 86400</code> </li>
+            <li> <code>data.format: string</code>   (and <code>data.format: admin</code>, if <code>k<sub>i</sub> = HS_ADMIN</code>)</li>
+            <li> <code>ttl: 86400</code></li>
             <li> <code>timestamp: [current time]</code></li>
         </ul>
 
         <aside class="example" id="example-mapping-fdo-to-handle" title="Mapping the FDO Record to the Handle Record">
-        The FDO record with handle identifier <code>123/abcde</code> containing the four FDO attributes
+        The <a>FDO record</a> with <a>Handle identifier</a> <code>123/abcde</code> containing the four <a>FDO attributes</a>
         <ul>
-            <li><code>(0.FDO/Type: 123/45678)</code></li>
-            <li><code>(0.FDO/Profile: 123/00001)</code></li>
+            <li><code>(21.T11969/Type: 123/45678)</code></li>
+            <li><code>(21.T11969/Profile: 123/00001)</code></li>
             <li><code>(version: 1.0)</code></li>
             <li><code>(HS_ADMIN: {"handle": "0.NA/21.T11971", "index": 200, "permissions": "111111111111"})</code></li>
         </ul>
-        is mapped to the following Handle record in JSON format:
+        is mapped to the following <a>Handle record</a> in JSON format:
 <pre><code>{
     "responseCode": 1,
     "handle": "123/abcde",
@@ -131,23 +129,23 @@ This section specifies how an FDO record is implemented by Handle-based FDOs.
 
 <dl>
     <dt>
-        [H3-2] Mapping the Handle Record to the FDO Record
+        [H3-2] Mapping the <a>Handle Record</a> to the <a>FDO Record</a>
     </dt>
     <dd>
-        Mapping a handle record with handle values h<sub>1</sub>,...,h<sub>n</sub> to an FDO record with attributes a<sub>1</sub>,...,a<sub>n</sub>
-        means to map each handle value h<sub>i</sub> to an FDO attribute a<sub>i</sub>. The handle value h<sub>i</sub>
+        Mapping a <a>Handle record</a> with Handle values <code>h<sub>1</sub>,...,h<sub>n</sub></code> to an <a>FDO record</a> with <a>attributes</a> <code>a<sub>1</sub>,...,a<sub>n</sub></code>
+        means to map each Handle value <code>h<sub>i</sub></code> to an <a>FDO attribute</a> <code>a<sub>i</sub></code>. The Handle value <code>h<sub>i</sub></code>
         with
         <ul>
-            <li><code>index</code>: f<sub>i</sub></li>
-            <li><code>type</code>: k<sub>i</sub></li>
+            <li><code>index: f<sub>i</sub></code></li>
+            <li><code>type: k<sub>i</sub></code></li>
             <li><code>data.format: string</code></li>
-            <li><code>data.value</code>: v<sub>i</sub></li>
+            <li><code>data.value: v<sub>i</sub></code></li>
             <li><code>ttl: 86400</code></li>
             <li><code>timestamp: 2025-05-06T12:30:44Z</code></li>
         </ul>
-        is mapped to the FDO attribute a<sub>i</sub> = (k<sub>i</sub>', v<sub>i</sub>), where
-        k<sub>i</sub>' = k<sub>i</sub> if k<sub>i</sub> is an attribute name or a handle-based community attribute, and
-        k<sub>i</sub>' = <code>0.FDO/[X]</code> if k<sub>i</sub> is a Handle-based attribute PID
+        is mapped to the <a>FDO attribute</a> <code>a<sub>i</sub> = (k<sub>i</sub>', v<sub>i</sub>)</code>, where
+        <code>k<sub>i</sub>' = k<sub>i</sub> if k<sub>i</sub></code> is an attribute name or a handle-based community attribute, and
+        <code>k<sub>i</sub>' = 21.T11969/[X]</code> if <code>k<sub>i</sub></code> is a Handle-based attribute PID
         <code>21.T11969/[X]</code> that is listed in <a href="#table-mandatory-attr">Table 1</a> or <a href="#table-optional-attr">Table 2</a>. All other types (<code>index</code>, <code>data.value</code>, <code>ttl</code>,
         <code>timestamp</code>) are dropped. This exactly reverses the mapping in [H3-1].
     </dd>

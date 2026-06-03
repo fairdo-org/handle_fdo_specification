@@ -1,17 +1,16 @@
-<h3>Collection FDOs</h3>
+<h3><dfn data-lt="Collection FDO|collection">Collection FDOs</dfn></h3>
 <p>
     Collection FDOs refer to one or more other FDOs.
     This is useful to organize and connect FDOs in a hierarchical manner (e.g., when describing a dataset and all files
     included within it).
-    A collection FDO MUST comply to the 0.FDO/Root profile like any other FDO.
-    It also has a 0.FDO/Data attribute that uses attribute referencing to refer to the FDOs that are included in the
+    A [=Collection FDO=] MUST comply to the <a><code>21.T11969/Root</code></a> profile like any other FDO.
+    It also has a <a><code>21.T11969/Data</code></a> attribute that uses <a>attribute referencing</a> to refer to the FDOs that are included in the
     collection.
-    This enables semantically correctly described relationships to other FDOs using the normal FDO referencing
-    mechanisms.
+    This enables semantically correctly described relationships to other FDOs using the normal FDO referencing mechanisms.
 </p>
-<aside class="example">
+<aside class="example" id="example-collection-fdo" title="Example of a collection FDO referring to other FDOs.">
     <p>
-        Lets assume one FDO that describes a dataset (aka. dataset FDO) and five FDOs for single files (aka. file FDO).
+        As an example, we assume one [=Collection FDO=] that describes a dataset (aka. dataset FDO) and five FDOs for single files (aka. file FDO).
         Every file FDO uses the root profile and adds some more information about the file it describes (e.g., file
         name, file size, file format), but also the HTTP URL to access it.
         The file FDO records could look similar to this:
@@ -24,15 +23,15 @@
         </thead>
         <tbody>
         <tr>
-            <td>0.FDO/Profile</td>
-            <td>0.FDO/Root</td>
+            <td><code>21.T11969/Profile</code></td>
+            <td><code>21.T11969/Root</code></td>
         </tr>
         <tr>
-            <td>0.FDO/Type</td>
+            <td><code>21.T11969/Type</code></td>
             <td>21.example/fileFormat</td>
         </tr>
         <tr>
-            <td>0.FDO/Data</td>
+            <td><code>21.T11969/Data</code></td>
             <td>21.example/HTTPURL</td>
         </tr>
         <tr>
@@ -48,7 +47,7 @@
             <td>4242</td>
         </tr>
         <tr>
-            <td>0.FDO/Name</td>
+            <td><code>21.T11969/Name</code></td>
             <td>Placeholder01</td>
         </tr>
         <tr>
@@ -64,7 +63,7 @@
     <p>
         The dataset FDO with the PID <i>'21.example/dataset'</i> is a collection FDO referring to all file FDOs.
         Furthermore, it has some additional information about the dataset (e.g., dataset title, creation date).
-        The 0.FDO/Type attribute refers to the profile used in the FDO, but could also refer to any other attribute or
+        The <code>21.T11969/Type</code> attribute refers to the profile used in the FDO, but could also refer to any other attribute or
         an FDO defining an FDO type.
         The dataset FDO record could look similar to this:
     <table>
@@ -76,15 +75,15 @@
         </thead>
         <tbody>
         <tr>
-            <td>0.FDO/Profile</td>
-            <td>0.FDO/Root</td>
+            <td><code>21.T11969/Profile</code></td>
+            <td><code>21.T11969/Root</code></td>
         </tr>
         <tr>
-            <td>0.FDO/Type</td>
-            <td>0.FDO/Profile</td>
+            <td><code>21.T11969/Type</code></td>
+            <td><code>21.T11969/Profile</code></td>
         </tr>
         <tr>
-            <td>0.FDO/Data</td>
+            <td><code>21.T11969/Data</code></td>
             <td>21.example/hasPart</td>
         </tr>
         <tr>
@@ -108,7 +107,7 @@
             <td>21.example/file05</td>
         </tr>
         <tr>
-            <td>0.FDO/Name</td>
+            <td><code>21.T11969/Name</code></td>
             <td>Example dataset</td>
         </tr>
         <tr>
