@@ -15,27 +15,21 @@
                 <b>The actual content of the attribute definition</b>, from which all validation rules (for attributes
                 instantiating this attribute definition) can be derived: <code>21.T11969/Cardinality</code>,
                 <code>21.T11969/Data</code> (both mandatory), <code>21.T11969/JsonSchema</code>,
-                <code>21.T11969/ValidationMechanism</code>, <code>21.T11969/DataType</code> (optional).
-                There are two ways how to encode these validation rules in the Handle record:
+                <code>21.T11969/ValidationMechanism</code>, <code>21.T11969/DataType</code> (optional). There are
+                several mechanisms to encode and interpreted attribute definitions. Each of those mechanisms have their
+                own validation rules for instantiating FDOs. The mechanisms and their validation rules are explained in
+                more detail, including examples, in their respective sections:
                 <ul>
-                    <li>
-                        <b>Way 1</b>:
-                        The FDO record links to a JSON schema which contains all validation rules using the
-                        attribute `0.FDO/Data`. For more details, see Table 3.
-                    </li>
-                    <li>
-                        <b>Way 2</b>:
-                        The FDO attribute definition is fully specified in the Handle record, simply relying on
-                        references to other attribute definitions, syntax definitions, or profiles (`0.FDO/DataType`)
-                        and a specified validation mechanism (`0.FDO/ValidationMechanism`). For more details, see
-                        Table 4.
-                    </li>
-                    <li>
-                        Note that both ways can be combined by using all attributes `0.FDO/Data`, `0.FDO/DataType`,
-                        `0.FDO/ValidationMechanism` simultaneously. In this case, when creating or updating this FDO
-                        attribute definition, it must be checked that both ways induce the same validation rules.
-                    </li>
+                    <li>[H5-4] Syntax</li>
+                    <li>[H5-5] Unions of Attribute Definitions</li>
+                    <li>[H5-6] Compositions of Attribute Definitions</li>
+                    <li>[H5-7] Profile Referencing</li>
+                    <li>[H5-8] Attribute Referencing</li>
+                    <li>[H5-9] External Vocabulary Referencing</li>
                 </ul>
+                A short summary of how to encode each of these rules in a Handle-based attribute definition is given in
+                <a href="#table-attr-def">Table 4</a>. The full explanations are given in the respective sections
+                [H5-4] - [H5-9].
             </li>
         </ol>
 
@@ -112,12 +106,12 @@
                     way 2, or a profile reference / attribute reference / external vocabulary reference.
                     The value is of:
                     <ul>
-                        <li><code>Syntax</code> (see [H5-todo])</li>
-                        <li><code>Union</code> (see [H5-todo])</li>
-                        <li><code>InlineCombination</code> (see [H5-todo])</li>
-                        <li><code>AttributeReference</code> (see [H5-todo])</li>
-                        <li><code>ProfileReference</code> (see [H5-todo])</li>
-                        <li><code>ExternalVocabularyReference</code> (see [H5-todo])</li>
+                        <li><code>Syntax</code> (see [H5-4])</li>
+                        <li><code>Union</code> (see [H5-5])</li>
+                        <li><code>InlineCombination</code> (see [H5-6])</li>
+                        <li><code>AttributeReference</code> (see [H5-7])</li>
+                        <li><code>ProfileReference</code> (see [H5-8])</li>
+                        <li><code>ExternalVocabularyReference</code> (see [H5-9])</li>
                     </ul>
                 </td>
                 <td>0..*</td>
@@ -149,6 +143,36 @@
         </table>
         <br/>
     </dd>
+</dl>
+<dl>
+    <dt>[H5-2] Attribute Definition Profile</dt>
+    <dd>
+        The Handle-based attribute definition profile has the PID <code>21.T11969/AttributeDef</code> and is the
+        Handle-based implementation of <a href="#table-attr-def">Table 4</a>. It uses both mechanisms way 1 and
+        way 2 for encoding syntax/unions/compositions (see [H5-4] - [H5-6]).
+    </dd>
+</dl>
+
+    There are two ways how to encode these validation rules in the Handle record:
+                <ul>
+                    <li>
+                        <b>Way 1</b>:
+                        The FDO record links to a JSON schema which contains all validation rules using the
+                        attribute `0.FDO/Data`. For more details, see Table 3.
+                    </li>
+                    <li>
+                        <b>Way 2</b>:
+                        The FDO attribute definition is fully specified in the Handle record, simply relying on
+                        references to other attribute definitions, syntax definitions, or profiles (`0.FDO/DataType`)
+                        and a specified validation mechanism (`0.FDO/ValidationMechanism`). For more details, see
+                        Table 4.
+                    </li>
+                    <li>
+                        Note that both ways can be combined by using all attributes `0.FDO/Data`, `0.FDO/DataType`,
+                        `0.FDO/ValidationMechanism` simultaneously. In this case, when creating or updating this FDO
+                        attribute definition, it must be checked that both ways induce the same validation rules.
+                    </li>
+                </ul>
 
     <dt>[H5-1a] Encoding Semantics</dt>
     <dd>
@@ -704,13 +728,6 @@
         To validate an FDO that contains an attribute a=(a<sub>def</sub>,a<sub>val</sub>) applying external vocabulary referencing, it is
         checked that the namespace a<sub>val</sub> is valid according to the syntax definition referenced from the
         attribute definition.
-    </dd>
-</dl>
-<dl>
-    <dt>[H5-2] Attribute Definition Profile</dt>
-    <dd>
-        The Handle-based attribute definition profile has the PID 0.FDO/ProfileDef. It is a composition of the two
-        sub-profiles described in Table 3 and Table 4, with the PIDs ...
     </dd>
 </dl>
 
