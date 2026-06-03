@@ -1,9 +1,12 @@
 <h3>[S-4]: FDO Record <a>Root Profile</a> Validation</h3>
-<p><b>Input:</b> List of FDO attributes <code>a<sub>1</sub>=(a<sub>1,def</sub>,a<sub>1,val</sub> ), ...,
-    a<sub>n</sub>=(a<sub>n,def</sub>,a<sub>n,val</sub>)</code>.</p>
+<p>
+    <b>Input:</b> List of FDO attributes <code>a<sub>1</sub>=(a<sub>1,def</sub>,a<sub>1,val</sub> ), ...,
+    a<sub>n</sub>=(a<sub>n,def</sub>,a<sub>n,val</sub>)</code>.
+</p>
 <p>
     <b>Process:</b> Check that there are at least the attributes <a>`21.T11969/Type`</a>, <a>`21.T11969/Profile`</a> and <a>`21.T11969/Data`</a> in the
     <code>a<sub>1,def</sub>,...,a<sub>n,def</sub></code>.
+
 <pre><code>enum Status {
     COMPLETE, REQUIRED_FIELDS, PROFILE_ONLY, TYPE_ONLY, NON_COMPLIANT
 } // according to [S-4] in section 4 of the FDO Specifications
@@ -69,13 +72,14 @@ function validateAgainstRootProfile (fdo: FDORecord) -> Status {
 }
 </code></pre>
 </p>
+
 <p>
     <b>Output:</b> One value from an enumeration of possible results
-<ul>
-    <li><b>COMPLETE:</b> 21.T11969/Profile, 21.T11969/Type, and 21.T11969/Data were found.</li>
-    <li><b>REQUIRED_FIELDS:</b> 21.T11969/Profile and 21.T11969/Type were found. 21.T11969/Data is missing or invalid.</li>
-    <li><b>PROFILE_ONLY:</b> 21.T11969/Profile has been found. 21.T11969/Type is missing or invalid. No assumption about 21.T11969/Data is made.</li>
-    <li><b>TYPE_ONLY:</b> 21.T11969/Type has been found. 21.T11969/Profile is missing or invalid. No assumption about 21.T11969/Data is made.</li>
-    <li><b>NON_COMPLIANT:</b> Neither 21.T11969/Profile nor 21.T11969/Type has been found.</li>
-</ul>
+    <ul>
+        <li><b>COMPLETE:</b> <code>21.T11969/Profile</code>, <code>21.T11969/Type</code>, and <code>21.T11969/Data</code> were found.</li>
+        <li><b>REQUIRED_FIELDS:</b> <code>21.T11969/Profile</code> and <code>21.T11969/Type</code> were found. <code>21.T11969/Data</code> is missing or invalid.</li>
+        <li><b>PROFILE_ONLY:</b> <code>21.T11969/Profile</code> has been found. <code>21.T11969/Type</code> is missing or invalid. No assumption about <code>21.T11969/Data</code> is made.</li>
+        <li><b>TYPE_ONLY:</b> <code>21.T11969/Type</code> has been found. <code>21.T11969/Profile</code> is missing or invalid. No assumption about <code>21.T11969/Data</code> is made.</li>
+        <li><b>NON_COMPLIANT:</b> Neither <code>21.T11969/Profile</code> nor <code>21.T11969/Type</code> has been found.</li>
+    </ul>
 </p>
