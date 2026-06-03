@@ -196,24 +196,23 @@
                 </ol>
                 <aside class="example" title="JSON Schemas of simple attribute definitions">
 <pre><code>{
-"$schema": "http://json-schema.org/draft-04/schema#",
-"title": "publication year",
-"description": "The publication year of the resource.",
-"type": "integer",
-"minimum": 0,
-"maximum": 2026
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "publication year",
+    "description": "The publication year of the resource.",
+    "type": "integer",
+    "minimum": 0,
+    "maximum": 2026
 }</code></pre>
 
 <pre><code>{
-"$schema": "http://json-schema.org/draft-04/schema#",
-"title": "color",
-"description": "The color of the resource.",
-"type": "string",
-"enum": ["red", "yellow", "green", "blue"],
-"not":
-{
-    "enum": ["black", "white"]
-}
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "color",
+    "description": "The color of the resource.",
+    "type": "string",
+    "enum": ["red", "yellow", "green", "blue"],
+    "not": {
+        "enum": ["black", "white"]
+    }
 }</code></pre>
                 </aside>
             </li>
@@ -229,78 +228,78 @@
                 follow the syntax definition profile with the PID <code>21.T11969/SyntaxDef</code> and contain the attributes as in
                 table 5.
                 <table border="2">
-<caption>
-    <b>Table 5</b>: The list of <a>attribute definitions</a> specified by the FDO syntax
-    definition profile (<code>21.T11969/SyntaxDef</code>). These attributes MUST be used when defining any new syntax definition.
-    This table does not include all information about the attributes. Please resolve the <a>attribute definition</a> PIDs
-    via the Handle System or see the appendix of this document.
-</caption>
-<tr>
-    <th>PID of <a>attribute definition</a></th>
-    <th>Description of the attribute</th>
-    <th>Cardinality of the attribute</th>
-</tr>
-<tr>
-    <td><code>21.T11969/Type</code></td>
-    <td>The string <code>FDO_Syntax_Definition</code>. Additional types may be added, if applicable.
-    </td>
-    <td>1..*</td>
-</tr>
-<tr>
-    <td><code>21.T11969/Profile</code></td>
-    <td>The string <a><code>21.T11969/SyntaxDef</code></a>. Additional  <a>profiles</a> may be added, if applicable.
-    </td>
-    <td>1..*</td>
-</tr>
-<tr>
-    <td><code>21.T11969/Data</code></td>
-    <td>The string <code>Not_Applicable</code>.
-    </td>
-    <td>1..*</td>
-</tr>
-<tr>
-    <td><code>21.T11969/Name</code></td>
-    <td>Human-readable and localized labels for this syntax.</td>
-    <td>1..*</td>
-</tr>
-<tr>
-    <td><code>21.T11969/Description</code></td>
-    <td>Human-readable and localized descriptions for this syntax.</td>
-    <td>0..*</td>
-</tr>
-<tr>
-    <td><code>21.T11969/PrimitiveDataType</code></td>
-    <td>“string”, “number”, “integer”, or “boolean”
-    </td>
-    <td>1</td>
-</tr>
-<tr>
-    <td><code>21.T11969/Regex</code></td>
-    <td>regular expression in ECMA-262 syntax
-    </td>
-    <td>0..1</td>
-</tr>
-<tr>
-    <td><code>21.T11969/NumericInterval</code></td>
-    <td>An interval using one of the following forms: "[a,b]", "[a,b)", "(a,b]", "(a,b)".
-    </td>
-    <td>0..1</td>
-</tr>
-<tr>
-    <td><code>21.T11969/Whitelist</code></td>
-    <td>Any instance of the primitive data type. If <code>21.T11969/Whitelist</code> appears multiple times, this gives an
-        exhaustive list of allowed values for this attribute.
-    </td>
-    <td>0..*</td>
-</tr>
-<tr>
-    <td><code>21.T11969/Blacklist</code></td>
-    <td>Any instance of the primitive data type. If <code>21.T11969/Blacklist</code> appears multiple times, this gives a
-        non-exhaustive list of forbidden values for the attribute.
-    </td>
-    <td>0..*</td>
-</tr>
-</table>
+                    <caption>
+                        <b>Table 5</b>: The list of <a>attribute definitions</a> specified by the FDO syntax
+                        definition profile (<code>21.T11969/SyntaxDef</code>). These attributes MUST be used when defining any new syntax definition.
+                        This table does not include all information about the attributes. Please resolve the <a>attribute definition</a> PIDs
+                        via the Handle System or see the appendix of this document.
+                    </caption>
+                    <tr>
+                        <th>PID of <a>attribute definition</a></th>
+                        <th>Description of the attribute</th>
+                        <th>Cardinality of the attribute</th>
+                    </tr>
+                    <tr>
+                        <td><code>21.T11969/Type</code></td>
+                        <td>The string <code>FDO_Syntax_Definition</code>. Additional types may be added, if applicable.
+                        </td>
+                        <td>1..*</td>
+                    </tr>
+                    <tr>
+                        <td><code>21.T11969/Profile</code></td>
+                        <td>The string <a><code>21.T11969/SyntaxDef</code></a>. Additional  <a>profiles</a> may be added, if applicable.
+                        </td>
+                        <td>1..*</td>
+                    </tr>
+                    <tr>
+                        <td><code>21.T11969/Data</code></td>
+                        <td>The string <code>Not_Applicable</code>.
+                        </td>
+                        <td>1..*</td>
+                    </tr>
+                    <tr>
+                        <td><code>21.T11969/Name</code></td>
+                        <td>Human-readable and localized labels for this syntax.</td>
+                        <td>1..*</td>
+                    </tr>
+                    <tr>
+                        <td><code>21.T11969/Description</code></td>
+                        <td>Human-readable and localized descriptions for this syntax.</td>
+                        <td>0..*</td>
+                    </tr>
+                    <tr>
+                        <td><code>21.T11969/PrimitiveDataType</code></td>
+                        <td>“string”, “number”, “integer”, or “boolean”
+                        </td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td><code>21.T11969/Regex</code></td>
+                        <td>regular expression in ECMA-262 syntax
+                        </td>
+                        <td>0..1</td>
+                    </tr>
+                    <tr>
+                        <td><code>21.T11969/NumericInterval</code></td>
+                        <td>An interval using one of the following forms: "[a,b]", "[a,b)", "(a,b]", "(a,b)".
+                        </td>
+                        <td>0..1</td>
+                    </tr>
+                    <tr>
+                        <td><code>21.T11969/Whitelist</code></td>
+                        <td>Any instance of the primitive data type. If <code>21.T11969/Whitelist</code> appears multiple times, this gives an
+                            exhaustive list of allowed values for this attribute.
+                        </td>
+                        <td>0..*</td>
+                    </tr>
+                    <tr>
+                        <td><code>21.T11969/Blacklist</code></td>
+                        <td>Any instance of the primitive data type. If <code>21.T11969/Blacklist</code> appears multiple times, this gives a
+                            non-exhaustive list of forbidden values for the attribute.
+                        </td>
+                        <td>0..*</td>
+                    </tr>
+                </table>
             </li>
         </ul>
     </dd>
@@ -317,28 +316,26 @@
                         `additionalProperties` to prevent adding additional content to the composition.
                         <aside class="example" title="JSON Schemas of a union of attributes">
 <pre><code>{
-"$schema": "http://json-schema.org/draft-04/schema#",
-"title": "author",
-"description": "An author is a composition of a first name and a last name.",
-"type": "object",
-"properties": {
-"firstName": {
-  "$ref": "https://typeapi.lab.pidconsortium.net/v1/types/schema/21.T11969/3df63b7acb0522da685d"
-},
-"lastName": {
-  "$ref": "https://typeapi.lab.pidconsortium.net/v1/types/schema/21.T11969/3df63b7acb0522da685d"
-}
-},
-"required": ["firstName", "lastName"],
-"additionalProperties": false
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "author",
+    "description": "An author is a composition of a first name and a last name.",
+    "type": "object",
+    "properties": {
+        "firstName": {
+          "$ref": "https://typeapi.lab.pidconsortium.net/v1/types/schema/21.T11969/3df63b7acb0522da685d"
+        },
+        "lastName": {
+          "$ref": "https://typeapi.lab.pidconsortium.net/v1/types/schema/21.T11969/3df63b7acb0522da685d"
+        }
+    },
+    "required": ["firstName", "lastName"],
+    "additionalProperties": false
 }</code></pre>
                             This attribute composition validates:
 <pre><code>{
- "firstName": "Jon",
- "lastName": "Doe"
+    "firstName": "Jon",
+    "lastName": "Doe"
 }</code></pre>
-
-
                         </aside>
 
                     </li>
@@ -347,22 +344,19 @@
                         reference multiple existing JSON schemas, each representing an <a>attribute definition</a>.
                         <aside class="example" title="JSON Schemas of a composition of attributes">
 <pre><code>{
-"$schema": "http://json-schema.org/draft-04/schema#",
-"title": "Union of string and integer",
-"description": "This attribute validates all strings and all integers.",
-"anyOf": [
-{
-  "$ref": "https://typeapi.lab.pidconsortium.net/v1/types/schema/21.T11969/3df63b7acb0522da685d"
-},
-{
-  "$ref": "https://typeapi.lab.pidconsortium.net/v1/types/schema/21.T11969/9edcffff4461c9083fbf"
-}
-]
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Union of string and integer",
+    "description": "This attribute validates all strings and all integers.",
+    "anyOf": [
+        {
+          "$ref": "https://typeapi.lab.pidconsortium.net/v1/types/schema/21.T11969/3df63b7acb0522da685d"
+        },
+        {
+          "$ref": "https://typeapi.lab.pidconsortium.net/v1/types/schema/21.T11969/9edcffff4461c9083fbf"
+        }
+    ]
 }</code></pre>
-                            This attribute union validates:
-<pre><code>123</code></pre>
-                            and
-                            <pre><code>"myString"</code></pre>
+                            This attribute union validates: <code>123</code> and <code>"myString"</code>
                         </aside>
                     </li>
                 </ol>
