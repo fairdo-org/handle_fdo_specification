@@ -163,7 +163,7 @@
 </dl>
 
 <dl>
-    <dt>[H5-5] Syntax</dt>
+    <dt>[H5-4] Syntax</dt>
     <dd>
         There are two ways how to encode syntactical validation rules in the Handle record:
         <ul>
@@ -172,7 +172,7 @@
                 The FDO record specifies a JSON schema which contains all validation rules through the attribute
                 <code>21.T11969/Data</code>. This attribute applies attribute referencing to point to the attribute
                 <code>21.T11969/JsonSchema</code>, which has as its value a JSON schema. The JSON Schema encodes the
-                following basic validation rules:
+                following <em>five basic validation rules</em>:
                 <ol>
                     <li>An attribute states to follow one of the primitive data types “string”, “number”, “integer”
                         and “boolean” using the `type` keyword.
@@ -192,7 +192,7 @@
                         with `enum`.
                     </li>
                 </ol>
-                <aside class="example" title="Simple attribute definitions using JSON schema (Way 1)">
+                <aside class="example" id="example-syntax-way-1" title="Simple attribute definitions using JSON schema (Way 1)">
                     In the first example, the JSON schema is directly written into the FDO record of the FDO attribute
                     definition.
                     <table>
@@ -309,23 +309,23 @@
             </li>
             <li>
                 <b>Way 2</b>:
-                The FDO attribute definition is fully encoded on the Handle record level, simply relying on references
-                to other attribute definitions, syntax definitions, or profiles. To specify the syntax of an attribute,
-                the following two attributes must be used in the FDO record:
+                The FDO attribute definition is fully encoded on the Handle record level, simply relying on a reference
+                to a syntax definition. To specify that way 2 is used to encode the syntax of an attribute,
+                the following two attributes must be used in the FDO record of the attribute definition:
                 <ol>
-                    <li>`(0.FDO/ValidationMechanism, Syntax)`</li>
-                    <li>`
-                        (0.FDO/DataType, [reference to a syntax definition])`.
-                    </li>
+                    <li><code>(21.T11969/ValidationMechanism, Syntax)</code></li>
+                    <li><code>(21.T11969/DataType, [reference to a syntax definition])</code>.</li>
                 </ol>
-                Syntax definitions are themselves FDOs and encode the basic validation rules in their records. They
-                follow the syntax definition profile with the PID `0.FDO/SyntaxDef` and contain the attributes as in
-                table 5.
-                <table border="2">
+                Syntax definitions are themselves FDOs and encode the <em>five basic validation rules</em> in their
+                records. They follow the syntax definition profile with the PID <code>21.T11969/SyntaxDef</code> and
+                contain the attributes listed in
+                <a href="table-syntax-def">Table 5</a>.
+
+                <table id="table-syntax-def" border="2">
 <caption style="caption-side:bottom"><b>Table 5</b>: The list of attribute definitions specified by the FDO syntax
-    definition profile (0.FDO/SyntaxDef). These attributes MUST be used when defining any new syntax definition.
-    This table does not include all information about the attributes. Please resolve the attribute definition PIDs
-    via the Handle System or see the appendix of this document.
+    definition profile (<code>21.T11969/SyntaxDef</code>). These attributes must be used when defining any new syntax
+    definition. This table does not include all information about the attributes. Please resolve the attribute
+    definition PIDs via the Handle System.
 </caption>
 <tr>
     <th>PID of Attribute Definition</th>
@@ -333,72 +333,276 @@
     <th>Cardinality of the attribute</th>
 </tr>
 <tr>
-    <td>0.FDO/Type</td>
-    <td>The string <em>FDO_Syntax_Definition</em>. Additional types may be added, if applicable.
+    <td><code>21.T11969/Type</code></td>
+    <td>The string <code>FDO_Syntax_Definition</code>. Additional types may be added, if applicable.
     </td>
     <td>1..*</td>
 </tr>
 <tr>
-    <td>0.FDO/Profile</td>
-    <td>The string <em>0.FDO/SyntaxDef</em>. Additional profiles may be added, if applicable.
+    <td><code>21.T11969/Profile</code></td>
+    <td>The string <code>21.T11969/SyntaxDef</code>. Additional profiles may be added, if applicable.
     </td>
     <td>1..*</td>
 </tr>
 <tr>
-    <td>0.FDO/Data</td>
-    <td>The string <em>Not_Applicable</em>.
+    <td><code>21.T11969/Data</code></td>
+    <td>The string <code>Not_Applicable</code>.
     </td>
     <td>1..*</td>
 </tr>
 <tr>
-    <td>0.FDO/Name</td>
+    <td><code>21.T11969/Name</code></td>
     <td>Human-readable and localized labels for this syntax.</td>
     <td>1..*</td>
 </tr>
 <tr>
-    <td>0.FDO/Description</td>
+    <td><code>21.T11969/Description</code></td>
     <td>Human-readable and localized descriptions for this syntax.</td>
     <td>0..*</td>
 </tr>
 <tr>
-    <td>0.FDO/PrimitiveDataType</td>
-    <td>“string”, “number”, “integer”, or “boolean”
+    <td><code>21.T11969/PrimitiveDataType</code></td>
+    <td><code>string</code>, <code>number</code>, <code>integer</code>, or <code>boolean</code>
     </td>
     <td>1</td>
 </tr>
 <tr>
-    <td>0.FDO/Regex</td>
+    <td><code>21.T11969/Regex</code></td>
     <td>regular expression in ECMA-262 syntax
     </td>
     <td>0..1</td>
 </tr>
 <tr>
-    <td>0.FDO/NumericInterval</td>
-    <td>An interval using one of the following forms: "[a,b]", "[a,b)", "(a,b]", "(a,b)".
+    <td><code>21.T11969/NumericInterval</code></td>
+    <td>An interval using one of the following forms: <code>[a,b]</code>, <code>[a,b)</code>, <code>(a,b]</code>, <code>(a,b)</code>.
     </td>
     <td>0..1</td>
 </tr>
 <tr>
-    <td>0.FDO/Whitelist</td>
-    <td>Any instance of the primitive data type. If <em>0.FDO/Whitelist</em> appears multiple times, this gives an
+    <td><code>21.T11969/Whitelist</code></td>
+    <td>Any instance of the primitive data type. If <code>21.T11969/Whitelist</code> appears multiple times, this gives an
         exhaustive list of allowed values for this attribute.
     </td>
     <td>0..*</td>
 </tr>
 <tr>
-    <td>0.FDO/Blacklist</td>
-    <td>Any instance of the primitive data type. If <em>0.FDO/Blacklist</em> appears multiple times, this gives a
+    <td><code>21.T11969/Blacklist</code></td>
+    <td>Any instance of the primitive data type. If <code>0.FDO/Blacklist</code> appears multiple times, this gives a
         non-exhaustive list of forbidden values for the attribute.
     </td>
     <td>0..*</td>
 </tr>
 </table>
+                <aside id="example-syntax-way-2" class="example" title="Simple attribute definitions using Handle-record level representation (Way 2)">
+                    We represent the same two attribute definitions as were given in <a href="#example-syntax-way-1"></a>
+                    using way 2. The first attribute definition was the one for the publication year:
+                    <table>
+                        <thead>
+                        <tr>
+                            <th scope="col">PID of Attribute Definition</th>
+                            <th scope="col">Example Value</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>21.T11969/Type</td>
+                            <td>FDO_Attribute</td>
+                        </tr>
+                        <tr>
+                            <td>21.T11969/Profile</td>
+                            <td>21.T11969/AttributeDef</td>
+                        </tr>
+                        <tr>
+                            <td>21.T11969/Name</td>
+                            <td>publication year</td>
+                        </tr>
+                        <tr>
+                            <td>21.T11969/Description</td>
+                            <td>The publication year of the resource.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>21.T11969/Cardinality</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>21.T11969/Data</td>
+                            <td>Not_Applicable</td>
+                        </tr>
+                        <tr>
+                            <td>21.T11969/ValidationMechanism</td>
+                            <td>Syntax</td>
+                        </tr>
+                        <tr>
+                            <td>21.T11969/DataType</td>
+                            <td>21.example/syntaxdef01</td>
+                        </tr>
+                        </tbody>
+                        <caption>
+                            Attribute definition FDO record (fictionary PID: <i>21.example/attribute01</i>)
+                        </caption>
+                    </table>
+                    The PID <code>21.example/syntaxdef01</code> identfies the following syntax definition FDO:
+                    <table>
+                        <thead>
+                        <tr>
+                            <th scope="col">PID of Attribute Definition</th>
+                            <th scope="col">Example Value</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>21.T11969/Type</td>
+                            <td>FDO_Syntax_Definition</td>
+                        </tr>
+                        <tr>
+                            <td>21.T11969/Profile</td>
+                            <td>21.T11969/SyntaxDef</td>
+                        </tr>
+                        <tr>
+                            <td>21.T11969/Data</td>
+                            <td>Not_Applicable</td>
+                        </tr>
+                        <tr>
+                            <td>21.T11969/Name</td>
+                            <td>Integer_[0,2026]</td>
+                        </tr>
+                        <tr>
+                            <td>21.T11969/Description</td>
+                            <td>An integer that lies in the interval [0,2026].
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>21.T11969/PrimitiveDataType</td>
+                            <td>integer</td>
+                        </tr>
+                        <tr>
+                            <td>21.T11969/NumericInterval</td>
+                            <td>[0,2026]</td>
+                        </tr>
+                        </tbody>
+                        <caption>
+                            Syntax definition FDO record (fictionary PID: <i>21.example/syntaxdef01</i>)
+                        </caption>
+                    </table>
+                    <br>
+                    The second attribute definition was the one for the color:
+                    <table>
+                        <thead>
+                        <tr>
+                            <th scope="col">PID of Attribute Definition</th>
+                            <th scope="col">Example Value</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>21.T11969/Type</td>
+                            <td>FDO_Attribute</td>
+                        </tr>
+                        <tr>
+                            <td>21.T11969/Profile</td>
+                            <td>21.T11969/AttributeDef</td>
+                        </tr>
+                        <tr>
+                            <td>21.T11969/Name</td>
+                            <td>color</td>
+                        </tr>
+                        <tr>
+                            <td>21.T11969/Description</td>
+                            <td>The color of the resource.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>21.T11969/Cardinality</td>
+                            <td>0..*</td>
+                        </tr>
+                        <tr>
+                            <td>21.T11969/Data</td>
+                            <td>Not_Applicable</td>
+                        </tr>
+                        <tr>
+                            <td>21.T11969/ValidationMechanism</td>
+                            <td>Syntax</td>
+                        </tr>
+                        <tr>
+                            <td>21.T11969/DataType</td>
+                            <td>21.example/syntaxdef02</td>
+                        </tr>
+                        </tbody>
+                        <caption>
+                            Attribute definition FDO record (fictionary PID: <i>21.example/attribute02</i>)
+                        </caption>
+                    </table>
+                    The PID <code>21.example/syntaxdef02</code> identfies the following syntax definition FDO:
+                    <table>
+                        <thead>
+                        <tr>
+                            <th scope="col">PID of Attribute Definition</th>
+                            <th scope="col">Example Value</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>21.T11969/Type</td>
+                            <td>FDO_Syntax_Definition</td>
+                        </tr>
+                        <tr>
+                            <td>21.T11969/Profile</td>
+                            <td>21.T11969/SyntaxDef</td>
+                        </tr>
+                        <tr>
+                            <td>21.T11969/Data</td>
+                            <td>Not_Applicable</td>
+                        </tr>
+                        <tr>
+                            <td>21.T11969/Name</td>
+                            <td>primary_colors</td>
+                        </tr>
+                        <tr>
+                            <td>21.T11969/Description</td>
+                            <td>The value must be one of the colors red, yellow, green, blue.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>21.T11969/PrimitiveDataType</td>
+                            <td>string</td>
+                        </tr>
+                        <tr>
+                            <td>21.T11969/Whitelist</td>
+                            <td>red</td>
+                        </tr>
+                        <tr>
+                            <td>21.T11969/Whitelist</td>
+                            <td>yellow</td>
+                        </tr>
+                        <tr>
+                            <td>21.T11969/Whitelist</td>
+                            <td>green</td>
+                        </tr>
+                        <tr>
+                            <td>21.T11969/Whitelist</td>
+                            <td>blue</td>
+                        </tr>
+                        <tr>
+                            <td>21.T11969/Blacklist</td>
+                            <td>black</td>
+                        </tr>
+                        <tr>
+                            <td>21.T11969/Blacklist</td>
+                            <td>white</td>
+                        </tr>
+                        </tbody>
+                        <caption>
+                            Syntax definition FDO record (fictionary PID: <i>21.example/syntaxdef02</i>)
+                        </caption>
+                    </table>
+                </aside>
             </li>
             <li>
                 Note that both ways can be combined by using all attributes <code>21.T11969/Data</code>,
                 <code>21.T11969/JsonSchema</code>, <code>21.T11969/DataType</code>, and
                 <code>21.T11969/ValidationMechanism</code> simultaneously. In this case, when creating or updating this
-                FDO attribute definition, it must be checked that both ways induce the same validation rules.
+                FDO attribute definition, it must be checked that both ways induce the same syntax validation rules.
             </li>
         </ul>
     </dd>
@@ -829,6 +1033,19 @@
             The 0.FDO/Type, 0.FDO/Data, 0.FDO/Profile attributes should be defined more broadly. Each implementation
             may specify in more detail whether 0.FDO/Data points to a URL, a PID following a patter, or if other
             advanced validation mechanisms are applied.
+        </li>
+    </ul>
+</div>
+
+<div style="background-color:LightPink;">
+    <b>TODOS:</b>
+    <ul>
+        <li>
+            Find a better example for whitelist and blacklist. The current example does not make any sense because when
+            whitelist is used, also adding a blacklist does not make any sense.
+        </li>
+        <li>
+            Update in the examples how the 21.T11969/Type is used. Currently it does not apply attribute referencing.
         </li>
     </ul>
 </div>
