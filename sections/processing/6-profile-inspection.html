@@ -1,5 +1,78 @@
 <h3>[S-6] FDO Profile(s) Inspection</h3>
+This step is only executed if <a href="#s-4">the root profile validation</a> returns <code>COMPLETE</code>, <code>REQUIRED_FIELDS</code>, or <code>PROFILE_ONLY</code>.
 
 <h4 class="notoc">Input</h4>
+<ul>
+    <li>the <a>FDO record</a></li>
+    <li>a list of expected <a>FDO profiles</a></li>
+    <li>the Profile_Matching flag configuring the matching process (<code>MATCH_ALL</code>, <code>EXACT_MATCH</code>, <code>DERIVED_MATCH</code>)</li>
+</ul>
+
 <h4 class="notoc">Process</h4>
+The client compares the list of FDO profiles in the FDO record with the expected FDO profile list looking for matches.
+<pre><code>enum ProfileMatching { MATCH_ALL, EXACT_MATCH, DERIVED_MATCH }
+enum ResultState { FULL_MATCH, ALL_MATCH, PARTIAL_MATCH, DERIVED_MATCH, NO_MATCH }
+struct ProfileInspectionResult {
+    state: ResultState;
+    matchedProfiles: PID[];
+}
+function inspectFDOProfiles (fdo: FDORecord, config: ProfileMatching, profiles: PID[]) -> TypeInspectionResult throws Error {
+    const fdoProfileValues = fdo.getAllValuesForAttribute('21.T11969/Profile'); // Get all values for 21.T11969/Type
+    let matchedProfiles: PID[] = []
+    let derivedProfiles: {
+        inFDO: PID,
+        derivedFrom: PID[]
+    }[] = []
+
+    if (config == ProfileMatching.MATCH_ALL || profiles.isEmpty()) {
+        return new TypeInspectionResult(ResultState.FULL_MATCH, fdoProfileValues); // All FDO profiles are considered appropriate
+    }
+
+    for fdoProfile in fdoProfileValues { // Iterate over all values of the FDO
+        if (Profiles.contains(fdoProfile)) {
+            matchedProfiles.append(fdoProfile); // Exact match found
+        } else if (config == ProfileMatching.DERIVED_MATCH) {
+            const derivedFrom: PID[] = getDerivedFrom(fdoProfile); // Get the recursive list of FDO profiles that the FDO Profile is derived from
+            const matchingDerivedProfiles = derivedFrom.filter(derivedType => profiles.contains(derivedType)); // Check if any of the derived profiles matches a profile in the expected FDO Profile list
+            if (!matchingDerivedProfiles.isEmpty) {
+                derivedProfiles.append({inFDO: fdoProfile, derivedFrom: matchingDerivedProfiles});
+            }
+        }
+    }
+
+    if (matchedProfiles.length == fdoProfileValues.length) { //
+        return new TypeInspectionResult(ResultState.ALL_MATCH, matchedProfiles);
+    } else if (matchedProfiles.length > 0 || derivedProfiles.length > 0) {
+        let allProfiles: PID[] = Set.of(matchedProfiles); // Start with the exact matches
+
+        if (config == ProfileMatching.DERIVED_MATCH && !derivedProfiles.isEmpty()) {
+            allProfiles.add(derivedProfiles.map(dt => dt.derivedFrom).flat()); // Add all derived profiles to the set of matched profiles
+            if (allProfiles.map(type => profiles.contains(type)).all()) { // Check if all the matched profiles (exact and derived) are in the expected FDO Profile list
+                return new TypeInspectionResult(ResultState.DERIVED_MATCH, allProfiles); // All matched profiles are at least derived from profiles in the expected FDO Profile list
+            }
+        }
+        return new TypeInspectionResult(ResultState.PARTIAL_MATCH, allProfiles); // Some (but not all) of the FDO profiles match the expected FDO profile list explicitly or are derived from them
+    } else {
+        return new TypeInspectionResult(ResultState.NO_MATCH, matchedProfiles);
+    }
+}
+
+private function getDerivedFrom (fdoProfile: string): PID[] {
+    // Implementation for retrieving derived profiles
+    const typeRecord = processing.resolve(fdoProfile); // Get the FDO record for the given FDO profile (cachable)
+    const derivationValues: string[] = typeRecord.getAllValuesForAttribute('21.T11969/Extends'); // Get all values for 21.T11969/Extends
+
+    // Recursively get all parent profiles
+    const parents: PID[] = derivationValues.map(derivedFrom => {
+        const parentProfiles = getDerivedFrom(derivedFrom); // Get the parent profiles of the derived type
+        return [derivedFrom, ...parentProfiles]; // Return the derived profiles and its parent profiles
+    }).flat(); // Flatten the array of arrays into a single array
+
+    return parents; // Returns all profiles that the given FDO profile is derived from
+}
+</code></pre>
+
 <h4 class="notoc">Output</h4>
+The status of the match as well as a list of the FDO profiles that match or are derived from the expected profiles.
+If the list is empty, it indicates that none were found.
+The client can determine from the number of FDO profile matches whether the match is full or partial.
