@@ -412,7 +412,7 @@
 
     <dt>[H5-1d] <dfn>Implementation-specific rules</dfn></dt>
     <dd>
-        Handle-based FDO <a>attribute definitions</a> introduce three <em>advanced validation mechanisms</em> that were
+        Handle-based FDO <a>attribute definitions</a> introduce three <a>advanced validation mechanisms</a> that were
         found helpful in the past. These validation mechanisms may be used in addition to  <a>syntax definitions</a>,
         compositions, and unions, where applicable and appropriate. The three mechanisms are:
         <ol>
@@ -473,13 +473,13 @@
             attributes:
             <ul>
                 <li>
-                    <i>(<code>21.T11969/ValidationMechanism</code>, ProfileReference</i>): This means that the <a>attribute definition</a>
-                    <i><code>21.T11969/Profile</code></i> applies the profile referencing mechanism.
+                    <code>(21.T11969/ValidationMechanism, ProfileReference)</code>): This means that the <a>attribute definition</a>
+                    <code>21.T11969/Profile</code> applies the profile referencing mechanism.
                 </li>
                 <li>
-                    <i>(<code>21.T11969/Data</code>, <code>21.T11969/Profile</code>Def)</i>: This means that if the <a>attribute definition</a>
-                    <i><code>21.T11969/Profile</code></i> is instantiated, the value must be a reference to an FDO that instantiates
-                    <i><code>21.T11969/Profile</code>Def</i> (i.e., it must be a reference to an FDO profile).
+                    <code>(21.T11969/Data, 21.T11969/ProfileDef)</code>: This means that if the <a>attribute definition</a>
+                    <code>21.T11969/Profile</code> is instantiated, the value must be a reference to an FDO that instantiates
+                    <code>21.T11969/ProfileDef</code> (i.e., it must be a reference to an FDO profile).
                 </li>
             </ul>
             <figure id="profile-ref">
@@ -497,7 +497,7 @@
         <ul>
             <li>
                 An <a>attribute definition</a> MUST explicitly state that it uses this feature by containing the attribute
-                <i>(<code>21.T11969/ValidationMechanism</code>, ProfileReference)</i>.
+                <code>(21.T11969/ValidationMechanism, ProfileReference)</code>.
             </li>
             <li>
                 The <a>attribute definition</a> MAY also specify a list of profile PIDs P<sub>1</sub>,...,P<sub>n</sub>

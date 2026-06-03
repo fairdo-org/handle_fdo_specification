@@ -2,7 +2,7 @@
 <p><b>Input:</b> List of FDO attributes <code>a<sub>1</sub>=(a<sub>1,def</sub>,a<sub>1,val</sub> ), ...,
     a<sub>n</sub>=(a<sub>n,def</sub>,a<sub>n,val</sub>)</code>.</p>
 <p>
-    <b>Process:</b> Check that there are at least the attributes <a>`0.FDO/Type`</a>, <a>`0.FDO/Profile`</a> and <a>`0.FDO/Data`</a> in the
+    <b>Process:</b> Check that there are at least the attributes <a>`21.T11969/Type`</a>, <a>`21.T11969/Profile`</a> and <a>`21.T11969/Data`</a> in the
     <code>a<sub>1,def</sub>,...,a<sub>n,def</sub></code>.
 <pre><code>enum Status {
     COMPLETE, REQUIRED_FIELDS, PROFILE_ONLY, TYPE_ONLY, NON_COMPLIANT
@@ -11,22 +11,22 @@
 function validateAgainstRootProfile (fdo: FDORecord) -> Status {
     let status: Status = COMPLETE
 
-    if (!fdo.containsAttribute('0.FDO/Profile')) {
-        status = TYPE_ONLY // if 0.FDO/Profile is not found, at best the type can be found
+    if (!fdo.containsAttribute('21.T11969/Profile')) {
+        status = TYPE_ONLY // if 21.T11969/Profile is not found, at best the type can be found
     } else {
         if(!detectPID(typeValue)){
             status = TYPE_ONLY
         }
     }
 
-    if (!fdo.containsAttribute('0.FDO/Type')) {
+    if (!fdo.containsAttribute('21.T11969/Type')) {
         if (status == TYPE_ONLY) {
             status = NON_COMPLIANT // Neither the type nor the profile has been found
         } else {
             status = PROFILE_ONLY // Only the profile has been found
         }
     } else {
-        const typeValues = fdo.getAllValuesForAttribute('0.FDO/Type');
+        const typeValues = fdo.getAllValuesForAttribute('21.T11969/Type');
         for typeValue in typeValues {
             if (typeValue === "FDO_Profile" || typeValue === "FDO_Attribute_Definition" || typeValue === "FDO_Syntax_Definition" || typeValue === "FDO_Type_Definition"){
                 continue; // This is the expected value for FDOs defining a profile, an attribute, a syntax definition, or an FDO type
@@ -36,23 +36,23 @@ function validateAgainstRootProfile (fdo: FDORecord) -> Status {
                 continue; // This is the expected case for profile referencing
             } else {
                 if (status == PROFILE_ONLY) {
-                    status = NON_COMPLIANT // 0.FDO/Profile was found, but the value of 0.FDO/Type is not compliant with the specification
+                    status = NON_COMPLIANT // 21.T11969/Profile was found, but the value of 21.T11969/Type is not compliant with the specification
                 } else {
-                    status = TYPE_ONLY // 0.FDO/Type was found, but the value of 0.FDO/Type is not compliant with the specification
+                    status = TYPE_ONLY // 21.T11969/Type was found, but the value of 21.T11969/Type is not compliant with the specification
                 }
             }
         }
     }
 
-    if (!fdo.containsAttribute("0.FDO/Data")){
+    if (!fdo.containsAttribute("21.T11969/Data")){
         if (status == COMPLETE) {
             status = REQUIRED_FIELDS // Data has not been found, but profile and type were
         }
     } else {
-        const dataValues = fdo.getAllValuesForAttribute("0.FDO/Data");
+        const dataValues = fdo.getAllValuesForAttribute("21.T11969/Data");
         boolean allValid = true;
 
-        for dataValue in dataValues { // Inspect the values of all 0.FDO/Data attributes
+        for dataValue in dataValues { // Inspect the values of all 21.T11969/Data attributes
             if (!fdo.containsAttribute(dataValue)){
                 allValid = false // Check that every attribute reference actually exists in the record
             }
@@ -72,10 +72,10 @@ function validateAgainstRootProfile (fdo: FDORecord) -> Status {
 <p>
     <b>Output:</b> One value from an enumeration of possible results
 <ul>
-    <li><b>COMPLETE:</b> 0.FDO/Profile, 0.FDO/Type, and 0.FDO/Data were found.</li>
-    <li><b>REQUIRED_FIELDS:</b> 0.FDO/Profile and 0.FDO/Type were found. 0.FDO/Data is missing or invalid.</li>
-    <li><b>PROFILE_ONLY:</b> 0.FDO/Profile has been found. 0.FDO/Type is missing or invalid. No assumption about 0.FDO/Data is made.</li>
-    <li><b>TYPE_ONLY:</b> 0.FDO/Type has been found. 0.FDO/Profile is missing or invalid. No assumption about 0.FDO/Data is made.</li>
-    <li><b>NON_COMPLIANT:</b> Neither 0.FDO/Profile nor 0.FDO/Type has been found.</li>
+    <li><b>COMPLETE:</b> 21.T11969/Profile, 21.T11969/Type, and 21.T11969/Data were found.</li>
+    <li><b>REQUIRED_FIELDS:</b> 21.T11969/Profile and 21.T11969/Type were found. 21.T11969/Data is missing or invalid.</li>
+    <li><b>PROFILE_ONLY:</b> 21.T11969/Profile has been found. 21.T11969/Type is missing or invalid. No assumption about 21.T11969/Data is made.</li>
+    <li><b>TYPE_ONLY:</b> 21.T11969/Type has been found. 21.T11969/Profile is missing or invalid. No assumption about 21.T11969/Data is made.</li>
+    <li><b>NON_COMPLIANT:</b> Neither 21.T11969/Profile nor 21.T11969/Type has been found.</li>
 </ul>
 </p>
