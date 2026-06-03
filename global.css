@@ -1,5 +1,4 @@
 table {
-    table-layout: fixed;
     width: 90%;
     margin: 10px auto;
     border-collapse: collapse;
@@ -14,13 +13,6 @@ th, td {
 
 tfoot {
     border-top: 1px solid #999999;
-}
-
-table {
-    width: 90%;
-    margin: 10px auto;
-    border-collapse: collapse;
-    border: 1px solid #999999;
 }
 
 code {
