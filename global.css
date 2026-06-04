@@ -18,3 +18,7 @@ tfoot {
 code {
     background: whitesmoke;
 }
+
+caption {
+    caption-side:bottom;
+}

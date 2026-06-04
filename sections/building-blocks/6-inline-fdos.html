@@ -1,20 +1,70 @@
 <h3>Inline-FDOs</h3>
 <dl>
-    <dt>[H6-1] Representation of Inline-FDOs</dt>
+    <dt>[H6-1] Representation of <dfn>Inline-FDOs</dfn></dt>
     <dd>
-         An inline-FDOs is represented as a JSON Object. The keys are either the PID of attribute definitions, or
-        the names of the attribute definitions. The inline-FDO must at least comply to the root profile.
+        An inline-FDOs is represented as a JSON Object.
+        The keys are either the PID of the <a>attribute definitions</a> or human-readable names.
+        The values are always an array of all the <a>attribute</a> values in the <a>FDO record</a>.
+        This is needed to avoid conflicts resulting from possibly multiple <a>attribute</a>-value tuples from the <a>FDO
+        record</a> that use the same <a>attribute definition</a>.
+        Every inline-FDO must at least comply with the <a>root profile</a>, other <a>profiles</a> may be added as
+        needed.
+        Using <a>profile referencing</a>, an inline-FDO can also be mandated to comply with other <a>profiles</a>.
+
+        <aside class="example" id="example-inline-fdo" title="An FDO with an inline-FDO as one of the values.">
+            <p>
+                As an example, we assume an FDO record that describes a dataset and includes an inline-FDO that
+                describes a file included in the dataset.
+                The FDO record could look similar to this:
+            </p>
+            <table>
+                <thead>
+                <tr>
+                    <th scope="col">PID of Attribute Definition</th>
+                    <th scope="col">Example Value</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><code>21.T11969/Profile</code></td>
+                    <td><code>21.T11969/Root</code></td>
+                </tr>
+                <tr>
+                    <td><code>21.T11969/Type</code></td>
+                    <td><code>21.example/dataset</code></td>
+                </tr>
+                <tr>
+                    <td><code>21.T11969/Data</code></td>
+                    <td><code>21.example/file</code></td>
+                </tr>
+                <tr>
+                    <td><code>21.example/hasPart</code></td>>
+                    <td>
+                        <pre><code>{
+    "21.T11969/Profile": ["21.T11969/Root", "21.example/dataset"],
+    "21.T11969/Type": ["21.example/fileFormat"],
+    "21.T11969/Data": ["21.example/dataset"],
+    "21.example/fileFormat": ["image/jpeg"],
+    "21.example/HTTPURL": ["https://test.example/image01.jpg"],
+    "21.example/fileSizeInKB": ["4242"],
+    "21.T11969/Name": ["Placeholder01"],
+    "21.example/isPartOf": ["21.example/dataset"]
+}</code></pre>
+                    </td>
+                </tr>
+                <tr>
+                    <td><code>21.example/hasPart</code></td>
+                    <td><code>{...}</code> (another inline FDO)</td>
+                </tr>
+                <tr>
+                    <td><code>21.example/hasPart</code></td>
+                    <td><code>21.example/existingFile01</code> (profile reference to an already existing FDO)</td>
+                </tr>
+                </tbody>
+                <caption>
+                    FDO record with an inline-FDO
+                </caption>
+            </table>
+        </aside>
     </dd>
 </dl>
-
-<div style="background-color:LightPink;">
-    <b>TODOS:</b>
-    <ul>
-        <li>
-            For an inline FDO to be a valid JSON, no attributes can be repeated. Is there a better way to represent an
-            inline-FDO? Or should we recommend to not use inline-FDO/just use it for very simple FDOs that have no
-            attributes that are used multiple times in the record?
-        </li>
-        <li>add an example for a valid inline-FDO</li>
-    </ul>
-</div>

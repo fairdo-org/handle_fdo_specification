@@ -1,0 +1,88 @@
+<h3>[S-7] FDO Profile(s) Validation</h3>
+This step uses the list of <a>FDO profiles</a> from <a href="#s-6">the profile inspection step</a>.
+
+<h4 class="notoc">Input</h4>
+<ul>
+    <li>The <a>FDO record</a></li>
+    <li>The list of FDO profiles from the inspection step</li>
+</ul>
+
+<h4 class="notoc">Process</h4>
+The client checks whether the FDO record is valid according to the rules defined in the FDO profiles.
+The specific validation rules depend on the FDO profiles being validated against.
+For example, if the FDO record is expected to conform to a specific profile,
+the client checks whether all required attributes for that profile are present in the FDO record.
+If the FDO record is expected to conform to multiple profiles, the client checks whether it satisfies the requirements of all those profiles.
+<pre><code>
+enum ValidationStatus { VALID, PARTIALLY_VALID, INVALID }
+struct AllProfilesValidationResult {
+    overallStatus: ValidationStatus; // VALID, PARTIALLY_VALID, INVALID
+    profileResults: SingleProfileValidationResult[]; // Validation results for each profile
+    presentAttributes: PID[]; // List of attributes present in the FDO record that belong to one of the profiles
+    missingRequiredAttributes: PID[]; // List of required attributes that are missing from the FDO record
+}
+struct SingleProfileValidationResult {
+    profile: PID;
+    status: ValidationStatus;
+    presentAttributes: PID[];
+    missingRequiredAttributes: PID[];
+}
+
+function validateFDORecord(fdo:FDORecord, profiles: PID[]) -> AllProfilesValidationResult {
+    let overallStatus: ValidationStatus = ValidationStatus.VALID;
+    let profileResults: SingleProfileValidationResult[] = [];
+    let presentAttributes: PID[] = Set.of();
+    let missingRequiredAttributes: PID[] = Set.of();
+
+    for (profile in profiles) {
+        const requiredAttributes = getRequiredAttributesForProfile(profile); // Get the list of required attributes for the profile
+        const presentAttributesForProfile = requiredAttributes.filter(attr => fdo.containsAttribute(attr)); // Check which required attributes are present in the FDO record
+        const missingAttributesForProfile = requiredAttributes.filter(attr => !fdo.containsAttribute(attr)); // Check which required attributes are missing from the FDO record
+
+        if (missingAttributesForProfile.isEmpty()) {
+            profileResults.append(new SingleProfileValidationResult(profile, ValidationStatus.VALID, presentAttributesForProfile, []));
+        } else if (presentAttributesForProfile.isEmpty()) {
+            profileResults.append(new SingleProfileValidationResult(profile, ValidationStatus.INVALID, [], missingAttributesForProfile));
+            overallStatus = ValidationStatus.PARTIALLY_VALID; // If any profile is invalid, the overall status is partially_invalid
+        } else {
+            profileResults.append(new SingleProfileValidationResult(profile, ValidationStatus.PARTIALLY_VALID, presentAttributesForProfile, missingAttributesForProfile));
+            if (overallStatus != ValidationStatus.INVALID) {
+                overallStatus = ValidationStatus.PARTIALLY_VALID; // If any profile is partially valid and no profile is invalid, the overall status is partially valid
+            }
+        }
+
+        presentAttributes.addAll(presentAttributesForProfile); // Add the present attributes for this profile to the overall list of present attributes
+        missingRequiredAttributes.addAll(missingAttributesForProfile); // Add the missing required attributes for this profile to the overall list of missing required attributes
+    }
+
+    if (presentAttributes.isEmpty()){
+        overallStatus = ValidationStatus.INVALID; // If no required attribute is present for any profile, the overall status is invalid
+    }
+
+    return new AllProfilesValidationResult(overallStatus, profileResults, presentAttributes, missingRequiredAttributes);
+}
+
+private function getRequiredAttributesForProfile(profile: PID): PID[] {
+    const profileFDO = processing.resolve(profile); // Get the FDO record for the given profile (cachable)
+    const attributes:string[] = profileFDO.getAllValuesForAttribute('21.T11969/Attribute');
+    let requiredAttributes: PID[] = [];
+
+    for attribute in attributes {
+        const attributeFDO = processing.resolve(attribute); // Get the FDO record for the given attribute (cachable)
+        const cardinality:string = attributeFDO.getFirstValueForAttribute('21.T11969/Cardinality'); // Get all values for 21.T11969/Cardinality
+        if (cardinality[0].toNumber() > 0) {
+            requiredAttributes.append(attribute); // If the cardinality is greater than 0, the attribute is required for the profile
+        }
+    }
+
+    return requiredAttributes;
+}
+</code></pre>
+
+<h4 class="notoc">Output</h4>
+<ul>
+    <li>The overall validation result (<code>VALID</code>, <code>PARTIALLY_VALID</code>, or <code>INVALID</code>)</li>
+    <li>A list of validation results for each FDO profile</li>
+    <li>A list of attributes belonging to one of the profiles</li>
+    <li>A list of missing required attributes</li>
+</ul>

@@ -1,0 +1,79 @@
+<h3>[S-5] <a>FDO Record</a> Type(s) Inspection</h3>
+This step is only executed if <a href="#s-4">the root profile validation</a> returns <code>COMPLETE</code>, <code>REQUIRED_FIELDS</code>, or <code>TYPE_ONLY</code>.
+
+<h4 class="notoc">Input</h4>
+<ul>
+    <li>the FDO record</li>
+    <li>a user-specified list of expected <a>FDO types</a></li>
+    <li>the Type_Matching flag configuring the matching process (<code>MATCH_ALL</code>, <code>EXACT_MATCH</code>, <code>DERIVED_MATCH</code>)</li>
+</ul>
+
+<h4 class="notoc">Process</h4>
+The client compares the list of FDO types in the FDO record with the expected FDO type list looking for matches.
+
+<pre><code>enum TypeMatching { MATCH_ALL, EXACT_MATCH, DERIVED_MATCH }
+enum ResultState { FULL_MATCH, ALL_MATCH, PARTIAL_MATCH, DERIVED_MATCH, NO_MATCH }
+struct TypeInspectionResult {
+    state: ResultState;
+    matchedTypes: PID[];
+}
+
+function inspectFDOTypes (fdo: FDORecord, config: TypeMatching, types: PID[]) -> TypeInspectionResult throws Error {
+    const fdoTypeValues = fdo.getAllValuesForAttribute('21.T11969/Type'); // Get all values for 21.T11969/Type
+    let matchedTypes: PID[] = []
+    let derivedTypes: {
+        inFDO: PID,
+        derivedFrom: PID[]
+    }[] = []
+
+    if (config == TypeMatching.MATCH_ALL || types.isEmpty()) {
+        return new TypeInspectionResult(ResultState.FULL_MATCH, fdoTypeValues); // All FDO types are considered appropriate
+    }
+
+    for fdoType in fdoTypeValues { // Iterate over all values of the FDO
+        if (types.contains(fdoType)) {
+            matchedTypes.append(fdoType); // Exact match found
+        } else if (config == TypeMatching.DERIVED_MATCH) {
+            const derivedFrom: PID[] = getDerivedFrom(fdoType); // Get the recursive list of FDO Types that the FDO Type is derived from
+            const matchingDerivedTypes = derivedFrom.filter(derivedType => types.contains(derivedType)); // Check if any of the derived types matches a type in the expected FDO Type list
+            if (!matchingDerivedTypes.isEmpty) {
+                derivedTypes.append({inFDO: fdoType, derivedFrom: matchingDerivedTypes});
+            }
+        }
+    }
+
+    if (matchedTypes.length == fdoTypeValues.length) { //
+        return new TypeInspectionResult(ResultState.ALL_MATCH, matchedTypes);
+    } else if (matchedTypes.length > 0 || derivedTypes.length > 0) {
+        let allTypes: PID[] = Set.of(matchedTypes); // Start with the exact matches
+
+        if (config == TypeMatching.DERIVED_MATCH && !derivedTypes.isEmpty()) {
+            allTypes.add(derivedTypes.map(dt => dt.derivedFrom).flat()); // Add all derived types to the set of matched types
+            if (allTypes.map(type => types.contains(type)).all()) { // Check if all the matched types (exact and derived) are in the expected FDO Type list
+                return new TypeInspectionResult(ResultState.DERIVED_MATCH, allTypes); // All matched types are at least derived from types in the expected FDO Type list
+            }
+        }
+        return new TypeInspectionResult(ResultState.PARTIAL_MATCH, allTypes); // Some (but not all) of the FDO types match the expected FDO Type list explicitly or are derived from them
+    } else {
+        return new TypeInspectionResult(ResultState.NO_MATCH, matchedTypes);
+    }
+}
+
+private function getDerivedFrom (fdoType: string): PID[] {
+    // Implementation for retrieving derived types
+    const typeRecord = processing.resolve(fdoType); // Get the FDO record for the given FDO type (cachable)
+    const derivationValues: string[] = typeRecord.getAllValuesForAttribute('21.T11969/Derived_From'); // Get all values for 21.T11969/Derived_From
+
+    // Recursively get all parent types
+    const parents: PID[] = derivationValues.map(derivedFrom => {
+        const parentTypes = getDerivedFrom(derivedFrom); // Get the parent types of the derived type
+        return [derivedFrom, ...parentTypes]; // Return the derived type and its parent types
+    }).flat(); // Flatten the array of arrays into a single array
+
+    return parents; // Returns all types that the given FDO type is derived from
+}</code></pre>
+
+<h4 class="notoc">Output</h4>
+The status of the match as well as a list of the FDO types that match or are derived from the expected types.
+If the list is empty, it indicates that none were found.
+The client can determine from the number of FDO type matches whether the match is full or partial.
