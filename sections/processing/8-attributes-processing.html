@@ -1,5 +1,170 @@
 <h3>[S-8] FDO Attributes Processing</h3>
 
 <h4 class="notoc">Input</h4>
+<ul>
+    <li>the <a>FDO record</a></li>
+    <li>a list of <a>attributes</a> to validate (could be <a href="#s-7">the list of available attributes that are used by at least one profile</a>)</li>
+</ul>
+
 <h4 class="notoc">Process</h4>
+The client iterates over the list of <a>attributes</a> and checks whether each attribute is present in the FDO record.
+If an <a>attribute</a> is present (i.e., at least one value exists), the client checks whether the value(s) of that <a>attribute</a> are compliant with the attribute definition.
+This can be a <a>syntax definition</a>, an <a>inline-combination</a> of attributes, an <a>inline-FDO</a>, or another validation mechanism (as defined in <a href="#attribute-definitions">the attribute definitions section</a>).
+<pre><code> struct AttributeValidationResult {
+    valid_attributes: {
+        attribute: PID,
+        values: any[]
+    }[]; // List of successfully validated attributes with their corresponding values
+
+    invalid_attributes: {
+        attribute: PID,
+        value: any,
+        errors: string[]
+    }[]; // List of attributes that are present in the FDO record but could not be validated successfully, with their corresponding values and validation errors
+}
+
+function validateAttributes(fdo: FDORecord, attributes: PID[]) -> AttributeValidationResult { -->
+    let validAttributes: { attribute: PID, values: any[] }[] = []; // List of successfully validated attributes with their corresponding values
+    let invalidAttributes: { attribute: PID, value: any, errors: string[] }[] = []; // List of attributes that are present in the FDO record but could not be validated successfully, with their corresponding values and validation errors
+
+    for (attribute in attributes) {
+        const attributeDefinition = processing.resolve(attribute); // get the attribute definition using the processing component
+        const cardinality: string = attributeDefinition.getFirstValueForAttribute('21.T11969/Cardinality'); // e.g., 0..1, 1, 1..*, 0..*, 1..20
+
+        let validValues: any[] = []; // Valid values for the attribute
+        if (fdo.containsAttribute(attribute)) { // Check if the attribute is present in the FDO record
+            const values = fdo.getAllValuesForAttribute(attribute); // Get all values for the attribute
+
+            for (value in values) { // Validate each value of the attribute according to its definition
+                // This function checks whether the value is compliant with the attribute definition and returns a list of validation errors (empty if the value is valid)
+                const errors: string[] = validateSingleValueAgainstAttributeDefinition(fdo, attributeDefinition, value);
+
+                if (errors.length === 0) { // If there are no validation errors, the value is valid
+                    validValues.append(value); // If the value is valid, add it to the list of valid values for this attribute
+                } else {
+                    invalidAttributes.append({ attribute: attribute, value: value, errors: errors }); // If the value is not valid, add it to the list of invalid attributes with the validation errors
+                }
+            }
+        }
+
+        // Checks based on the cardinality definition of the attribute
+        if (cardinality[0].toNumber() > validValues.length) {
+            invalidAttributes.append({ attribute: attribute, value: undefined, errors: [`Cardinality mandates a minimum of {cardinality[0].toNumber} values for attribute, only {validValues.length} valid values were found`] });
+        } else if (cardinality[-1] !== '*' && cardinality[-1].toNumber() < validValues.length) {
+            invalidAttributes.append({ attribute: attribute, value: undefined, errors: [`Cardinality mandates a maximum of {cardinality[-1].toNumber} values for attribute, but {validValues.length} valid values were found`] });
+        } else if (validValues.length > 0) {
+            validAttributes.append({ attribute: attribute, values: validValues }); // If the number of valid values is compliant with the cardinality definition, add the attribute to the list of valid attributes with its corresponding valid values
+        }
+    }
+
+    return new AttributeValidationResult(validAttributes, invalidAttributes); // Return the result of the attribute validation process
+}
+
+function validateSingleValueAgainstAttributeDefinition(fdo: FDORecord, attributeDefinition: FDORecord, value: any): string[] {
+    // Checking against WhiteList
+    const whitelist = attributeDefinition.getAllValuesForAttribute('21.T11969/Whitelist'); // Get all values for 21.T11969/Whitelist
+    if(!whitelist.isEmpty() && !whitelist.contains(value)) { // If the whitelist is not empty and the value is not in the whitelist, return an appropriate error message
+        return [`Value is not in the whitelist for this attribute definition`];
+    }
+
+    // Checking against BlackList
+    const blacklist = attributeDefinition.getAllValuesForAttribute('21.T11969/Blacklist'); // Get all values for 21.T11969/Blacklist
+    if(!blacklist.isEmpty() && blacklist.contains(value)) { // If the blacklist is not empty and the value is in the blacklist, return an appropriate error message
+        return [`Value is in the blacklist for this attribute definition`];
+    }
+
+    let errors: string[] = []; // Get all validation errors
+    let JSONSchemaValid: boolean | undefined = undefined; // Whether the value is valid against the JSON schema (if defined in the attribute definition)
+    let attributeDefValid: boolean | undefined = undefined // Whether the value is valid against the ValidationMechanism (if defined in the attribute definition)
+
+    // Checking based on the JSON schema
+    if (attributeDefinition.containsAttribute('21.T11969/JsonSchema')) {
+        const jsonSchema = attributeDefinition.getFirstValueForAttribute('21.T11969/JsonSchema'); // Get the first value for 21.T11969/JsonSchema
+        errors.append(validateValueAgainstJsonSchema(value, jsonSchema)); // Validate the value against the JSON schema and return the validation errors (empty if the value is valid)
+        if (errors.isEmpty){
+            JSONSchemaValid = true; // If the value is valid against the JSON schema, set JSONSchemaValid to true
+        } else {
+            JSONSchemaValid = false; // If the value is not valid against the JSON schema, set JSONSchemaValid to false
+        }
+    }
+
+    // Checking based on the ValidationMechanism
+    if (attributeDefinition.containsAttribute('21.T11969/ValidationMechanism')) {
+        const dataTypes: PID[] = attributeDefinition.getAllValuesForAttribute('21.T11969/DataType');
+        const validationMechanismErrors: string [] = switch(attributeDefinition.getFirstValueForAttribute('21.T11969/ValidationMechanism')){
+            case 'Syntax':
+                if (dataTypes.isEmpty || dataTyes.length > 1) {
+                    return ['Attribute definition with "Syntax" Validation mechanism must have exactly one 21.T11969/DataType value']; // If there is not exactly one syntax definition, return an appropriate error message
+                } else {
+                    return validateValueAgainstSyntax(value, dataTypes[0]); // Validate the value against the syntax definition and return the validation errors (empty if the value is valid)
+                }
+            case 'Union':
+                return validateValueAgainstUnion(value, dataTypes); // Validate the value against the union definition and return the validation errors (empty if the value is valid)
+            case 'InlineCombination':
+                return validateValueAgainstInlineCombination(value, attributeDefinition); // Validate the value against the inline combination definition and return the validation errors (empty if the value is valid)
+            case 'AttributeReference':
+                return validateAttributeReference(fdo, attributeDefinition, value); // Validate the value against the attribute reference definition and return the validation errors (empty if the value is valid)
+            case 'ProfileReference':
+                return validateProfileReference(attributeDefinition, value); // Validate the value against the profile reference definition and return the validation errors (empty if the value is valid)
+            case 'ExternalVocabularyReference':
+                return validateVocabularyReference(fdo, attributeDefinition, value); // Validate the value against the external vocabulary reference definition and return the validation errors (empty if the value is valid)
+            default:
+                return [`Unknown validation mechanism {attributeDefinition.getFirstValueForAttribute('21.T11969/ValidationMechanism')}`]; // If the validation mechanism is unknown, return an appropriate error message
+        }
+
+        if (validationMechanismErrors.isEmpty) {
+            attributeDefValid = true; // If the value is valid against the validation mechanism, set attributeDefValid to true
+        } else {
+            attributeDefValid = false; // If the value is not valid against the validation mechanism, set attributeDefValid to false
+            errors.append(validationMechanismErrors); // Add the validation mechanism errors to the list of errors
+        }
+    }
+
+    // Detect mismatch between JSON schema and FDO record-based validation
+    if (JSONSchemaValid !== undefined && attributeDefValid !== undefined) {
+        if (JSONSchemaValid != attributeDefValid) {
+            errors.append('The value is valid against the JSON schema but not against the validation mechanism, or vice versa'); // If the value is valid against the JSON schema but not against the validation mechanism, or vice versa, add an appropriate error message
+        } else if (!JSONSchemaValid && !attributeDefValid) {
+            errors.append('The value is not valid against both the JSON schema and the validation mechanism'); // If the value is not valid against both the JSON schema and the validation mechanism, add an appropriate error message
+        }
+    }
+
+    return errors; // Return all errors that occurred during the lifespan
+}
+
+function validateValueAgainstSyntax (value: any, syntaxDefinition: PID) -> string[]{}
+
+function validateValueAgainstUnion (value: any, dataTypes: PID[]) -> string[]{}
+
+function validateValueAgainstInlineCombination (value: any, dataTypes: PID[]) -> string[]{}
+
+function validateAttributeReference(fdo: FDORecord, attributeDefinition: FDORecord, value:any) -> string[]{}
+
+function validateProfileReference(attributeDefinition: FDORecord, value:any) -> string[]{
+    const referredFDO = processing.resolve(value);
+    if (!referredFDO.isEmpty() && referredFDO.containsAttribute('21.T11969/Profile')) {
+        const profileResult: AllProfilesValidationResult = processing.validateFDORecordAgainstProfiles(referredFDO, ['21.T11969/Root', ...dataTypes])); // Validate the value against all profile definitions + the root profile (Step 7)
+        if (profileResult.overallStatus == ValidationStatus.VALID) {
+            return []; // If the value is valid against all profile definitions, return an empty list of errors
+        } else {
+            let errors: string[] = ['The value of the attribute is expected to be a reference to an FDO instantiating a profile, but the referred FDO record does not validate against all profile definitions specified in the attribute definiton or the root profile'];
+            for singleResult in profileResult.profileResults) {
+                if (singleResult.status != ValidationStatus.VALID) {
+                    errors.append(`The referred FDO record {value} does not validate against profile {singleResult.profile} by missing the following required attributes: {singleResult.missingRequiredAttributes}`);
+                }
+            }
+            return errors;
+        }
+    } else {
+        return [`The value of the attribute is expected to be a reference to an FDO instantiating a profile, but the referred FDO record does not contain any profile`];
+    }
+}
+
+function validateVocabularyReference(fdo: FDORecord, attributeDefinition: FDORecord, value:any) -> string[]{}
+</code></pre>
+
 <h4 class="notoc">Output</h4>
+<ul>
+    <li>A list of successfully validated <a>attributes</a> with their corresponding values</li>
+    <li>A list of <a>attributes</a> that are present in the FDO record but could not be validated successfully (e.g., because their value is not compliant with the <a>attribute definition</a>)</li>
+</ul>
