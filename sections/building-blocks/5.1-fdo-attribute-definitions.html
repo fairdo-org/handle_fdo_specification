@@ -1,0 +1,168 @@
+<h3>FDO attribute definitions</h3>
+<dl>
+    <dt>[H5-1] Representation of <dfn data-lt="FDO attribute definition|attribute definition|0.FDO/Attribute|21.T11969/Attribute|attribute|FDO attribute">FDO attribute definitions</dfn></dt>
+    <dd>
+        The <a>Handle record</a> of a Handle-based FDO <a>attribute definition</a> must contain a fixed, predefined set of FDO
+        attributes (see <a href="#table-attr-def">Table 4</a>). Note that there are two types of <a>attributes</a> in the
+        <a>Handle record</a>:
+        <ol>
+            <li>
+                <b>Meta information about the <a>attribute definition</a></b>, to describe the FDO <a>attribute definition</a>
+                itself: <code>21.T11969/Type</code>, <code>21.T11969/Profile</code>, <code>21.T11969/Name</code> (all mandatory),
+                <code>21.T11969/Description</code> (optional).
+            </li>
+            <li>
+                <b>The actual content of the <a>attribute definition</a></b>, from which all validation rules (for <a>attributes</a>
+                instantiating this <a>attribute definition</a>) can be derived: <code>21.T11969/Cardinality</code>,
+                <code>21.T11969/Data</code> (both mandatory), <code>21.T11969/JsonSchema</code>,
+                <code>21.T11969/ValidationMechanism</code>, <code>21.T11969/DataType</code> (optional). There are
+                several mechanisms to encode and interpreted attribute definitions. Each of those mechanisms have their
+                own validation rules for instantiating FDOs. The mechanisms and their validation rules are explained in
+                more detail, including examples, in their respective sections:
+                <ul>
+                    <li>[H5-4] Syntax</li>
+                    <li>[H5-5] Compositions of Attribute Definitions</li>
+                    <li>[H5-6] Unions of Attribute Definitions</li>
+                    <li>[H5-7] Profile Referencing</li>
+                    <li>[H5-8] Attribute Referencing</li>
+                    <li>[H5-9] External Vocabulary Referencing</li>
+                </ul>
+                A short summary of how to encode each of these rules in a Handle-based <a>attribute definition</a> is given in
+                <a href="#table-attr-def">Table 4</a>. The full explanations are given in the respective sections
+                [H5-4] - [H5-9].
+            </li>
+        </ol>
+
+        <table id="table-attr-def" border="2">
+            <caption style="caption-side:bottom"><b>Table 4</b>: The list of <a>attribute definitions</a> which MUST be
+                used when registering a new Handle-based FDO <a>attribute definition</a>. This table does not include all
+                information about the <a>attribute definitions</a>. For more details, please resolve the <a>attribute
+                definition</a> PIDs via the <a>Handle System</a>.
+            </caption>
+            <tr>
+                <th>PID of the <a>attribute definition</a> </th>
+                <th>Attribute value</th>
+                <th>Cardinality of the <a>attribute</a></th>
+            </tr>
+            <tr>
+                <td><code>21.T11969/Type</code></td>
+                <td>The string <code>FDO_Attribute_Definition</code>. Additional types may be added, if applicable.</td>
+                <td>1..*</td>
+            </tr>
+            <tr>
+                <td><code>21.T11969/Profile</code></td>
+                <td>The string <code>21.T11969/AttributeDef</code>. Additional <a>profiles</a> may be added, if applicable.</td>
+                <td>1..*</td>
+            </tr>
+            <tr>
+                <td><code>21.T11969/Name</code></td>
+                <td>Human-readable and localized label(s) for the <a>attribute definition</a>. </td>
+                <td>1..*</td>
+            </tr>
+            <tr>
+                <td><code>21.T11969/Description</code></td>
+                <td>Human-readable and localized description(s) for the <a>attribute definition</a>.</td>
+            <td>0..*</td>
+            </tr>
+            <tr>
+                <td><code>21.T11969/Cardinality</code></td>
+                <td>
+                    Description of the obligation and repeatability of this <a>attribute</a> in an <a>FDO record</a>.
+                </td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td><code>21.T11969/Data</code></td>
+                <td>
+                    This attribute can have two different values:
+                    <ul>
+                        <li>
+                            The string <code>21.T11969/JsonSchema</code>, if this attribute definition defines a
+                            syntax/union/composition according to way 1.
+                        </li>
+                        <li>
+                            The string <code>Not_Applicable</code>, if this attribute definition defines
+                            syntax/union/composition according to way 2; or if it defines a profile
+                            reference / attribute reference / external vocabulary reference.
+                        </li>
+                    </ul>
+                    If both ways are combined for syntax/union/composition, then the value is
+                    <code>21.T11969/JsonSchema</code>.
+                </td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td><code>21.T11969/JsonSchema</code></td>
+                <td>
+                    This attribute is just used when the attribute represents a syntax/union/ composition according to
+                    way 1. In this case, the value is an inline JSON schema, representing an FDO attribute definition.
+                </td>
+                <td>0..*</td>
+            </tr>
+            <tr>
+                <td><dfn><code>21.T11969/ValidationMechanism</code></dfn></td>
+                <td>
+                    This attribute is just used when the attribute represents a syntax/union/ composition according to
+                    way 2, or a profile reference / attribute reference / external vocabulary reference.
+                    The value is of:
+                    <ul>
+                        <li><code>Syntax</code> (see [H5-4])</li>
+                        <li><code>InlineCombination</code> (see [H5-5])</li>
+                        <li><code>Union</code> (see [H5-6])</li>
+                        <li><code>AttributeReference</code> (see [H5-7])</li>
+                        <li><code>ProfileReference</code> (see [H5-8])</li>
+                        <li><code>ExternalVocabularyReference</code> (see [H5-9])</li>
+                    </ul>
+                </td>
+                <td>0..*</td>
+            </tr>
+            <tr>
+                <td><code>21.T11969/DataType</code></td>
+                <td>This attribute is just used when the attribute represents a syntax/union/ composition according to
+                    way 2, or a profile reference / attribute reference / external vocabulary reference.
+                    The value is a reference to one of:
+                    <ul>
+                        <li>
+                            a syntax definition (if the validation mechanism is <code>Syntax</code>)
+                        </li>
+                        <li>
+                            an <a>attribute definition</a> (if the validation mechanism is <code>Union</code>,
+                            <code>InlineCombination</code>, or <code>AttributeReference</code>)
+                        </li>
+                        <li>
+                            a profile (if the validation mechanism is <code>ProfileReference</code>)
+                        </li>
+                        <li>
+                            an external vocabulary namespace (if the validation mechanism is
+                            <code>ExternalVocabularyReference</code>)
+                        </li>
+                    </ul>
+                </td>
+                <td>0..*</td>
+            </tr>
+        </table>
+        <br/>
+    </dd>
+</dl>
+
+<div data-include="sections/building-blocks/5.2-attr-def.html"></div>
+<div data-include="sections/building-blocks/5.3-semantics.html"></div>
+<div data-include="sections/building-blocks/5.4-syntax.html"></div>
+<div data-include="sections/building-blocks/5.5-compositions.html"></div>
+<div data-include="sections/building-blocks/5.6-unions.html"></div>
+<div data-include="sections/building-blocks/5.7-profile-ref.html"></div>
+<div data-include="sections/building-blocks/5.8-attr-ref.html"></div>
+<div data-include="sections/building-blocks/5.9-external-vocab-ref.html"></div>
+
+<div style="background-color:LightPink;">
+    <b>TODOS:</b>
+    <ul>
+        <li>
+            Find a better example for whitelist and blacklist. The current example does not make any sense because when
+            whitelist is used, also adding a blacklist does not make any sense.
+        </li>
+        <li>
+            Update in the examples how the 21.T11969/Type is used. Currently it does not apply attribute referencing.
+        </li>
+    </ul>
+</div>

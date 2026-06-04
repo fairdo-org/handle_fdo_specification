@@ -1,0 +1,95 @@
+<dl>
+    <dt>[H5-1g] <dfn>External Vocabulary Referencing</dfn></dt>
+    <dd>
+        It is essential for FDOs that existing vocabularies, ontologies, and terminologies can be reused in
+        <a>records</a>
+        (even if they are not in the strict format as described in [H5-1]).
+        This can be carried out by applying <a>external vocabulary referencing</a>.
+
+        <aside class="example" title="External Vocabulary Referencing: Using Schema.org in Handle-based FDOs">
+            <a href="#ex-vocab-ref">Figure 6</a> shows how schema.org terms can be used in an <a>FDO record</a> by
+            applying <a>external vocabulary referencing</a>.
+            <figure id="ex-vocab-ref">
+                <img src="img/External_Vocab_Referencing.png" alt="External_Vocab_Referencing.png">
+                <figcaption>
+                    This figure shows how schema.org terms are used in the FDO <code>21.123/456</code>.
+                </figcaption>
+            </figure>
+            <ul>
+                <li>
+                    The <a>attribute definition</a> <code>21.T11969/SchemaOrgTerm</code> states that it uses external
+                    <a>attribute referencing</a> through the
+                    <a>attribute</a> <code>(21.T11969/ValidationMechanism, ExternalVocabularyReference)</code>.
+                </li>
+                <li>
+                    The <a>syntax definition</a> <code>21.T11969/SchemaOrgTermSyntax</code> specifies the syntax of the
+                    <a>attribute definition</a>, i.e., it
+                    must be instantiated by the string “https://schema.org”, which is the schema.org namespace.
+
+                </li>
+                <li>The FDO <code>21.123/456</code> contains the <a>attribute</a> <code>(21.T11969/SchemaOrgTerm,
+                    https://schema.org)</code> to indicate that it uses
+                    vocabulary from schema.org.
+                    Afterwards, any schema.org term can be used as an <a>attribute</a> in the form <code>(&ltURL of
+                        term&gt, &ltvalue&gt)</code>, such as <code>(https://schema.org/priceCurrency, USD)</code>.
+                </li>
+            </ul>
+        </aside>
+        <p>The detailed requirements for <a>External Vocabulary Referencing</a> are:</p>
+        <p><b>Format of an <a>attribute definition</a> that Applies External Vocabulary Referencing:</b></p>
+        <p>The following detailed requirements must be fulfilled such that an <a>attribute definition</a> A applies
+            external vocabulary referencing:</p>
+        <ul>
+            <li>
+                The <a>attribute definition</a> A MUST explicitly state that it uses this feature by containing the <a>attribute</a>
+                <code>(<a>21.T11969/ValidationMechanism</a>, ExternalVocabularyReference)</code>.
+            </li>
+            <li>
+                The <a>attribute definition</a> A MUST specify the namespace of the external vocabulary using the <a>attribute</a>
+                <a><code>21.T11969/Data</code></a> which references a syntax definition that validates the namespace.
+            </li>
+        </ul>
+
+        <p><b>Instantiation of External Vocabulary Attributes in the Record:</b></p>
+
+        To use external vocabulary in the <a>FDO record</a>, the record MUST contain
+        <ul>
+            <li>an attribute <code>a=(a<sub>def</sub>,a<sub>val</sub>)</code> that instantiates <a>attribute
+                definition</a> A, where A
+                applies external vocabulary referencing
+            </li>
+            <li>an attribute <code>b=(b<sub>def</sub>,b<sub>val</sub>)</code> representing a vocabulary term</li>
+        </ul>
+        A and b must fulfill the following requirements:
+        <ul>
+            <li><code>a<sub>val</sub></code> is a URL representing a namespace</li>
+            <li><code>b<sub>def</sub> = a<sub>val</sub>/&ltterm&gt</code>, i.e., <code>b<sub>def</sub></code> is a URL
+                representing a term under a namespace
+            </li>
+            <li><code>>b<sub>val</sub></code> instantiates <code>b<sub>def</sub></code>.</li>
+        </ul>
+        <p><b>Validation Rules:</b></p>
+        To validate an FDO that contains an <a>attribute</a> <code>a=(a<sub>def</sub>,a<sub>val</sub>)</code> applying
+        <a>external vocabulary referencing</a>, it is
+        checked that the namespace a<sub>val</sub> is valid according to the <a>syntax definition</a> referenced from
+        the <a>attribute definition</a>.
+    </dd>
+</dl>
+
+<div style="background-color:LightPink;">
+    <b>TODOS:</b>
+    <ul>
+        <li>
+            Profile referencing/attribute referencing/external vocabulary referencing are quite handlish concepts.
+            Should they really be part of the main FDO spec? Wouldn't it be an option to either move it to the
+            Handle spec, or describe these mechanisms more broadly and without specifying the FDO records?
+        </li>
+        <li>
+            The <code>21.T11969/Type</code>, <code>21.T11969/Data</code>, <code>21.T11969/Profile</code> attributes
+            should be defined more broadly. Each implementation
+            may specify in more detail whether <code>21.T11969/Data</code> points to a URL, a PID following a patter, or
+            if other
+            advanced validation mechanisms are applied.
+        </li>
+    </ul>
+</div>

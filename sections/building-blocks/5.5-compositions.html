@@ -1,0 +1,122 @@
+<dl>
+    <dt>[H5-5] <dfn>Composition</dfn> of Attribute Definitions -> needs to be revised</dt>
+    There are two ways how to encode the composition of attribute definitions in Handle-based attribute definitions:
+    <dd>
+        <ul>
+            <li><p><b>Way 1</b>:
+                A composition of attributes is implemented in JSON schema as an object with properties. Each property
+                corresponds to one attribute definition. The properties must all be arrays, where
+
+                links to the JSON schema of another attribute definitions by either using the keyword <code>$ref</code>,
+                or the other attribute definition is fully given inline. The composition is instantiated by a JSON that
+                validates against the JSON schema.</p>
+
+                <aside class="note">
+                    JSON does not support having the same key several times. Hence, the cardinalities of the attribute
+                    definitions (given on the Handle record-level by the attribute
+                    <code>21.T11969/Cardinality</code>) that are part of the composition are ignored. To state that
+                    certain attributes are required (Cardinality 1), you can use the <code>required</code> keyword.
+                    Additionally, you can use the <code>additionalProperties</code> keyword to prevent adding additional
+                    content to the composition.
+                </aside>
+
+
+                <div style="background-color:LightPink;">
+                    <b>TODO</b>: Cardinalities of attributes in compositions get lost when using JSON schema: JSON
+                    schema does not allow the same key multiple times. The required keyword can be used to overwrite the
+                    cardinalities, to say that an attribute is required (1) or optional (0..1). Is this ok? It is also
+                    not so nice to have different representations for inline FDOs (values are lists) and attribute
+                    compositions (values are JSONs). Can we maybe do this in a better way?
+                </div>
+
+                <aside class="example" title="JSON Schemas of a union of attributes">
+                    The following FDO record gives the attribute definition of an author, which is a composition of a
+                    first name and a last name.
+                    <table>
+                        <thead>
+                        <tr>
+                            <th scope="col">PID of Attribute Definition</th>
+                            <th scope="col">Example Value</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>21.T11969/Type</td>
+                            <td>FDO_Attribute</td>
+                        </tr>
+                        <tr>
+                            <td>21.T11969/Profile</td>
+                            <td>21.T11969/AttributeDef</td>
+                        </tr>
+                        <tr>
+                            <td>21.T11969/Name</td>
+                            <td>author</td>
+                        </tr>
+                        <tr>
+                            <td>21.T11969/Description</td>
+                            <td>An author is a composition of a first name and a last name..
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>21.T11969/Cardinality</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>21.T11969/Data</td>
+                            <td>21.T11969/JsonSchema</td>
+                        </tr>
+                        <tr>
+                            <td>21.T11969/JsonSchema</td>
+                            <td>
+                                <pre><code>{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "author",
+    "description": "An author is a composition of a first name and a last name.",
+    "type": "object",
+    "properties": {
+        "firstName": {
+            "$ref": "https://typeapi.lab.pidconsortium.net/v1/types/schema/21.T11969/3df63b7acb0522da685d"
+        },
+        "lastName": {
+            "title": "String",
+            "description": "Validation schema for type 'String' with the PID '21.T11969/3df63b7acb0522da685d'",
+            "type": "string"
+            }
+        }
+    },
+    "required": ["firstName", "lastName"],
+    "additionalProperties": false
+}</code></pre>
+                            </td>
+                        </tr>
+                        </tbody>
+                        <caption>
+                            Profile FDO record (fictionary PID: <i>21.example/comp_attribute01</i>)
+                        </caption>
+                    </table>
+                            This attribute definition validates the attribute:
+                    <pre><code>("21.example/comp_attribute01", {"firstName": "Jon", "lastName": "Doe"})</code></pre>
+                        </aside>
+            </li>
+
+            <li><b>Way 2</b>:
+                A composition of attributes is implemented by setting two attributes in the <a>FDO record</a>:
+                <ol>
+                    <li><code>(21.T11969/ValidationMechanism, InlineCombination)</code></li>
+                    <li><code>(21.T11969/DataType, [reference to <a>attribute definition</a>])</code>, repeated multiple times.</li>
+                </ol>
+                <aside class="example" title="JSON Schemas of a composition of attributes">
+                    The following three attributes define a composition of a string and an integer.
+                    <ol>
+                        <li><code>(21.T11969/ValidationMechanism, Composition)</code>,</li>
+                        <li><code>(21.T11969/DataType, 21.T11969/3df63b7acb0522da685d)</code>,</li>
+                        <li><code>(21.T11969/DataType, 21.T11969/9edcffff4461c9083fbf)</code>,</li>
+                    </ol>
+                    The composition is instantiated by the following JSON object (String and Integer are the
+                    names of the attributes -> we need to define better examples here):
+                    <pre><code>{"String": "abc", "Integer": 123}</code></pre>
+                </aside>
+            </li>
+        </ul>
+    </dd>
+</dl>

@@ -1,0 +1,50 @@
+<dl>
+    <dt>[H5-6] <dfn data-lt="union|unions|Union|unions">Unions of Attribute Definitions</dfn></dt>
+    <dd>
+        <p>There are two ways how to encode the union of attribute definitions in Handle-based attribute definitions.</p>
+        <p><b>[H5-6a] JSON Schemas:</b></p>
+        <p>
+            A <a>union</a> of attributes can be implemented by combining the keywords <code>anyof</code> and
+            <code>$ref</code> to reference multiple existing JSON schemas, each representing an attribute definition.
+        </p>
+        <aside class="example" title="Union of attributes using JSON Schemas">
+<pre><code>{
+"$schema": "http://json-schema.org/draft-04/schema#",
+"title": "Union of string and integer",
+"description": "This attribute validates all strings and all integers.",
+"anyOf": [
+{
+  "$ref": "https://typeapi.lab.pidconsortium.net/v1/types/schema/21.T11969/3df63b7acb0522da685d"
+},
+{
+  "$ref": "https://typeapi.lab.pidconsortium.net/v1/types/schema/21.T11969/9edcffff4461c9083fbf"
+}
+]
+}</code></pre>
+            This attribute union validates:
+<pre><code>123</code></pre>
+            and
+            <pre><code>"myString"</code></pre>
+        </aside>
+
+
+        A union of attributes is implemented by setting two attributes in the FDO record:
+        <ol>
+            <li><code>(21.T11969/ValidationMechanism, Union)</code></li>
+            <li><code>(21.T11969/DataType, [reference to attribute definition])</code>, repeated multiple times.</li>
+        </ol>
+        <aside class="example" title="JSON Schemas of a composition of attributes">
+            The following three attributes define a union of a string and an integer.
+            <ol>
+                <li><code>(21.T11969/ValidationMechanism, Union)</code>,</li>
+                <li><code>(21.T11969/DataType, 21.T11969/3df63b7acb0522da685d)</code>,</li>
+                <li><code>(21.T11969/DataType, 21.T11969/9edcffff4461c9083fbf)</code>.</li>
+            </ol>
+            This attribute union validates
+            <pre><code>123</code></pre>
+            and
+            <pre><code>"myString"</code></pre>.
+        </aside>
+
+    </dd>
+</dl>
