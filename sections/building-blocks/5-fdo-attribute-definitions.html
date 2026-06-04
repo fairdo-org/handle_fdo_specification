@@ -758,15 +758,15 @@
 
         A union of attributes is implemented by setting two attributes in the FDO record:
         <ol>
-            <li><code>(21.T11969/ValidationMechanism, Union)<code></li>
-            <li><code>(21.T11969/DataType, [reference to attribute definition])<code>, repeated multiple times.</li>
+            <li><code>(21.T11969/ValidationMechanism, Union)</code></li>
+            <li><code>(21.T11969/DataType, [reference to attribute definition])</code>, repeated multiple times.</li>
         </ol>
         <aside class="example" title="JSON Schemas of a composition of attributes">
             The following three attributes define a union of a string and an integer.
             <ol>
                 <li><code>(21.T11969/ValidationMechanism, Union)</code>,</li>
                 <li><code>(21.T11969/DataType, 21.T11969/3df63b7acb0522da685d)</code>,</li>
-                <li>code>(21.T11969/DataType, 21.T11969/9edcffff4461c9083fbf)</code>.</li>
+                <li><code>(21.T11969/DataType, 21.T11969/9edcffff4461c9083fbf)</code>.</li>
             </ol>
             This attribute union validates
             <pre><code>123</code></pre>
