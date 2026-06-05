@@ -166,3 +166,38 @@
         </li>
     </ul>
 </div>
+
+<div style="background-color:LightPink;">
+    <b>TODO</b>:
+    <ul>
+        <li>Register the Handles <code>21.T11969/AttributeDef</code> and <code>21.T11969/SyntaxDef</code>.</li>
+        <li>Discuss whether each implementation should redefine the attribute definition profile (probably yes).</li>
+        <li><code>21.T11969/AttributeDef</code> is a composition of two <a>profiles</a>, which both need to be registered (see table 3 and table 4)?</li>
+        <li>
+            Discuss the level of freedom each implementation has. It may be that different implementations have
+            different level of expressability. Open questions are:
+            <ul>
+                <li>
+                    Can we fix existence of syntax definitions on the FDO spec level? -> maybe not. My suggestion:
+                    exclude syntax definitions from FDO spec. This is too fine-grained in general. We can use it in
+                    the Handle Type System, but other implementations just need to have attributes, not syntax
+                    definitions.
+                </li>
+                <li>Can we fix a set of default validation rules on the FDO spec level? -> maybe yes</li>
+                <li>
+                    Should we define advanced referencing on the FDO spec level? At least, maybe we should not
+                    specify the record structure on the FDO spec level. Maybe we can say that the three mechanisms
+                    are useful, and an implementation may specify how to represent them in their technology. Or we
+                    leave them out completely. They seem quite Handle-ish.
+                </li>
+                <li>
+                    The DTR uses @id and does the schema compositions of complex attributes and  <a>profiles</a> directly
+                    such that we do not get to see any $ref keywords. Do we require any changes in spec or DTR? It
+                    currently does not fit the descriptions in this document. It may make more sense to do
+                    composition without the $ref and without relying on other attributes. Just do one complex
+                    attribute definition.
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
