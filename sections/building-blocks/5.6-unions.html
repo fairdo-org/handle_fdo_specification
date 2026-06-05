@@ -1,11 +1,20 @@
 <dl>
     <dt>[H5-6] <dfn data-lt="union|unions|Union|unions">Unions of Attribute Definitions</dfn></dt>
     <dd>
-        <p>There are two ways how to encode the union of attribute definitions in Handle-based attribute definitions.</p>
-        <p><b>[H5-6a] JSON Schemas:</b></p>
         <p>
-            A <a>union</a> of attributes can be implemented by combining the keywords <code>anyof</code> and
-            <code>$ref</code> to reference multiple existing JSON schemas, each representing an attribute definition.
+            There are two equivalent ways how to encode the union of attribute definitions in Handle-based attribute
+            definitions.
+        </p>
+        <p><b>[H5-6a] Unions implemented by JSON Schemas:</b></p>
+        <p>
+            The <a>FDO record</a> specifies a JSON schema using the attribute <code>21.T11969/Data</code>. This
+            attribute applies attribute referencing to point to the attribute<code>21.T11969/JsonSchema</code>, which
+            has as its value a JSON schema encoding a union of attributes:
+        </p>
+        <p>
+            The JSON schema uses the keyword <code>anyof</code> to compose different attribute definitions. Each
+            attribute definition can be either a reference through the <code>$ref</code> keyword, or it can be
+            directly pasted into the JSON schema as a sub schema.
         </p>
         <aside class="example" title="Union of attributes using JSON Schemas">
 <pre><code>{
@@ -28,7 +37,7 @@
         </aside>
 
 
-        A union of attributes is implemented by setting two attributes in the FDO record:
+        <p><b>[H5-6b] Unions implemented on Handle-record level:</b></p>
         <ol>
             <li><code>(21.T11969/ValidationMechanism, Union)</code></li>
             <li><code>(21.T11969/DataType, [reference to attribute definition])</code>, repeated multiple times.</li>
