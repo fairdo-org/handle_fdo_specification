@@ -1,16 +1,106 @@
 <dl>
-    <dt>[H5-1d] <dfn>Implementation-specific rules</dfn></dt>
+    <dt>[H5-7] <dfn data-lt="profile referencing|Profile referencing|profile reference|Profile reference">Profile Referencing</dfn></dt>
     <dd>
-        Handle-based FDO <a>attribute definitions</a> introduce three advanced validation mechanisms that were
-        found helpful in the past. These validation mechanisms may be used in addition to  <a>syntax definitions</a>,
-        compositions, and unions, where applicable and appropriate. The three mechanisms are:
-        <ol>
-            <li>Profile Referencing (see [H5-1e])</li>
-            <li>Attribute Referencing (see [H5-1f])</li>
-            <li>External Vocabulary Referencing (see [H5-1g])</li>
-        </ol>
-        Each mechanism is introduced in the following.
+        <p>
+            <a>Profile referencing</a> permits an <a>attribute definition</a> <code>A</code> to specify that the value
+            <code>v</code> (of an attribute <code>a = (k: v)</code> that instantiates <code>A</code>) MUST be
+            a reference to an FDO following at least one profile out of a set of profiles P<sub>1</sub>,...,P<sub>n</sub>.
+            Hence, profile referencing is a mechanism to enforce that a specific attribute in an <a>FDO record</a>
+            references another FDOs that follows a certain profile.
+            There are two equivalent ways how to build a Handle-based attribute definition that applies <a>profile
+            referencing</a>.
+        </p>
+
+        <p><b>[H5-7a] Profile Referencing implemented by JSON Schemas:</b></p>
+
+
+        <p><b>[H5-7b] Profile Referencing implemented on Handle-record level:</b></p>
+
+        The <a>FDO record</a> of the <a>attribute definition</a> <code>A</code> must specify the attributes
+        <code>21.T11969/ValidationMechanism</code> and <code>21.T11969/DataType</code> to define a
+        <a>profile reference</a> to one of the profiles <code>P<sub>1</sub>,...,P<sub>n</sub></code>. In detail, the
+        following attributes MUST be in the <a>attribute definition</a>:
+        <ul>
+            <li><code>(21.T11969/ValidationMechanism, ProfileReference)</code> to state that this
+                <a>attribute definition</a> uses <a>profile referencing</a>
+            </li>
+            <li>
+                <code>(21.T11969/DataType, P<sub>1</sub>)</code>, ..., <code>(21.T11969/DataType, P<sub>n</sub>)</code>
+                to state that the attribute value must point to an FDO that is valid against at least one of the profiles
+                <code>P<sub>1</sub>, ..., P<sub>n</sub></code>. If <code>21.T11969/DataType</code> is not contained in
+                the <a>attribute definition</a>, it means that the referenced entity is an FDO (hence, that the
+                value references an FDO complying to at least <code>21.T11969/Root</code>).
+            </li>
+        </ul>
+
+        <aside class="example" title="Attribute Definition applying Profile Referencing on Handle record-level">
+            The <a>attribute definition</a> <code>21.T11969/Profile</code> uses profile referencing. Its FDO record
+            looks as follows:
+            <table>
+                <thead>
+                <tr>
+                    <th scope="col">PID of Attribute Definition</th>
+                    <th scope="col">Example Value</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>21.T11969/Type</td>
+                    <td>FDO_Attribute</td>
+                </tr>
+                <tr>
+                    <td>21.T11969/Profile</td>
+                    <td>21.T11969/AttributeDef</td>
+                </tr>
+                <tr>
+                    <td>21.T11969/Name</td>
+                    <td>FdoProfile</td>
+                </tr>
+                <tr>
+                    <td>21.T11969/Description</td>
+                    <td>A reference to an FDO profile.
+                    </td>
+                </tr>
+                <tr>
+                    <td>21.T11969/Cardinality</td>
+                    <td>1..n</td>
+                </tr>
+                <tr>
+                    <td>21.T11969/Data</td>
+                    <td>Not_Applicable</td>
+                </tr>
+                <tr>
+                    <td>21.T11969/ValidationMechanism</td>
+                    <td>ProfileReference</td>
+                </tr>
+                <tr>
+                    <td>21.T11969/DataType</td>
+                    <td>21.T11969/Profile</td>
+                </tr>
+                </tbody>
+                <caption>
+                    FDO record of attribute definition (PID: <i>21.T11969/Profile</i>)
+                </caption>
+            </table>
+
+            <figure id="profile-ref">
+                <img src="img/Profile_Referencing.png" alt="Profile_Referencing.png" height=400>
+                <figcaption>
+                    An example for profile referencing.
+                </figcaption>
+            </figure>
+        </aside>
+
+        <b>Validation Rule:</b>
+        <p>
+            To validate an FDO that contains an attribute applying profile referencing, it is checked that the value
+            of this attribute is either a reference to another FDO following at least one of the <a>profiles</a> specified
+            in the <a>attribute definition</a>, or an in-line serialization of an FDO that instantiates at least one of the
+            specified <a>profiles</a>.
+        </p>
     </dd>
+</dl>
+
 
 <div style="background-color:LightPink;">
     <b>TODO</b>:
@@ -49,61 +139,3 @@
         </li>
     </ul>
 </div>
-
-    <dt>[H5-1e] <dfn>Profile Referencing</dfn></dt>
-    <dd>
-        Profile referencing permits an <a>attribute definition</a> A to specify that the value a<sub>val</sub> (of an
-        attribute a=(a<sub>def</sub>,a<sub>val</sub>) that instantiates A) MUST be a reference to an FDO following a
-        specific profile. Hence, it is a mechanism to enforce that specific attributes in  <a>FDO record</a> reference
-        other FDOs that follow a certain profile.
-
-        <aside class="example" title="Profile Referencing: The 21.T11969/Profile Attribute.">
-            The <a>attribute definition</a> <code>21.T11969/Profile</code> uses profile referencing. It contains the following two
-            attributes:
-            <ul>
-                <li>
-                    <code>(21.T11969/ValidationMechanism, ProfileReference)</code>): This means that the <a>attribute definition</a>
-                    <code>21.T11969/Profile</code> applies the profile referencing mechanism.
-                </li>
-                <li>
-                    <code>(21.T11969/Data, 21.T11969/ProfileDef)</code>: This means that if the <a>attribute definition</a>
-                    <code>21.T11969/Profile</code> is instantiated, the value must be a reference to an FDO that instantiates
-                    <code>21.T11969/ProfileDef</code> (i.e., it must be a reference to an FDO profile).
-                </li>
-            </ul>
-            <figure id="profile-ref">
-                <img src="img/Profile_Referencing.png" alt="Profile_Referencing.png" height=400>
-                <figcaption>
-                    An example for profile referencing.
-                </figcaption>
-            </figure>
-        </aside>
-
-        <p>The Detailed Requirements for Profile Referencing are:</p>
-
-        <b>Format of an <a>attribute definition</a> that Applies Profile Referencing:</b>
-
-        <ul>
-            <li>
-                An <a>attribute definition</a> MUST explicitly state that it uses this feature by containing the attribute
-                <code>(21.T11969/ValidationMechanism, ProfileReference)</code>.
-            </li>
-            <li>
-                The <a>attribute definition</a> MAY also specify a list of profile PIDs P<sub>1</sub>,...,P<sub>n</sub>
-                where at least one of them MUST validate the referenced FDO. This
-                is done by adding the attribute (<code>21.T11969/Data</code>, P<sub>i</sub>), i=1,...,n, into the
-                <a>attribute definition</a>. If <code>21.T11969/Data</code> is not contained in the <a>attribute definition</a>, it just
-                means that the referenced entity is an FDO (hence, that the value is a validated reference complying
-                to at least <code>21.T11969/Root</code>).
-            </li>
-        </ul>
-
-        <b>Validation Rule:</b>
-        <p>
-            To validate an FDO that contains an attribute applying profile referencing, it is checked that the value
-            of this attribute is either a reference to another FDO following at least one of the  <a>profiles</a> specified
-            in the <a>attribute definition</a>, or an in-line serialization of an FDO that instantiates at least one of the
-            specified  <a>profiles</a>.
-        </p>
-    </dd>
-</dl>
