@@ -28,7 +28,7 @@ struct SingleProfileValidationResult {
     missingRequiredAttributes: PID[];
 }
 
-function validateFDORecord(fdo:FDORecord, profiles: PID[]) -> AllProfilesValidationResult {
+function validateFDORecordAgainstProfiles(fdo:FDORecord, profiles: PID[]) -> AllProfilesValidationResult {
     let overallStatus: ValidationStatus = ValidationStatus.VALID;
     let profileResults: SingleProfileValidationResult[] = [];
     let presentAttributes: PID[] = Set.of();

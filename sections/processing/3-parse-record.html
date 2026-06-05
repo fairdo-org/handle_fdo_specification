@@ -17,7 +17,15 @@ Map all values from the JSON <a>Handle Record</a> to <a>FDO attributes</a> as de
         <li>10320/* (e.g., 10320/loc)</li>
     </ul>
 </aside>
-<pre><code>function parseFDORecord (json: HandleResponse) -> FDORecord throws HandleRecord {
+<pre><code>struct FDORecord {
+    pid: PID,
+    attributes: {
+        key : string,
+        value : string
+    }[]
+}
+
+function parseFDORecord (json: HandleResponse) -> FDORecord throws HandleRecord {
     const pid = json["handle"]; // Get PID from JSON
     let attributes: {
         key : string,
@@ -36,8 +44,7 @@ Map all values from the JSON <a>Handle Record</a> to <a>FDO attributes</a> as de
     }
 
     return new FDORecord(pid, attributes);
-</code></pre>
-}
+}</code></pre>
 
 <h4 class="notoc">Output</h4>
 List of attributes <code>a<sub>1</sub>=(a<sub>1,def</sub>,a<sub>1,val</sub> ), ..., a<sub>n</sub>=(a<sub>n,def</sub>,a<sub>n,val</sub>)</code>.

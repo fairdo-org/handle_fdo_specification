@@ -64,91 +64,23 @@
           },
           "FDO specification": {
             title: "FAIR Digital Objects Architecture Specification",
-            editors: [
-              {
-                name: "S. Bingert",
-                company: "GWDG",
-                companyUrl: "https://www.gwdg.de/",
-                orcid: "0000-0001-9547-1582"
-              },
-              {
-                name: "Ch. Blanchi",
-                company: "DONA",
-                companyUrl: "https://www.dona.net",
-                orcid: "0000-0003-2277-5176"
-              },
-              {
-                name: "J. Böhm",
-                company: "GWDG",
-                companyUrl: "https://www.gwdg.de/",
-                orcid: "0009-0004-9802-113X"
-              },
-              {
-                name: "M. Inckmann",
-                company: "KIT",
-                companyUrl: "https://kit.edu",
-                orcid: "0009-0005-2800-4833"
-              },
-              {
-                name: "Z. Trautt",
-                company: "NIST",
-                companyUrl: "https://nist.gov",
-                orcid: "0000-0001-5929-0354"
-              }
-            ],
             authors: [
-              {
-                name: "N. Blumenröhr",
-                company: "KIT",
-                companyUrl: "https://kit.edu",
-                orcid: "0009-0007-0235-4995"
-              },
-              {
-                name: "I. Anders",
-                company: "DKRZ",
-                companyUrl: "https://www.dkrz.de/",
-                orcid: "0000-0001-7337-3009"
-              },
-              {
-                name: "J. Castro",
-                company: "ZBMED",
-                orcid: "0000-0003-3986-0510"
-              },
-              {
-                name: "W. Elbers",
-                company: "CLARIN"
-              },
-              {
-                name: "T. Goosen",
-                company: "CLARIN",
-                orcid: "0000-0002-1634-257X"
-              },
-              {
-                name: "T. Kuhn",
-                company: "Knowledge Pixels"
-              },
-              {
-                name: "K. Peters-von Gehlen",
-                company: "DKRZ",
-                companyUrl: "https://www.dkrz.de/"
-              },
-              {
-                name: "A. Pfeil",
-                company: "KIT",
-                companyUrl: "https://kit.edu",
-                orcid: "0000-0001-6575-1022"
-              },
-              {
-                name: "U. Schwardmann"
-              },
-              {
-                name: "S. Soiland-Reyes",
-                company: "University Manchester"
-              },
-              {
-                name: "C. Weiland",
-                company: "Senckenberg, SDCT"
-              }
+              "S. Bingert",
+              "Ch. Blanchi",
+              "J. Böhm",
+              "M. Inckmann",
+              "Z. Trautt",
+              "N. Blumenröhr",
+              "I. Anders",
+              "J. Castro",
+              "W. Elbers",
+              "T. Goosen",
+              "T. Kuhn",
+              "K. Peters-von Gehlen",
+              "A. Pfeil",
+              "U. Schwardmann",
+              "S. Soiland-Reyes",
+              "C. Weiland"
             ],
             href: "https://github.com/fairdo-org/fdo-architecture-spec",
             publisher: "FDO Forum",
@@ -206,7 +138,7 @@
       <section data-include="sections/building-blocks/2-attribute-mapping.html"></section>
       <section data-include="sections/building-blocks/3-fdo-records.html"></section>
       <section data-include="sections/building-blocks/4-fdo-profiles.html"></section>
-      <section data-include="sections/building-blocks/5.1-fdo-attribute-definitions.html"></section>
+      <section data-include="sections/building-blocks/5.1-fdo-attribute-definitions.html"  id="attribute-definitions"></section>
       <section data-include="sections/building-blocks/6-inline-fdos.html"></section>
       <section data-include="sections/building-blocks/7-collection-fdos.html"></section>
       <section data-include="sections/building-blocks/8-fdo-operations.html"></section>
@@ -218,8 +150,15 @@
         Each section within this chapter explains in detail how a Handle-based FDO is processed.
       </p>
       <div style="background-color:LightPink;">
-        <b>TODO</b>: We need to think about the order of processing steps.
+        <b>TODO</b>:
+        <ul>
+          <li>Think about reordering the processing steps</li>
+          <li>Fix the pseudocode to use JSON schema</li>
+          <li>Complete pseudocode examples</li>
+          <li>Implement code in FDO SDK?</li>
+        </ul>
       </div>
+
       <section data-include="sections/processing/1-pid-detection.html" id="s-1"></section>
       <section data-include="sections/processing/2-pid-resolution.html" id="s-2"></section>
       <section data-include="sections/processing/3-parse-record.html" id="s-3"></section>
