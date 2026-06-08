@@ -2,10 +2,10 @@
     <dt>[H5-8] <dfn data-lt="Attribute referencing|attribute referencing|Attribute reference|attribute reference|Attribute references|attribute references"> Attribute Referencing</dfn></dt>
     <dd>
         <a>Attribute referencing</a> is a generic mechanism for redirecting to one or multiple other attribute(s) in the
-        same record. Attribute referencing can, for example, be used to group information for different purposes. Or
-        it can be used very similarly to unions, i.e., to state that an attribute is effectively realized through
+        same record. <a>Attribute referencing</a> can, for example, be used to group information for different purposes. Or
+        it can be used very similarly to <a>unions</a>, i.e., to state that an attribute is effectively realized through
         one or several other attributes in the record, which follow more specific <a>attribute definitions</a>.
-        To start with, here is an example for FDO records that instantiate attributes that apply attribute referencing:
+        To start with, here is an example for FDO records that instantiate attributes that apply <a>attribute referencing</a>:
 
         <aside class="example" id="example-attr-ref" title="Attribute referencing: The 21.T11969/Data Attribute">
             The mandatory attribute <code>21.T11969/Data</code> (and actually also the <code>21.T11969/Type</code>
@@ -14,20 +14,18 @@
             <a href="#attr-ref-1">Figure 3</a>):
             <ul>
                 <li>
+                    Data could also be in-line in the record. Then, the <a><code>21.T11969/Data</code></a>
+                    attribute would have as its value a simple data bit-sequence (<a href="#attr-ref-1"></a>a).
+                </li>
+                <li>
                     Data may be given by a reference to an external bit-sequence. Then, the
                     <a><code>21.T11969/Data</code></a>
-                    attribute would have as its value a URL. (<a href="#attr-ref-1">Figure 3</a>, top-right)
+                    attribute would have as its value a URL (<a href="#attr-ref-1"></a>b).
                 </li>
                 <li>
                     Data could also be encapsulated in its own FDO, especially, if the FDO is a <a>collection</a>. Then,
-                    the <a><code>21.T11969/Data</code></a> <a>attribute</a> would have as its value a reference to an
-                    FDO, which possibly
-                    follows a specific profile (<a href="#attr-ref-1">Figure 3</a>, bottom-left).
-                </li>
-                <li>
-                    Data could also be in-line in the <a>record</a>. Then, the <a><code>21.T11969/Data</code></a>
-                    attribute would have as
-                    its value a simple data bit-sequence (<a href="#attr-ref-1">Figure 3</a>, top-left).
+                    the <a><code>21.T11969/Data</code></a> attribute would have as its value a reference to an
+                    FDO, which possibly follows a specific profile (<a href="#attr-ref-1"></a>c).
                 </li>
             </ul>
             <figure id="attr-ref-1">
@@ -46,18 +44,18 @@
         </aside>
 
         <aside class="note">
-            <a>Attribute referencing</a> is very similar to unions of <a>attribute definitions</a>:
+            <a>Attribute referencing</a> is very similar to <a>unions</a> of <a>attribute definitions</a>:
             In both cases, an <a>attribute definition</a> states that its instantiation validates one of several <a>attribute
             definitions</a>.
             However, there are two slight differences in comparison to unions:
             <ol>
                 <li>
-                    For attribute referencing, one can also reference to an attribute that does not have an attribute
-                    definition (i.e., which is simply a human-readable label without any validation rules).
+                    For <a>attribute referencing</a>, one can also reference to an attribute that does not have an <a>attribute
+                    definition</a> (i.e., which is simply a human-readable label without any validation rules).
                 </li>
                 <li>
-                    An attribute applying attribute referencing explicitly states which <a>attribute definition</a> the
-                    referenced value complies to, which is not the case for unions.
+                    An attribute applying <a>attribute referencing</a> explicitly states which <a>attribute definition</a> the
+                    referenced value complies to, which is not the case for <a>unions</a>.
                 </li>
             </ol>
         </aside>
@@ -125,7 +123,7 @@
 
         <aside class="note">
             [H5-8a] allows to reference to any attribute, while [H5-8b] only allows to reference to an attribute that
-            instantiates an attribute definition. Hence, [H5-8a] is a little bit more expressive.
+            instantiates an attribute definition. Hence, [H5-8a] is a bit more expressive.
         </aside>
 
         <p><b>[H5-8a] Attribute Referencing implemented by JSON Schemas:</b></p>
@@ -133,7 +131,7 @@
         <a>attribute reference</a> to one of the <a>attributes</a> <code>b<sub>1</sub>,...,b<sub>n</sub></code>. In detail, the attribute
         <code>21.T11969/Data</code> applies <a>attribute referencing</a> to point to the attribute
         <code>21.T11969/JsonSchema</code>, which has as its value a JSON schema. The JSON schema can specify both syntax
-        rules for the attribute value (i.e. that it is whitelist of strings allowing for
+        rules for the attribute value (i.e. that it is a whitelist of strings allowing for
         <code>b<sub>1</sub>,...,b<sub>n</sub></code>) and that it applies attribute referencing. The validity of
         attribute referencing must be checked on top of simple JSON schema validation.
         <pre><code>{
@@ -143,7 +141,7 @@
     }
 }</code></pre>
         If the <code>enum</code> is left out, it means that the referenced attribute can be anything,
-        e.g. an attribute instantiating an attribute definition, or a simple label.
+        e.g. an attribute instantiating an <a>attribute definition</a>, or a simple label.
 
         <aside class="example" title="Attribute Definition applying Attribute Referencing using JSON Schema">
             The attribute definition <code>21.T11969/Data</code> uses attribute referencing. An implementation
@@ -216,7 +214,7 @@
                 to state that the attribute value must point to an attribute in the same record that instantiates one of
                 the <a>attribute definitions</a> <code>B<sub>1</sub>, ..., B<sub>n</sub></code>.
                 If <code>21.T11969/DataType</code> is not contained in the <a>attribute definition</a>, it means that
-                the referenced attribute can be anything, e.g. an attribute following any attribute definition, or even
+                the referenced attribute can be anything, e.g. an attribute following any <a>attribute definition</a>, or even
                 a simple label.
             </li>
             <li>
@@ -227,8 +225,8 @@
         </ul>
 
         <aside class="example" title="Attribute Definition applying Attribute Referencing on Handle record-level">
-            The attribute definition <code>21.T11969/Data</code> uses attribute referencing. Its FDO record
-            looks as follows:
+            The attribute definition <code>21.T11969/Data</code> uses attribute referencing. Its FDO record could
+            look like this:
             <table>
                 <thead>
                 <tr>
