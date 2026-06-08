@@ -45,6 +45,23 @@
             unified in one common and standardized <a>attribute definition</a> <a><code>21.T11969/Data</code></a>.
         </aside>
 
+        <aside class="note">
+            <a>Attribute referencing</a> is very similar to unions of <a>attribute definitions</a>:
+            In both cases, an <a>attribute definition</a> states that its instantiation validates one of several <a>attribute
+            definitions</a>.
+            However, there are two slight differences in comparison to unions:
+            <ol>
+                <li>
+                    For attribute referencing, one can also reference to an attribute that does not have an attribute
+                    definition (i.e., which is simply a human-readable label without any validation rules).
+                </li>
+                <li>
+                    An attribute applying attribute referencing explicitly states which <a>attribute definition</a> the
+                    referenced value complies to, which is not the case for unions.
+                </li>
+            </ol>
+        </aside>
+
         <b><em>Instantiating an attribute that applies attribute referencing:</em></b>
         An <a>attribute</a> <code>a<sub>1</sub> = (k<sub>1</sub>: v<sub>1</sub>)</code> (instantiating <a>attribute
         definition</a> <code>A<sub>1</sub></code>) is a reference to an <a>attribute</a>
@@ -106,42 +123,102 @@
         There are two equivalent ways how to build a Handle-based <a>attribute definition</a> that applies <a>attribute
         referencing</a> (see [H5-8a] and [H5-8b]).
 
-        <p><b>Format of an <a>attribute definition</a> that applies <a>Attribute Referencing</a>:</b></p>
+        <p><b>[H5-8a] Attribute Referencing implemented by JSON Schemas:</b></p>
 
-        <p>
-            The following requirements must be fulfilled such that an <a>attribute definition</a> A applies <a>attribute
-            referencing</a>:
-        </p>
+
+        <p><b>[H5-8b] Attribute Referencing implemented on Handle-record level:</b></p>
+        The <a>FDO record</a> of the <a>attribute definition</a> <code>A</code> must specify the attributes
+        <code>21.T11969/ValidationMechanism</code> and <code>21.T11969/DataType</code> to define an
+        <a>attribute reference</a> to one of the <a>attribute definitions</a> <code>B<sub>1</sub>,...,B<sub>n</sub></code>. In detail, the
+        following attributes MUST be in the <a>attribute definition</a>:
         <ul>
-            <li>
-                The <a>attribute definition</a> A MUST explicitly state that it uses this feature by containing the
-                attribute <code>(21.T11969/ValidationMechanism, AttributeReference)</code>.
+            <li><code>(21.T11969/ValidationMechanism, AttributeReference)</code> to state that this
+                <a>attribute definition</a> uses <a>attribute referencing</a>
             </li>
             <li>
-                The <a>attribute definition</a> A MAY specify a whitelist of <a>attribute definition</a> PIDs
-                <code>B<sub>1</sub>,...,B<sub>n</sub></code> using the attribute <code>(<a>21.T11969/Data</a>,
-                B<sub>i</sub>)</code>,
-                i=1,...,n, in its record. If A specifies this whitelist, an attribute a (instantiating A) MUST
-                reference an attribute b that instantiates any of <code>B<sub>1</sub>,...,B<sub>n</sub></code>. If the
-                <a><code>21.T11969/Data</code></a> <a>attribute</a> is not contained in A, any <a>attribute</a> b may be
-                referenced by a, as
-                there is no whitelist.
+                <code>(21.T11969/DataType, B<sub>1</sub>)</code>, ..., <code>(21.T11969/DataType, B<sub>n</sub>)</code>
+                to state that the attribute value must point to an attribute in the same record that instantiates one of
+                the <a>attribute definitions</a> <code>B<sub>1</sub>, ..., B<sub>n</sub></code>.
+                If <code>21.T11969/DataType</code> is not contained in the <a>attribute definition</a>, it means that
+                the referenced attribute can be anything, e.g. an attribute following any attribute definition, or even
+                a simple label.
             </li>
             <li>
-                The cardinality of the <a>attribute definition</a> A only specifies the occurrence of instances of A
-                itself
-                (and not the occurrence of instances of any of <code>B<sub>1</sub>,...,B<sub>n</sub></code>).
-                The cardinality of <code>B<sub>1</sub>,...,B<sub>n</sub></code> cannot be influenced by A.
+                The cardinality of the <a>attribute definition</a> <code>A</code> only specifies the occurrence of instances of <code>A</code>
+                itself (and not the occurrence of instances of any of <code>B<sub>1</sub>,...,B<sub>n</sub></code>).
+                The cardinality of <code>B<sub>1</sub>,...,B<sub>n</sub></code> cannot be influenced by <code>A</code>.
             </li>
         </ul>
 
-        <aside class="note">
-            <a>Attribute referencing</a> is very similar to unions of <a>attribute definitions</a>:
-            In both cases, an <a>attribute definition</a> states that its instantiation validates one of several <a>attribute
-            definitions</a>.
-            However, the slight difference is that for <a>attribute referencing</a>, the instantiating record also
-            states which of the <a>attribute definitions</a> is
-            actually chosen, while this is not stated in the case of unions.
+        <aside class="example" title="Attribute Definition applying Attribute Referencing on Handle record-level">
+            The attribute definition <code>21.T11969/Data</code> uses attribute referencing. Its FDO record
+            looks as follows:
+            <table>
+                <thead>
+                <tr>
+                    <th scope="col">PID of Attribute Definition</th>
+                    <th scope="col">Example Value</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>21.T11969/Type</td>
+                    <td>FDO_Attribute</td>
+                </tr>
+                <tr>
+                    <td>21.T11969/Profile</td>
+                    <td>21.T11969/AttributeDef</td>
+                </tr>
+                <tr>
+                    <td>21.T11969/Name</td>
+                    <td>Data</td>
+                </tr>
+                <tr>
+                    <td>21.T11969/Description</td>
+                    <td>Reference to the data bit-sequence of the FDO.
+                    </td>
+                </tr>
+                <tr>
+                    <td>21.T11969/Cardinality</td>
+                    <td>1..n</td>
+                </tr>
+                <tr>
+                    <td>21.T11969/Data</td>
+                    <td>Not_Applicable</td>
+                </tr>
+                <tr>
+                    <td>21.T11969/ValidationMechanism</td>
+                    <td>AttributeReference</td>
+                </tr>
+                <tr>
+                    <td>21.T11969/DataType</td>
+                    <td>21.T11969/Attr_Def_inline_data</td>
+                </tr>
+                <tr>
+                    <td>21.T11969/DataType</td>
+                    <td>21.T11969/Attr_Def_URL</td>
+                </tr>
+                <tr>
+                    <td>21.T11969/DataType</td>
+                    <td>21.T11969/Attr_Def_FDO_Ref</td>
+                </tr>
+                </tbody>
+                <caption>
+                    FDO record of attribute definition (PID: <i>21.T11969/Data</i>)
+                </caption>
+            </table>
         </aside>
     </dd>
 </dl>
+
+<div style="background-color:LightPink;">
+    <b>TODOS:</b>
+    <ul>
+        <li>
+            Register the attributes that are referenced (attribute referencing) by the 21.T11969/Data and 21.T11969/Type
+            attributes. Examples are: 21.T11969/Attr_Def_inline_data, 21.T11969/Attr_Def_URL, 21.T11969/Attr_Def_FDO_Ref.
+            Find better names for these attributes and discuss how they should look like. As soon as they are registered,
+            improve the examples above with the registered attributes.
+        </li>
+    </ul>
+</div>
