@@ -1,41 +1,39 @@
 <dl>
-    <dt>[H5-1f] <dfn data-lt="Attribute Referencing|Attribute references"> Attribute Referencing</dfn></dt>
+    <dt>[H5-8] <dfn data-lt="Attribute referencing|attribute referencing|Attribute reference|attribute reference|Attribute references|attribute references"> Attribute Referencing</dfn></dt>
     <dd>
-        Attribute referencing is a generic mechanism for redirecting to one or multiple other attribute(s) in the
-        same record. Attribute referencing can, for example, be used to group information for different purposes. Or
-        it can be used very similarly to unions, i.e., to state that an attribute is effectively realized through
-        one or several other attributes in the record, which follow more specific <a>attribute definitions</a>. To start
-        with, here is an example:
+        <a>Attribute referencing</a> is a generic mechanism for redirecting to one or multiple other attribute(s) in the
+        same record. <a>Attribute referencing</a> can, for example, be used to group information for different purposes. Or
+        it can be used very similarly to <a>unions</a>, i.e., to state that an attribute is effectively realized through
+        one or several other attributes in the record, which follow more specific <a>attribute definitions</a>.
+        To start with, here is an example for FDO records that instantiate attributes that apply <a>attribute referencing</a>:
 
         <aside class="example" id="example-attr-ref" title="Attribute referencing: The 21.T11969/Data Attribute">
             The mandatory attribute <code>21.T11969/Data</code> (and actually also the <code>21.T11969/Type</code>
-            attribute) apply attribute
+            attribute) applies attribute
             referencing. The reason for this is that data can appear in different forms (see also
             <a href="#attr-ref-1">Figure 3</a>):
             <ul>
                 <li>
+                    Data could also be in-line in the record. Then, the <a><code>21.T11969/Data</code></a>
+                    attribute would have as its value a simple data bit-sequence (<a href="#attr-ref-1"></a>a).
+                </li>
+                <li>
                     Data may be given by a reference to an external bit-sequence. Then, the
                     <a><code>21.T11969/Data</code></a>
-                    attribute would have as its value a URL. (<a href="#attr-ref-1">Figure 3</a>, top-right)
+                    attribute would have as its value a URL (<a href="#attr-ref-1"></a>b).
                 </li>
                 <li>
                     Data could also be encapsulated in its own FDO, especially, if the FDO is a <a>collection</a>. Then,
-                    the <a><code>21.T11969/Data</code></a> <a>attribute</a> would have as its value a reference to an
-                    FDO, which possibly
-                    follows a specific profile (<a href="#attr-ref-1">Figure 3</a>, bottom-left).
-                </li>
-                <li>
-                    Data could also be in-line in the <a>record</a>. Then, the <a><code>21.T11969/Data</code></a>
-                    attribute would have as
-                    its value a simple data bit-sequence (<a href="#attr-ref-1">Figure 3</a>, top-left).
+                    the <a><code>21.T11969/Data</code></a> attribute would have as its value a reference to an
+                    FDO, which possibly follows a specific profile (<a href="#attr-ref-1"></a>c).
                 </li>
             </ul>
             <figure id="attr-ref-1">
-                <img src="img/Attribute_Referencing_3.png" alt="Attribute_Referencing_1.png" height=400>
+                <img src="img/attr-referencing-examples.svg" alt="attr-referencing-examples.svg" height=400>
                 <figcaption>
                     Four examples for how the <code>21.T11969/Data</code> <a>attribute definition</a> can be
                     instantiated in <a>FDO records</a>. In
-                    all examples, the <a><code>21.T11969/Data</code></a> <a>attribute references</a> another <a>attribute
+                    all examples, the <a><code>21.T11969/Data</code></a> attribute references another <a>attribute
                     definition</a> that
                     specifies the way how the data are represented in this FDO.
                 </figcaption>
@@ -45,107 +43,256 @@
             unified in one common and standardized <a>attribute definition</a> <a><code>21.T11969/Data</code></a>.
         </aside>
 
-        <p>The detailed requirements for <a>Attribute Referencing</a> are:</p>
+        <aside class="note">
+            <a>Attribute referencing</a> is very similar to <a>unions</a> of <a>attribute definitions</a>:
+            In both cases, an <a>attribute definition</a> states that its instantiation validates one of several <a>attribute
+            definitions</a>.
+            However, there are two slight differences in comparison to unions:
+            <ol>
+                <li>
+                    For <a>attribute referencing</a>, one can also reference to an attribute that does not have an <a>attribute
+                    definition</a> (i.e., which is simply a human-readable label without any validation rules).
+                </li>
+                <li>
+                    An attribute applying <a>attribute referencing</a> explicitly states which <a>attribute definition</a> the
+                    referenced value complies to, which is not the case for <a>unions</a>.
+                </li>
+            </ol>
+        </aside>
 
-        <p><b>Format of an <a>attribute definition</a> that applies <a>Attribute Referencing</a>:</b></p>
-
-        <p>
-            The following requirements must be fulfilled such that an <a>attribute definition</a> A applies <a>attribute
-            referencing</a>:
-        </p>
+        <b><em>Instantiating an attribute that applies attribute referencing:</em></b>
+        An <a>attribute</a> <code>a<sub>1</sub> = (k<sub>1</sub>: v<sub>1</sub>)</code> (instantiating <a>attribute
+        definition</a> <code>A<sub>1</sub></code>) is a reference to an <a>attribute</a>
+        <code>a<sub>2</sub> = (k<sub>2</sub>: v<sub>2</sub>)</code> if and only if
         <ul>
             <li>
-                The <a>attribute definition</a> A MUST explicitly state that it uses this feature by containing the
-                attribute <code>(21.T11969/ValidationMechanism, AttributeReference)</code>.
+                the referenced attribute <code>a<sub>2</sub></code> is instantiated in the same <a>FDO record</a> as
+                attribute <code>a<sub>1</sub></code> such that <code>v<sub>1</sub> = k<sub>2</sub></code>
             </li>
             <li>
-                The <a>attribute definition</a> A MAY specify a whitelist of <a>attribute definition</a> PIDs
-                <code>B<sub>1</sub>,...,B<sub>n</sub></code> using the attribute <code>(<a>21.T11969/Data</a>,
-                B<sub>i</sub>)</code>,
-                i=1,...,n, in its record. If A specifies this whitelist, an attribute a (instantiating A) MUST
-                reference an attribute b that instantiates any of <code>B<sub>1</sub>,...,B<sub>n</sub></code>. If the
-                <a><code>21.T11969/Data</code></a> <a>attribute</a> is not contained in A, any <a>attribute</a> b may be
-                referenced by a, as
-                there is no whitelist.
-            </li>
-            <li>
-                The cardinality of the <a>attribute definition</a> A only specifies the occurrence of instances of A
-                itself
-                (and not the occurrence of instances of any of <code>B<sub>1</sub>,...,B<sub>n</sub></code>).
-                The cardinality of <code>B<sub>1</sub>,...,B<sub>n</sub></code> cannot be influenced by A.
+                If <code>k<sub>2</sub></code> is an attribute PID (i.e., <code>a<sub>2</sub></code> instantiates an <a>attribute
+                definition</a> <code>A<sub>2</sub></code>), then <code>v<sub>2</sub></code> must be valid with respect to
+                <code>k<sub>2</sub></code>. This ensures, the reference is actually fulfilled.
             </li>
         </ul>
-
-        <p><b>Instantiating an attribute that applies <a>attribute referencing</a></b></p>
-        An <a>attribute</a> a=(a<sub>def</sub>,a<sub>val</sub>) (instantiating <a>attribute definition</a> A) is a
-        reference to an
-        <a>attribute</a> b=(b<sub>def</sub>,b<sub>val</sub>) (instantiating <a>attribute definition</a> B) if and only
-        if
-        <ul>
-            <li><code>a<sub>val</sub></code>is a PID resolving to an <a>attribute definition</a></li>
-            <li>the referenced attribute b is instantiated in the same <a>FDO record</a> as attribute a</li>
-            <li><code>a<sub>val</sub> = b<sub>def</sub></code></li>
-            <li><code>b<sub>val</sub></code> is validated by <code>b<sub>def</sub></code>. This ensures, the reference
-                is actually fulfilled.
-            </li>
-        </ul>
-        See also <a href="#attr-ref-2">Figures 4</a> and <a href="#attr-ref-3">5</a> for illustration.
-        There may be cases of consecutive referencing (e.g., a references b, b references c, …).
+        See also <a href="#attr-ref-2"></a> for an illustration.
+        There may be cases of consecutive referencing (e.g., <code>a<sub>1</sub></code> references
+        <code>a<sub>2</sub></code>, <code>a<sub>2</sub></code> references <code>a<sub>3</sub></code>, …).
         All such references within an <a>FDO record</a> must form a directed acyclic graph (i.e., no loops allowed).
+
         <figure id="attr-ref-2">
-            <img src="img/Attribute_Referencing_1.png" alt="Attribute_Referencing_2.png"
-                 style="width: 45%; height: 45%">
+            <img src="img/attr-referencing-instantiation.svg" alt="Attribute_Referencing_2.png"
+            style width="90%">
             <figcaption>
-                <a>Attribute referencing</a> in its simplest form.
-                The <a>attribute</a> <code>a=(a<sub>def</sub>,a<sub>val</sub>)</code> is a reference to the
-                <a>attribute</a> <code>b=(b<sub>def</sub>, b<sub>val</sub>)</code>.
+                a) shows <a>Attribute referencing</a> in its simplest form. The <a>attribute</a>
+                <code>a<sub>1</sub> = (k<sub>1</sub>: v<sub>1</sub>)</code> (instantiating <code>A<sub>1</sub></code> in white)
+                is a reference to the <a>attribute</a>
+                <code>a<sub>2</sub> = (k<sub>2</sub>: v<sub>2</sub>)</code> (instantiating <code>A<sub>2</sub></code> in green).
+                b) and c) show <a>attribute referencing</a> with cardinalities larger than 1. In b), the
+                cardinality of attribute definition <code>A<sub>2</sub></code> is larger than 1, hence
+                <code>A<sub>2</sub></code> can be instantiated multiple times. In c), the cardinality of
+                <code>A<sub>1</sub></code> is also larger than 1, allowing to reference another attribute definition
+                <code>A<sub>3</sub></code> (red).
             </figcaption>
         </figure>
 
-        <figure id="attr-ref-3">
-            <img src="img/Attribute_Referencing_2.png" alt="Attribute_Referencing_3.png">
-            <figcaption>
-                <a>Attribute referencing</a> with cardinalities larger than 1.
-                On the left, the cardinality of B is larger than 1, hence B can be instantiated multiple times.
-                On the right, the cardinality of A is also larger than 1.
-            </figcaption>
-        </figure>
-
-
-        <p><b>Validation Rules:</b></p>
-        <p>
-            To validate an FDO that contains an <a>attribute</a> <code>a=(a<sub>def</sub>,a<sub>val</sub>)</code>
+        <p><b><em>Validation Rules:</em></b>
+            To validate an FDO that contains an <a>attribute</a> <code>a = (k<sub>1</sub>: v<sub>1</sub>)</code>
             applying <a>attribute referencing</a>, it is checked that
         </p>
         <ol>
             <li>
-                <code>>a<sub>val</sub></code> is a PID resolving to an <a>attribute definition</a>.
+                There is another <a>attribute</a> <code>a<sub>2</sub> = (k<sub>2</sub>: v<sub>2</sub>)</code> in the same <a>FDO
+                record</a> such that <code>v<sub>1</sub> = k<sub>2</sub></code>.
             </li>
             <li>
-                There is another <a>attribute</a> <code>b=(b<sub>def</sub>,b<sub>val</sub>)</code> in the <a>FDO
-                record</a> such that
-                <code>>a<sub>val</sub> = b<sub>def</sub></code>.
-            </li>
-            <li>
-                <code>b<sub>val</sub></code> is validated by <code>b<sub>def</sub></code>.
-                Note: This may involve checking validity of <a>attributes</a> c, d, ... if b is also an <a>attribute</a>
-                applying <a>attribute referencing</a> (consecutive
-                referencing).
+                If <code>k<sub>2</sub></code> is an attribute PID, <code>v<sub>2</sub></code> must be validated by
+                <code>k<sub>2</sub></code>. Note: This may involve checking validity of <a>attributes</a> <code>a<sub>3</sub></code>,
+                <code>a<sub>4</sub></code>, ... if <code>a<sub>2</sub></code> is also an <a>attribute</a> applying
+                <a>attribute referencing</a> (consecutive referencing).
             </li>
         </ol>
         <aside class="note">
-            If A is specified to apply <a>attribute referencing</a> but there is no <a>attribute</a> b that fulfills all
-            validation
-            conditions, then <a>attribute</a> a MAY be ignored to handle this error gracefully in certain use cases.
+            If attribute <code>a<sub>1</sub></code> is an <a>attribute reference</a> but there is no
+            referenced <a>attribute</a> <code>a<sub>2</sub></code> in the record, then <code>a<sub>1</sub></code> MAY be
+            ignored to handle this error gracefully in certain use cases.
         </aside>
 
+        There are two (almost) equivalent ways how to build a Handle-based <a>attribute definition</a> that applies <a>attribute
+        referencing</a> (see [H5-8a] and [H5-8b]).
+
         <aside class="note">
-            <a>Attribute referencing</a> is very similar to unions of <a>attribute definitions</a>:
-            In both cases, an <a>attribute definition</a> states that its instantiation validates one of several <a>attribute
-            definitions</a>.
-            However, the slight difference is that for <a>attribute referencing</a>, the instantiating record also
-            states which of the <a>attribute definitions</a> is
-            actually chosen, while this is not stated in the case of unions.
+            [H5-8a] allows to reference to any attribute, while [H5-8b] only allows to reference to an attribute that
+            instantiates an attribute definition. Hence, [H5-8a] is a bit more expressive.
+        </aside>
+
+        <p><b>[H5-8a] Attribute Referencing implemented by JSON Schemas:</b></p>
+        The <a>FDO record</a> of the <a>attribute definition</a> <code>A</code> must contain a JSON schema which encodes an
+        <a>attribute reference</a> to one of the <a>attributes</a> <code>b<sub>1</sub>,...,b<sub>n</sub></code>. In detail, the attribute
+        <code>21.T11969/Data</code> applies <a>attribute referencing</a> to point to the attribute
+        <code>21.T11969/JsonSchema</code>, which has as its value a JSON schema. The JSON schema can specify both syntax
+        rules for the attribute value (i.e. that it is a whitelist of strings allowing for
+        <code>b<sub>1</sub>,...,b<sub>n</sub></code>) and that it applies attribute referencing. The validity of
+        attribute referencing must be checked on top of simple JSON schema validation.
+        <pre><code>{
+    "enum": ["[PID or name of b1]", "...", "[PID or name of bn]"],
+    "validation": {
+        "mechanism": "attributeReference"
+    }
+}</code></pre>
+        If the <code>enum</code> is left out, it means that the referenced attribute can be anything,
+        e.g. an attribute instantiating an <a>attribute definition</a>, or a simple label.
+
+        <aside class="example" title="Attribute Definition applying Attribute Referencing using JSON Schema">
+            The attribute definition <code>21.T11969/Data</code> uses attribute referencing. An implementation
+            of its FDO record could look like this:
+            <table>
+                <thead>
+                <tr>
+                    <th scope="col">PID of Attribute Definition</th>
+                    <th scope="col">Example Value</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>21.T11969/Type</td>
+                    <td>FDO_Attribute</td>
+                </tr>
+                <tr>
+                    <td>21.T11969/Profile</td>
+                    <td>21.T11969/AttributeDef</td>
+                </tr>
+                <tr>
+                    <td>21.T11969/Name</td>
+                    <td>Data</td>
+                </tr>
+                <tr>
+                    <td>21.T11969/Description</td>
+                    <td>Reference to the data bit-sequence of the FDO.
+                    </td>
+                </tr>
+                <tr>
+                    <td>21.T11969/Cardinality</td>
+                    <td>1..n</td>
+                </tr>
+                <tr>
+                    <td>21.T11969/Data</td>
+                    <td>21.T11969/JsonSchema</td>
+                </tr>
+                <tr>
+                    <td>21.T11969/JsonSchema</td>
+                    <td><pre><code>{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "@id": "hdl:21.T11969/Data",
+    "title": "Data",
+    "description": "Reference to the data bit-sequence of the FDO.",
+    "type": "string",
+    "enum": ["21.T11969/Attr_Def_inline_data", "21.T11969/Attr_Def_URL", "21.T11969/Attr_Def_FDO_Ref"],
+    "validation": {
+        "mechanism": "attributeReference"
+    }
+}</code></pre></td>
+                </tr>
+                </tbody>
+                <caption>
+                    FDO record of attribute definition (PID: <i>21.T11969/Data</i>.)
+                </caption>
+            </table>
+        </aside>
+
+        <p><b>[H5-8b] Attribute Referencing implemented on Handle-record level:</b></p>
+        The <a>FDO record</a> of the <a>attribute definition</a> <code>A</code> must specify the attributes
+        <code>21.T11969/ValidationMechanism</code> and <code>21.T11969/DataType</code> to define an
+        <a>attribute reference</a> to one of the <a>attribute definitions</a> <code>B<sub>1</sub>,...,B<sub>n</sub></code>. In detail, the
+        following attributes MUST be in the <a>attribute definition</a>:
+        <ul>
+            <li><code>(21.T11969/ValidationMechanism, AttributeReference)</code> to state that this
+                <a>attribute definition</a> uses <a>attribute referencing</a>
+            </li>
+            <li>
+                <code>(21.T11969/DataType, B<sub>1</sub>)</code>, ..., <code>(21.T11969/DataType, B<sub>n</sub>)</code>
+                to state that the attribute value must point to an attribute in the same record that instantiates one of
+                the <a>attribute definitions</a> <code>B<sub>1</sub>, ..., B<sub>n</sub></code>.
+                If <code>21.T11969/DataType</code> is not contained in the <a>attribute definition</a>, it means that
+                the referenced attribute can be anything, e.g. an attribute following any <a>attribute definition</a>, or even
+                a simple label.
+            </li>
+            <li>
+                The cardinality of the <a>attribute definition</a> <code>A</code> only specifies the occurrence of instances of <code>A</code>
+                itself (and not the occurrence of instances of any of <code>B<sub>1</sub>,...,B<sub>n</sub></code>).
+                The cardinality of <code>B<sub>1</sub>,...,B<sub>n</sub></code> cannot be influenced by <code>A</code>.
+            </li>
+        </ul>
+
+        <aside class="example" title="Attribute Definition applying Attribute Referencing on Handle record-level">
+            The attribute definition <code>21.T11969/Data</code> uses attribute referencing. Its FDO record could
+            look like this:
+            <table>
+                <thead>
+                <tr>
+                    <th scope="col">PID of Attribute Definition</th>
+                    <th scope="col">Example Value</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>21.T11969/Type</td>
+                    <td>FDO_Attribute</td>
+                </tr>
+                <tr>
+                    <td>21.T11969/Profile</td>
+                    <td>21.T11969/AttributeDef</td>
+                </tr>
+                <tr>
+                    <td>21.T11969/Name</td>
+                    <td>Data</td>
+                </tr>
+                <tr>
+                    <td>21.T11969/Description</td>
+                    <td>Reference to the data bit-sequence of the FDO.
+                    </td>
+                </tr>
+                <tr>
+                    <td>21.T11969/Cardinality</td>
+                    <td>1..n</td>
+                </tr>
+                <tr>
+                    <td>21.T11969/Data</td>
+                    <td>Not_Applicable</td>
+                </tr>
+                <tr>
+                    <td>21.T11969/ValidationMechanism</td>
+                    <td>AttributeReference</td>
+                </tr>
+                <tr>
+                    <td>21.T11969/DataType</td>
+                    <td>21.T11969/Attr_Def_inline_data</td>
+                </tr>
+                <tr>
+                    <td>21.T11969/DataType</td>
+                    <td>21.T11969/Attr_Def_URL</td>
+                </tr>
+                <tr>
+                    <td>21.T11969/DataType</td>
+                    <td>21.T11969/Attr_Def_FDO_Ref</td>
+                </tr>
+                </tbody>
+                <caption>
+                    FDO record of attribute definition (PID: <i>21.T11969/Data</i>)
+                </caption>
+            </table>
         </aside>
     </dd>
 </dl>
+
+<div style="background-color:LightPink;">
+    <b>TODOS:</b>
+    <ul>
+        <li>
+            Register the attributes that are referenced (attribute referencing) by the 21.T11969/Data and 21.T11969/Type
+            attributes. Examples are: 21.T11969/Attr_Def_inline_data, 21.T11969/Attr_Def_URL, 21.T11969/Attr_Def_FDO_Ref.
+            Find better names for these attributes and discuss how they should look like. As soon as they are registered,
+            improve the examples above with the registered attributes.
+        </li>
+    </ul>
+</div>
