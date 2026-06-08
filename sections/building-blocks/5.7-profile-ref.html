@@ -23,11 +23,17 @@
         The <a>FDO record</a> of the <a>attribute definition</a> <code>A</code> must contain a JSON schema which encodes a
         <a>profile reference</a> to one of the <a>profiles</a> <code>P<sub>1</sub>,...,P<sub>n</sub></code>. In detail, the attribute
         <code>21.T11969/Data</code> applies <a>attribute referencing</a> to point to the attribute
-        <code>21.T11969/JsonSchema</code>, which has as its value a JSON schema. The JSON schema specifies a <a>whitelist</a>
-        of profiles <code>P<sub>1</sub>,...,P<sub>n</sub></code> using the <code>enum</code> keyword. If it does not
-        specify a <a>whitelist</a>, it means that the referenced FDO must be complient with <code>21.T11969/Root</code>.
-        The JSON Schema furthermore specifies to apply <a>profile referencing</a> by adding the property
-        <code>{"validationMechanism": "profileReference"}</code>.
+        <code>21.T11969/JsonSchema</code>, which has as its value a JSON schema. The JSON schema can specify both syntax
+        rules for the attribute value (e.g. that it is a string or follows a regular expression) and validation rules
+        that need to be checked beyond the syntax of the attribute value (profile referencing). The latter rules are
+        encoded in the JSON schema and must be extracted and checked separate from simple JSON schema validaton:
+        <pre><code>{
+"validation": {
+    "mechanism": "profileReference",
+    "allowedProfiles": ["[reference to P1], ..., [reference to Pn]"]
+}</code></pre><code>validation</code>.
+        If the <code>allowedProfiles</code> key is left out, it means that the referenced FDO must be complient with
+        <code>21.T11969/Root</code>.
 
         <aside class="example" title="Attribute Definition applying Profile Referencing using JSON Schema">
             The attribute definition <code>21.T11969/Profile</code> uses profile referencing. An implementation
@@ -73,8 +79,10 @@
     "title": "FdoProfile",
     "description": "A reference to an FDO profile.",
     "type": "string",
-    "enum": ["21.T11969/ProfileDef"],
-    "validationMechanism": "profileReference"
+    "validation": {
+        "mechanism": "profileReference",
+        "allowedProfiles": ["21.T11969/ProfileDef"]
+    }
 }</code></pre></td>
                 </tr>
                 </tbody>
@@ -85,8 +93,8 @@
             <figure id="profile-ref-json-schema">
                 <img src="img/profile-reference-json-schema.svg" alt="Profile_Referencing.svg" height=400>
                 <figcaption>
-                    The validation mechanisms of profile referencing. The JSON property
-                    <code>{"enum": ["21.T11969/ProfileDef"]}</code> ensures that any attribute instantiating
+                    The validation mechanisms of profile referencing. The JSON key-value pair
+                    <pre><code>{"allowedProfiles": ["21.T11969/ProfileDef"]}</code></pre> ensures that any attribute instantiating
                     <code>21.T11969/Profile</code> must reference an FDO profile.
                 </figcaption>
             </figure>
