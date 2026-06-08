@@ -120,11 +120,87 @@
             ignored to handle this error gracefully in certain use cases.
         </aside>
 
-        There are two equivalent ways how to build a Handle-based <a>attribute definition</a> that applies <a>attribute
+        There are two (almost) equivalent ways how to build a Handle-based <a>attribute definition</a> that applies <a>attribute
         referencing</a> (see [H5-8a] and [H5-8b]).
 
-        <p><b>[H5-8a] Attribute Referencing implemented by JSON Schemas:</b></p>
+        <aside class="note">
+            [H5-8a] allows to reference to any attribute, while [H5-8b] only allows to reference to an attribute that
+            instantiates an attribute definition. Hence, [H5-8a] is a little bit more expressive.
+        </aside>
 
+        <p><b>[H5-8a] Attribute Referencing implemented by JSON Schemas:</b></p>
+        The <a>FDO record</a> of the <a>attribute definition</a> <code>A</code> must contain a JSON schema which encodes an
+        <a>attribute reference</a> to one of the <a>attributes</a> <code>b<sub>1</sub>,...,b<sub>n</sub></code>. In detail, the attribute
+        <code>21.T11969/Data</code> applies <a>attribute referencing</a> to point to the attribute
+        <code>21.T11969/JsonSchema</code>, which has as its value a JSON schema. The JSON schema can specify both syntax
+        rules for the attribute value (i.e. that it is whitelist of strings allowing for
+        <code>b<sub>1</sub>,...,b<sub>n</sub></code>) and that it applies attribute referencing. The validity of
+        attribute referencing must be checked on top of simple JSON schema validation.
+        <pre><code>{
+    "enum": ["[PID or name of b1]", "...", "[PID or name of bn]"],
+    "validation": {
+        "mechanism": "attributeReference"
+    }
+}</code></pre>
+        If the <code>enum</code> is left out, it means that the referenced attribute can be anything,
+        e.g. an attribute instantiating an attribute definition, or a simple label.
+
+        <aside class="example" title="Attribute Definition applying Attribute Referencing using JSON Schema">
+            The attribute definition <code>21.T11969/Data</code> uses attribute referencing. An implementation
+            of its FDO record could look like this:
+            <table>
+                <thead>
+                <tr>
+                    <th scope="col">PID of Attribute Definition</th>
+                    <th scope="col">Example Value</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>21.T11969/Type</td>
+                    <td>FDO_Attribute</td>
+                </tr>
+                <tr>
+                    <td>21.T11969/Profile</td>
+                    <td>21.T11969/AttributeDef</td>
+                </tr>
+                <tr>
+                    <td>21.T11969/Name</td>
+                    <td>Data</td>
+                </tr>
+                <tr>
+                    <td>21.T11969/Description</td>
+                    <td>Reference to the data bit-sequence of the FDO.
+                    </td>
+                </tr>
+                <tr>
+                    <td>21.T11969/Cardinality</td>
+                    <td>1..n</td>
+                </tr>
+                <tr>
+                    <td>21.T11969/Data</td>
+                    <td>21.T11969/JsonSchema</td>
+                </tr>
+                <tr>
+                    <td>21.T11969/JsonSchema</td>
+                    <td><pre><code>{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "@id": "hdl:21.T11969/Data",
+    "title": "Data",
+    "description": "Reference to the data bit-sequence of the FDO.",
+    "type": "string",
+    "enum": ["21.T11969/Attr_Def_inline_data", "21.T11969/Attr_Def_URL", "21.T11969/Attr_Def_FDO_Ref"],
+    "validation": {
+        "mechanism": "attributeReference"
+    }
+}</code></pre></td>
+                </tr>
+                </tbody>
+                <caption>
+                    FDO record of attribute definition (PID: <i>21.T11969/Data</i>.)
+                </caption>
+            </table>
+        </aside>
 
         <p><b>[H5-8b] Attribute Referencing implemented on Handle-record level:</b></p>
         The <a>FDO record</a> of the <a>attribute definition</a> <code>A</code> must specify the attributes
