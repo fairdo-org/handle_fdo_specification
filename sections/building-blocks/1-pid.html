@@ -6,10 +6,10 @@
     </dd>
     <dt> [H1-2] <dfn data-lt="PID Detection|detection">PID Detection</dfn></dt>
     <dd>
-        According to [[RFC3650]], all <a>Handle PIDs</a> conform to this schema: <pre><code>&ltHandle Naming Authority&gt "/" &ltHandle Local Name&gt</code></pre>
+        According to [[RFC3650]] and [[DO-IRP specification]], all <a>Handle PIDs</a> conform to this schema: <pre><code>&ltHandle Naming Authority&gt "/" &ltHandle Local Name&gt</code></pre>
         The 'Handle Naming Authority' part of the Handle PID is also called a <dfn data-lt="Handle prefix|prefix">Handle prefix</dfn>, is typically assigned to an organization, and MUST be unique.
         The 'Handle Local Name' part of the Handle PID is also called a <dfn data-lt="Handle suffix|suffix">Handle suffix</dfn> and must be unique within a Handle prefix.
-        According to [[RFC3650]], "<a>Handles</a> may consist of any printable characters from the Universal Character Set (UCS-2) of ISO/IEC 10646" with [[UTF-8]] encoding.
+        According to [[RFC3650]] [[DO-IRP specification]], "<a>Handles</a> may consist of any printable characters from the Universal Character Set (UCS-2) of ISO/IEC 10646" with [[UTF-8]] encoding.
         In practice, the syntax of a Handle PID follows the regular expression: <pre><code>^([0-9A-Za-z])+.([0-9A-Za-z])+/([!-~])+$</code></pre>
     </dd>
     <dt> [H1-3] <dfn data-lt="PID Resolution|resolution">PID Resolution</dfn></dt>
@@ -17,6 +17,6 @@
         The <a>resolution</a> of a Handle-based FDO, which is identified by PID X, into an FDO record uses the
         <a href="https://www.handle.net/"><dfn>Global Handle Resolver</dfn></a> to receive the Handle record at
         `https://hdl.handle.net/api/handles/[X]`.
-        This is further specified in [[RFC3652]] and [[Handle Technical Manual]].
+        This is further specified in [[RFC3652]], [[DO-IRP specification]], and [[Handle Technical Manual]].
     </dd>
 </dl>
