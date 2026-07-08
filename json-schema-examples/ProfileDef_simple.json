@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "21.T19969/my-profile",
+  "title": "my-profile",
+  "description": "A profile containing name and author (others attributes, such as type, profile, etc. are omitted - todo add them later)",
+  "allOf": [
+    {
+      "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples/AttrDef_Author.json"
+    },
+    {
+      "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples/AttrDef_Name.json"
+    },
+    {
+      "$comment": "This subschema overwrites the cardinality from name to 1-2, instead of 1-5",
+      "oneOf": [
+        {
+          "title": "Option 1: Repeated individual handle values (1-2).",
+          "contains": {
+            "properties": {
+              "key": {
+                "enum": [
+                  "21.T11969/Name",
+                  "Name"
+                ]
+              }
+            }
+          },
+          "minContains": 1,
+          "maxContains": 2,
+          "items": {
+            "if": {
+              "properties": {
+                "key": {
+                  "enum": [
+                    "21.T11969/Name",
+                    "Name"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "value": {
+                  "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples/SyntaxDef_Name.json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Option 2: One handle value with an array of 1-2 elements.",
+          "contains": {
+            "properties": {
+              "key": {
+                "enum": [
+                  "21.T11969/Name",
+                  "Name"
+                ]
+              }
+            }
+          },
+          "minContains": 1,
+          "maxContains": 2,
+          "items": {
+            "if": {
+              "properties": {
+                "key": {
+                  "enum": [
+                    "21.T11969/Name",
+                    "Name"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "value": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples/SyntaxDef_Name.json"
+                  },
+                  "minItems": 1,
+                  "maxItems": 1
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
