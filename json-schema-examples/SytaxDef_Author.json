@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "21.T11969/example_author_syntax",
+  "title": "Author_Syntax",
+  "description": "Validates any author who has at least a last name and potentially a first name.",
+  "type": "object",
+  "properties": {
+    "first_name": {
+      "$id": "21.T11969/example_name_syntax",
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9\\s]+$",
+      "minLength": 1
+    },
+    "last_name": {
+      "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples/SyntaxDef_Name.json"
+    }
+  },
+  "required": [
+    "last_name"
+  ],
+  "additionalProperties": false
+}
