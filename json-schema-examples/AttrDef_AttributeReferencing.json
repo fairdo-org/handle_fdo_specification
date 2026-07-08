@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "21.T19969/Name",
-  "title": "Name",
-  "description": "Validates the 21.T11969/Name attribute in an FDO record.",
+  "$id": "21.T19969/Data",
+  "title": "Data",
+  "description": "Validates the 21.T11969/Data attribute in an FDO record.",
   "type": "array",
   "items": {
     "type": "object",
@@ -20,44 +20,47 @@
   },
   "oneOf": [
     {
-      "title": "21.T11969_Name - Option 1: Repeated individual handle values.",
+      "title": "21.T11969_Name - Option 1: Repeated individual handle values (1-n).",
       "contains": {
         "properties": {
           "key": {
-            "const":
-                "21.T11969/Name"
+            "enum": [
+              "21.T11969/Data",
+              "Data"
+            ]
           }
         }
       },
       "minContains": 1,
-      "maxContains": 3,
       "items": {
         "if": {
           "properties": {
             "key": {
-              "const":
-                  "21.T11969/Name"
-
+              "enum": [
+                "21.T11969/Data",
+                "Data"
+              ]
             }
           }
         },
         "then": {
           "properties": {
             "value": {
-              "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples/SyntaxDef_Name.json"
+              "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples/SyntaxDef_AttributeReferencing.json"
             }
           }
         }
       }
     },
     {
-      "title": "21.T11969_Name - Option 2: One handle value with an array of elements.",
+      "title": "21.T11969_Name - Option 2: One handle value with an array of 1-5 elements.",
       "contains": {
         "properties": {
           "key": {
-            "const":
-                "21.T11969/Name"
-
+            "enum": [
+              "21.T11969/Data",
+              "Data"
+            ]
           }
         }
       },
@@ -67,8 +70,10 @@
         "if": {
           "properties": {
             "key": {
-              "const":
-                  "21.T11969/Name"
+              "enum": [
+                "21.T11969/Profile",
+                "FdoProfile"
+              ]
             }
           }
         },
@@ -77,10 +82,9 @@
             "value": {
               "type": "array",
               "items": {
-                "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples/SyntaxDef_Name.json"
+                "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples/SyntaxDef_AttributeReferencing.json"
               },
-              "minItems": 1,
-              "maxItems": 3
+              "minItems": 1
             }
           }
         }
