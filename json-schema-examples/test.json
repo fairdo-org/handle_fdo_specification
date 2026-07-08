@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "21.T19969/Name",
+  "title": "Name",
+  "description": "Validates the 21.T11969/Name attribute in an FDO record.",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "title": "FDO Record Item",
+    "properties": {
+      "key": {
+        "type": "string"
+      },
+      "value": {}
+    },
+    "required": [
+      "key",
+      "value"
+    ]
+  },
+  "oneOf": [
+    {
+      "title": "21.T11969_Name - Option 1: Repeated individual handle values.",
+      "contains": {
+        "properties": {
+          "key": {
+            "const":
+                "21.T11969/Name"
+          }
+        }
+      },
+      "minContains": 1,
+      "maxContains": 3,
+      "items": {
+        "if": {
+          "properties": {
+            "key": {
+              "const":
+                  "21.T11969/Name"
+
+            }
+          }
+        },
+        "then": {
+          "properties": {
+            "value": {
+              "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples/SyntaxDef_Name.json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "21.T11969_Name - Option 2: One handle value with an array of elements.",
+      "contains": {
+        "properties": {
+          "key": {
+            "const":
+                "21.T11969/Name"
+
+          }
+        }
+      },
+      "minContains": 1,
+      "maxContains": 1,
+      "items": {
+        "if": {
+          "properties": {
+            "key": {
+              "const":
+                  "21.T11969/Name"
+            }
+          }
+        },
+        "then": {
+          "properties": {
+            "value": {
+              "type": "array",
+              "items": {
+                "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples/SyntaxDef_Name.json"
+              },
+              "minItems": 1,
+              "maxItems": 3
+            }
+          }
+        }
+      }
+    }
+  ]
+}
