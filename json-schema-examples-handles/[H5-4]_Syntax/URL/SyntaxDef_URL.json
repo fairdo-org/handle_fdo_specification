@@ -4,6 +4,5 @@
   "title": "URL_Syntax",
   "description": "Validates any URL",
   "type": "string",
-  "pattern": "^http(s)?:(\/\/([^/?#]*))?([^?#]*)(\\?([^#]*))?(#(.*))?$",
-  "minLength": 1
+  "pattern": "^http(s)?:(\/\/([^/?#]*))?([^?#]*)(\\?([^#]*))?(#(.*))?$"
 }
