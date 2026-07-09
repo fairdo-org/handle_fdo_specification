@@ -12,7 +12,7 @@
       "minLength": 1
     },
     "last_name": {
-      "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/%5BH4-4%5D_Syntax/SyntaxDef_Name.json"
+      "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/%5BH5-4%5D_Syntax/SyntaxDef_Name.json"
     }
   },
   "required": [
