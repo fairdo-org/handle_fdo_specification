@@ -1,0 +1,24 @@
+{
+  "responseCode": 1,
+  "handle": "abc",
+  "values": [
+    {
+      "index": 1,
+      "type": "Author",
+      "data": {
+        "format": "string",
+        "value": [
+          {
+            "last_name": "X"
+          },
+          {
+            "first_name": "Jane",
+            "last_name": "Doe"
+          }
+        ]
+      },
+      "ttl": 86400,
+      "timestamp": "2026-07-01T14:31:38Z"
+    }
+  ]
+}
