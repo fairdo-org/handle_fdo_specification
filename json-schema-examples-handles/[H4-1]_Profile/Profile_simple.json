@@ -26,6 +26,16 @@
       "timestamp": "2026-07-01T14:31:38Z"
     },
     {
+      "index": 3,
+      "type": "URL",
+      "data": {
+        "format": "string",
+        "value": "https://www.gwdg.de"
+      },
+      "ttl": 86400,
+      "timestamp": "2026-07-01T14:31:38Z"
+    },
+    {
       "index": 4,
       "type": "21.T11969/Name",
       "data": {
