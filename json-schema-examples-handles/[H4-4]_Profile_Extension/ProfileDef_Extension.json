@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "@id": "hdl:21.T19969/extension-of-abcdefghi",
+  "title": "my-simple-extended-profile",
+  "description": "A profile containing the following properties: FdoProfile, Data, URL, Name and Author (omitted type for brevity; this is mandatory)",
+  "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/%5BH4-1%5D_Profile/ProfileDef_simple.json",
+  "allOf": [
+    {
+      "$comment": "Add additional attributes here (e.g. author)",
+      "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/%5BH5-5%5D_Inline_Combination/AttrDef_Author.json"
+    },
+    {
+      "$comment": "This subschema overwrites the cardinality from Author to 1 (instead of 1-3)",
+      "properties": {
+        "values": {
+          "oneOf": [
+            {
+              "title": "Option 1: Repeated individual handle values.",
+              "contains": {
+                "properties": {
+                  "type": {
+                    "enum": [
+                      "21.T11969/Author",
+                      "Author"
+                    ]
+                  }
+                }
+              },
+              "minContains": 1,
+              "maxContains": 1,
+              "items": {
+                "if": {
+                  "properties": {
+                    "type": {
+                      "enum": [
+                        "21.T11969/Author",
+                        "Author"
+                      ]
+                    }
+                  }
+                },
+                "then": {
+                  "properties": {
+                    "data": {
+                      "properties": {
+                        "value": {
+                          "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/%5BH5-5%5D_Inline_Combination/SyntaxDef_Author.json"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "title": "Option 2: One handle value with an array of 1 element.",
+              "contains": {
+                "properties": {
+                  "type": {
+                    "enum": [
+                      "21.T11969/Author",
+                      "Author"
+                    ]
+                  }
+                }
+              },
+              "minContains": 1,
+              "maxContains": 1,
+              "items": {
+                "if": {
+                  "properties": {
+                    "type": {
+                      "enum": [
+                        "21.T11969/Author",
+                        "Author"
+                      ]
+                    }
+                  }
+                },
+                "then": {
+                  "properties": {
+                    "data": {
+                      "properties": {
+                        "value": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/%5BH5-5%5D_Inline_Combination/SyntaxDef_Author.json"
+                          },
+                          "minItems": 1,
+                          "maxItems": 1
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
