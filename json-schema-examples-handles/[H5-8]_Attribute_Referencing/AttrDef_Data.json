@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "@id": "hdl:21.T19969/Data",
+  "title": "Data",
+  "description": "Validates the 21.T11969/Data attribute in an FDO record.",
+  "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/handle-wrapper.json",
+  "properties": {
+    "values": {
+      "oneOf": [
+        {
+          "title": "Option 1: Repeated individual handle values (1-n).",
+          "contains": {
+            "properties": {
+              "type": {
+                "enum": [
+                  "21.T11969/Data",
+                  "Data"
+                ]
+              }
+            }
+          },
+          "minContains": 1,
+          "items": {
+            "if": {
+              "properties": {
+                "type": {
+                  "enum": [
+                    "21.T11969/Data",
+                    "Data"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "properties": {
+                    "value": {
+                      "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/%5BH5-8%5D_Attribute_Referencing/SyntaxDef_Data.json"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Option 2: One handle value with an array of 1-5 elements.",
+          "contains": {
+            "properties": {
+              "type": {
+                "enum": [
+                  "21.T11969/Data",
+                  "Data"
+                ]
+              }
+            }
+          },
+          "minContains": 1,
+          "maxContains": 1,
+          "items": {
+            "if": {
+              "properties": {
+                "type": {
+                  "enum": [
+                    "21.T11969/Data",
+                    "Data"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "properties": {
+                    "value": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/%5BH5-8%5D_Attribute_Referencing/SyntaxDef_Data.json"
+                      },
+                      "minItems": 1
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}
