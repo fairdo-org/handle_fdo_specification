@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "21.T11969/example_name_syntax",
+  "pid": "21.T11969/example_name_syntax",
   "title": "Name_Syntax",
   "description": "Validates any name using characters and numbers.",
   "type": "string",
