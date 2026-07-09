@@ -18,7 +18,7 @@
     },
     {
       "$comment": "Name",
-      "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/%5BH5-4%5D_Syntax/AttrDef_Name.json"
+      "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/%5BH5-4%5D_Syntax/Name/AttrDef_Name.json"
     },
     {
       "$comment": "Author",
