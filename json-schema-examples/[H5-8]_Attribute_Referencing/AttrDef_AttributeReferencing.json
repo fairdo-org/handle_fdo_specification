@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "21.T19969/Data",
+  "@id": "21.T19969/Data",
   "title": "Data",
   "description": "Validates the 21.T11969/Data attribute in an FDO record.",
   "type": "array",
