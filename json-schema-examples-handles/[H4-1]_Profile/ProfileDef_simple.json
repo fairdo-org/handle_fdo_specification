@@ -1,0 +1,118 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "@id": "hdl:21.T19969/abcdefghi",
+  "title": "my-simple-profile",
+  "description": "A profile containing the following properties: FdoProfile, Data, URL, Name and Author (omitted type for brevity; this is mandatory)",
+  "allOf": [
+    {
+      "$comment": "FDO Profile",
+      "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/%5BH5-7%5D_Profile_Referencing/AttrDef_Profile.json"
+    },
+    {
+      "$comment": "Data",
+      "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/%5BH5-8%5D_Attribute_Referencing/AttrDef_Data.json"
+    },
+    {
+      "$comment": "URL",
+
+    },
+    {
+      "$comment": "Name",
+      "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/%5BH5-4%5D_Syntax/AttrDef_Name.json"
+    },
+    {
+      "$comment": "Author",
+      "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/%5BH5-5%5D_Inline_Combination/AttrDef_Author.json"
+    },
+    {
+      "$comment": "This subschema overwrites the cardinality from name to 1-2, instead of 1-5",
+      "properties": {
+        "values": {
+          "oneOf": [
+            {
+              "title": "Option 1: Repeated individual handle values (1-5).",
+              "contains": {
+                "properties": {
+                  "type": {
+                    "enum": [
+                      "21.T11969/Name",
+                      "Name"
+                    ]
+                  }
+                }
+              },
+              "minContains": 1,
+              "maxContains": 2,
+              "items": {
+                "if": {
+                  "properties": {
+                    "type": {
+                      "enum": [
+                        "21.T11969/Name",
+                        "Name"
+                      ]
+                    }
+                  }
+                },
+                "then": {
+                  "properties": {
+                    "data": {
+                      "properties": {
+                        "value": {
+                          "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/%5BH5-4%5D_Syntax/SyntaxDef_Name.json"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "title": "Option 2: One handle value with an array of 1-5 elements.",
+              "contains": {
+                "properties": {
+                  "type": {
+                    "enum": [
+                      "21.T11969/Name",
+                      "Name"
+                    ]
+                  }
+                }
+              },
+              "minContains": 1,
+              "maxContains": 1,
+              "items": {
+                "if": {
+                  "properties": {
+                    "type": {
+                      "enum": [
+                        "21.T11969/Name",
+                        "Name"
+                      ]
+                    }
+                  }
+                },
+                "then": {
+                  "properties": {
+                    "data": {
+                      "properties": {
+                        "value": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/%5BH5-4%5D_Syntax/SyntaxDef_Name.json"
+                          },
+                          "minItems": 1,
+                          "maxItems": 2
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
