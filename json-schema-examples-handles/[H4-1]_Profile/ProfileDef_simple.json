@@ -59,7 +59,7 @@
                     "data": {
                       "properties": {
                         "value": {
-                          "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/%5BH5-4%5D_Syntax/SyntaxDef_Name.json"
+                          "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/%5BH5-4%5D_Syntax/Name/SyntaxDef_Name.json"
                         }
                       }
                     }
@@ -99,7 +99,7 @@
                         "value": {
                           "type": "array",
                           "items": {
-                            "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/%5BH5-4%5D_Syntax/SyntaxDef_Name.json"
+                            "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/%5BH5-4%5D_Syntax/Name/SyntaxDef_Name.json"
                           },
                           "minItems": 1,
                           "maxItems": 2
