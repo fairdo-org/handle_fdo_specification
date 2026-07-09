@@ -13,8 +13,7 @@
       "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/%5BH5-8%5D_Attribute_Referencing/AttrDef_Data.json"
     },
     {
-      "$comment": "URL",
-
+      "$comment": "URL"
     },
     {
       "$comment": "Name",
