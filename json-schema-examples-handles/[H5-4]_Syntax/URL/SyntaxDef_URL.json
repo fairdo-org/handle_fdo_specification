@@ -1,0 +1,9 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "@id": "hdl:21.T11969/URL",
+  "title": "URL_Syntax",
+  "description": "Validates any URL",
+  "type": "string",
+  "pattern": "^http(s)?:(\/\/([^/?#]*))?([^?#]*)(\\?([^#]*))?(#(.*))?$",
+  "minLength": 1
+}
