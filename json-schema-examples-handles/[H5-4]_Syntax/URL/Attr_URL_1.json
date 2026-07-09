@@ -1,0 +1,26 @@
+{
+  "responseCode": 1,
+  "handle": "abc",
+  "values": [
+    {
+      "index": 1,
+      "type": "URL",
+      "data": {
+        "format": "string",
+        "value": "https://www.gwdg.de"
+      },
+      "ttl": 86400,
+      "timestamp": "2026-07-01T14:31:38Z"
+    },
+    {
+      "index": 2,
+      "type": "URL",
+      "data": {
+        "format": "string",
+        "value": "https://www.example.com"
+      },
+      "ttl": 86400,
+      "timestamp": "2026-07-01T14:31:38Z"
+    }
+  ]
+}
