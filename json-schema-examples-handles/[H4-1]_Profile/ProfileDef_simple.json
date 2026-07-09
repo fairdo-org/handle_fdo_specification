@@ -6,19 +6,19 @@
   "allOf": [
     {
       "$comment": "FDO Profile",
-      "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/%5BH5-7%5D_Profile_Referencing/AttrDef_Profile.json"
+      "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/main/json-schema-examples-handles/%5BH5-7%5D_Profile_Referencing/AttrDef_Profile.json"
     },
     {
       "$comment": "Data",
-      "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/%5BH5-8%5D_Attribute_Referencing/AttrDef_Data.json"
+      "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/main/json-schema-examples-handles/%5BH5-8%5D_Attribute_Referencing/AttrDef_Data.json"
     },
     {
       "$comment": "URL",
-      "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/%5BH5-4%5D_Syntax/URL/AttrDef_URL.json"
+      "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/main/json-schema-examples-handles/%5BH5-4%5D_Syntax/URL/AttrDef_URL.json"
     },
     {
       "$comment": "Name",
-      "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/%5BH5-4%5D_Syntax/Name/AttrDef_Name.json"
+      "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/main/json-schema-examples-handles/%5BH5-4%5D_Syntax/Name/AttrDef_Name.json"
     },
     {
       "$comment": "This subschema overwrites the cardinality from Name to 1-2 (instead of 1-5)",
@@ -55,7 +55,7 @@
                     "data": {
                       "properties": {
                         "value": {
-                          "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/%5BH5-4%5D_Syntax/Name/SyntaxDef_Name.json"
+                          "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/main/json-schema-examples-handles/%5BH5-4%5D_Syntax/Name/SyntaxDef_Name.json"
                         }
                       }
                     }
@@ -95,7 +95,7 @@
                         "value": {
                           "type": "array",
                           "items": {
-                            "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/%5BH5-4%5D_Syntax/Name/SyntaxDef_Name.json"
+                            "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/main/json-schema-examples-handles/%5BH5-4%5D_Syntax/Name/SyntaxDef_Name.json"
                           },
                           "minItems": 1,
                           "maxItems": 2

@@ -3,7 +3,7 @@
   "@id": "21.T19969/Author",
   "title": "Author",
   "description": "Validates the 21.T11969/Author attribute in an FDO record.",
-  "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/handle-wrapper.json",
+  "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/main/json-schema-examples-handles/handle-wrapper.json",
   "properties": {
     "values": {
       "oneOf": [
@@ -36,7 +36,7 @@
                 "data": {
                   "properties": {
                     "value": {
-                      "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/%5BH5-5%5D_Inline_Combination/SyntaxDef_Author.json"
+                      "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/main/json-schema-examples-handles/%5BH5-5%5D_Inline_Combination/SyntaxDef_Author.json"
                     }
                   }
                 }
@@ -76,7 +76,7 @@
                     "value": {
                       "type": "array",
                       "items": {
-                        "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/%5BH5-5%5D_Inline_Combination/SyntaxDef_Author.json"
+                        "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/main/json-schema-examples-handles/%5BH5-5%5D_Inline_Combination/SyntaxDef_Author.json"
                       },
                       "minItems": 1
                     }

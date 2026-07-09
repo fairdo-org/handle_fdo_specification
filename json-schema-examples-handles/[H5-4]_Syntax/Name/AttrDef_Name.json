@@ -3,7 +3,7 @@
   "@id": "21.T19969/Name",
   "title": "Name",
   "description": "Validates the 21.T11969/Name attribute in a Handle record.",
-  "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/handle-wrapper.json",
+  "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/main/json-schema-examples-handles/handle-wrapper.json",
   "properties": {
     "values": {
       "oneOf": [
@@ -37,7 +37,7 @@
                 "data": {
                   "properties": {
                     "value": {
-                      "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/%5BH5-4%5D_Syntax/Name/SyntaxDef_Name.json"
+                      "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/main/json-schema-examples-handles/%5BH5-4%5D_Syntax/Name/SyntaxDef_Name.json"
                     }
                   }
                 }
@@ -77,7 +77,7 @@
                     "value": {
                       "type": "array",
                       "items": {
-                        "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/%5BH5-4%5D_Syntax/Name/SyntaxDef_Name.json"
+                        "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/main/json-schema-examples-handles/%5BH5-4%5D_Syntax/Name/SyntaxDef_Name.json"
                       },
                       "minItems": 1,
                       "maxItems": 5
