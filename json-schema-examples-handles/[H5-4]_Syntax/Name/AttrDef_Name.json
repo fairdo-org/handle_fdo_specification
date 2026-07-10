@@ -1,8 +1,9 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "@id": "21.T19969/Name",
+  "@id": "hdl:21.T19969/Name",
   "title": "Name",
-  "description": "Validates the 21.T11969/Name attribute in a Handle record.",
+  "description": "Name of a person, given as a non-empty string.",
+  "$comment": "Validates the 21.T11969/Name attribute in a Handle record.",
   "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/handle-wrapper.json",
   "properties": {
     "values": {
