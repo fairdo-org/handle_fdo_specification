@@ -6,17 +6,18 @@
   "type": "object",
   "properties": {
     "first_name": {
-      "description": "first_name = Name with the cardinality overwritten to 0-3 (for 0, this property is left out)",
+      "description": "first_name = Name with the cardinality overwritten to 0-3 (for 0, this property is left out, as this propery is not required)",
       "type": "array",
       "items": {
         "type": "string",
         "pattern": "^[a-zA-Z0-9\\s]+$",
         "minLength": 1
       },
+      "minItems": 1,
       "maxItems": 3
     },
     "last_name": {
-      "description": "last_name = Name with the cardinality overwritten to 3",
+      "description": "last_name = Name with the cardinality overwritten to 1-3",
       "type": "array",
       "items": {
         "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/%5BH5-4%5D_Syntax/Name/SyntaxDef_Name.json"
