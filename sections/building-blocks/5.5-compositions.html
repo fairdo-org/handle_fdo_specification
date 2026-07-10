@@ -7,8 +7,13 @@
         </p>
         <p><b>[H5-5a] Compositions implemented by JSON Schemas:</b></p>
         <p>
-            A composition <code>A</code> of attribute definitions <code>A<sub>1</sub></code>,
-            <code>A<sub>2</sub></code>, ...is implemented in JSON schema as an object with properties. Each property
+            The <a>FDO record</a> of the <a>attribute definition</a> <code>A</code> contains a JSON schema which encodes a
+            <a>composition</a> of attributes <code>A<sub>1</sub>,...,A<sub>n</sub></code>. In detail, the attribute
+            <code>21.T11969/Data</code> applies attribute referencing to point to the attribute
+            <code>21.T11969/JsonSchema</code>, which has as its value a JSON schema.
+        </p>
+        <p>
+            The JSON schema implements a composition as an object with properties. Each property
             corresponds to one of the attribute definitions <code>A<sub>1</sub></code>, <code>A<sub>2</sub></code>, ...
             If the attribute definition <code>A<sub>i</sub></code> has a cardinality larger than 1, then the property is
             an array with the respective cardinality. The cardinality of <code>A<sub>i</sub></code> can also be
