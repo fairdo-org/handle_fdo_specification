@@ -1,11 +1,8 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "@id": "hdl:21.T11969/Profile",
-    "title": "FdoProfile",
-    "description": "A reference to an FDO profile.",
+    "@id": "hdl:21.T11969/Handle_identifier",
+    "title": "Handle_Identifier",
+    "description": "A handle identifier resolving to a handle record.",
     "type": "string",
-    "validation": {
-        "mechanism": "profileReference",
-        "allowedProfiles": ["21.T11969/ProfileDef"]
-    }
+    "pattern": "^([0-9A-Za-z])+(\\.([0-9A-Za-z])+)*/([!-~])+$"
 }

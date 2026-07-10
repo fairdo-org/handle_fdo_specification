@@ -2,7 +2,12 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "@id": "hdl:21.T19969/Profile",
   "title": "FdoProfile",
-  "description": "Validates the 21.T11969/Profile attribute in an FDO record.",
+  "description": "Reference to the profile of the FDO.",
+  "validation": {
+    "mechanism": "profileReference",
+    "allowedProfiles": ["21.T11969/ProfileDef"]
+  },
+  "$comment": "Validates the 21.T11969/Profile attribute in an FDO record.",
   "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/handle-wrapper.json",
   "properties": {
     "values": {
