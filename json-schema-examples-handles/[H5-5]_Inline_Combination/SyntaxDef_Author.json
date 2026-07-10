@@ -9,7 +9,6 @@
       "description": "first_name = Name with the cardinality overwritten to 0-3 (for 0, this property is left out)",
       "type": "array",
       "items": {
-        "@id": "hdl:21.T11969/example_name_syntax",
         "type": "string",
         "pattern": "^[a-zA-Z0-9\\s]+$",
         "minLength": 1
