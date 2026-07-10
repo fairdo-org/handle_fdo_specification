@@ -9,11 +9,11 @@
         "format": "string",
         "value": [
           {
-            "last_name": "X"
+            "last_name": ["X"]
           },
           {
-            "first_name": "Jane",
-            "last_name": "Doe"
+            "first_name": ["Jane", "Marilyn"],
+            "last_name": ["Doe"]
           }
         ]
       },

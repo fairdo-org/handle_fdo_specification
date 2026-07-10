@@ -8,7 +8,7 @@
     "values": {
       "oneOf": [
         {
-          "title": "Option 1: Repeated individual handle values (1-n).",
+          "description": "Option 1: Repeated individual handle values (1-n).",
           "contains": {
             "properties": {
               "type": {
@@ -45,7 +45,7 @@
           }
         },
         {
-          "title": "Option 2: One handle value with an array of 1-n elements.",
+          "description": "Option 2: One handle value with an array of 1-n elements.",
           "contains": {
             "properties": {
               "type": {

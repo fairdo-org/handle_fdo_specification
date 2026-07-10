@@ -8,8 +8,8 @@
       "data": {
         "format": "string",
         "value": {
-          "first_name": "Mr",
-          "last_name": "X"
+          "first_name": ["Mr"],
+          "last_name": ["X"]
         }
       },
       "ttl": 86400,
