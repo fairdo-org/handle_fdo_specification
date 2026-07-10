@@ -11,16 +11,6 @@
       },
       "ttl": 86400,
       "timestamp": "2026-07-01T14:31:38Z"
-    },
-    {
-      "index": 2,
-      "type": "Author_or_Name",
-      "data": {
-        "format": "string",
-        "value": "Max Mustermann"
-      },
-      "ttl": 86400,
-      "timestamp": "2026-07-01T14:31:38Z"
     }
   ]
 }

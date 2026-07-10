@@ -2,7 +2,8 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "id": "21.T19969/Author_or_Name",
   "title": "Author_or_Name",
-  "description": "A union of author and name - an attribute validates against this if and only if it is either a valid name, or a valid author",
+  "description": "Either an author or a name.",
+  "$comment": "Any attribute validates against this union if and only if it is either a valid name, or a valid author",
   "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/handle-wrapper.json",
   "properties": {
     "values": {
@@ -20,7 +21,7 @@
             }
           },
           "minContains": 1,
-          "maxContains": 3,
+          "maxContains": 1,
           "items": {
             "if": {
               "properties": {
@@ -80,7 +81,7 @@
                         "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/%5BH5-4%5D_Syntax/Name/SyntaxDef_Name.json"
                       },
                       "minItems": 1,
-                      "maxItems": 3
+                      "maxItems": 1
                     }
                   }
                 }
@@ -101,6 +102,7 @@
             }
           },
           "minContains": 1,
+          "maxContains": 1,
           "items": {
             "if": {
               "properties": {
@@ -159,7 +161,8 @@
                       "items": {
                         "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/%5BH5-5%5D_Inline_Combination/SyntaxDef_Author.json"
                       },
-                      "minItems": 1
+                      "minItems": 1,
+                      "maxItems": 1
                     }
                   }
                 }
