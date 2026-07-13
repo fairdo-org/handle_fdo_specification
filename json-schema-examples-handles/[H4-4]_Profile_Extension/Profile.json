@@ -47,12 +47,12 @@
     },
     {
       "index": 5,
-      "type": "Author",
+      "type": "Full_Name",
       "data": {
         "format": "string",
         "value": {
-          "first_name": "Max",
-          "last_name": "Mustermann"
+          "First_Name": ["Max"],
+          "21.T11969/Last_Name": ["Mustermann"]
         }
       },
       "ttl": 86400,
