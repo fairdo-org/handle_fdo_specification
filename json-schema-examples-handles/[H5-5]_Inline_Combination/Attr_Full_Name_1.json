@@ -4,12 +4,12 @@
   "values": [
     {
       "index": 1,
-      "type": "Author",
+      "type": "Full_Name",
       "data": {
         "format": "string",
         "value": {
-          "first_name": ["Mr"],
-          "last_name": ["X"]
+          "First_Name": ["Mr"],
+          "21.T11969/Last_Name": ["X"]
         }
       },
       "ttl": 86400,

@@ -1,12 +1,14 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "@id": "hdl:21.T11969/example_author_syntax",
-  "title": "Author_Syntax",
-  "description": "Validates any author who has at most three first names and between 1 and 3 last names.",
+  "$id": "hdl:21.T11969/full_name_syntax",
+  "title": "Full_Name_Syntax",
+  "description": "Validates any full name that has between 0-3 first names and 1-3 last names.",
   "type": "object",
   "properties": {
-    "first_name": {
-      "description": "first_name = Name with the cardinality overwritten to 0-3 (for 0, this property is left out, as this propery is not required)",
+    "First_Name": {
+      "title": "First_Name",
+      "description": "first_name = Name with the cardinality overwritten to 0-3 (for 0, this property is left out, as this property is not required)",
+      "$id": "hdl:21.T19969/First_Name",
       "type": "array",
       "items": {
         "type": "string",
@@ -16,8 +18,10 @@
       "minItems": 1,
       "maxItems": 3
     },
-    "last_name": {
+    "21.T19969/Last_Name": {
+      "title": "Last_Name",
       "description": "last_name = Name with the cardinality overwritten to 1-3",
+      "$id": "hdl:21.T19969/Last_Name",
       "type": "array",
       "items": {
         "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/%5BH5-4%5D_Syntax/Name/SyntaxDef_Name.json"
@@ -27,7 +31,7 @@
     }
   },
   "required": [
-    "last_name"
+    "21.T19969/Last_Name"
   ],
   "additionalProperties": false
 }

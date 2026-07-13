@@ -4,16 +4,16 @@
   "values": [
     {
       "index": 1,
-      "type": "Author",
+      "type": "21.T11969/Full_Name",
       "data": {
         "format": "string",
         "value": [
           {
-            "last_name": ["X"]
+            "21.T11969/Last_Name": ["X"]
           },
           {
-            "first_name": ["Jane", "Marilyn"],
-            "last_name": ["Doe"]
+            "First_Name": ["Jane", "Marilyn"],
+            "21.T11969/Last_Name": ["Doe"]
           }
         ]
       },
