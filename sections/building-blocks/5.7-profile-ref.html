@@ -30,7 +30,7 @@
         <pre><code>{
 "validation": {
     "mechanism": "profileReference",
-    "allowedProfiles": ["[reference to P1], ..., [reference to Pn]"]
+    "allowedProfiles": ["reference to P1", ..., reference to Pn"]
 }</code></pre>
         If the <code>allowedProfiles</code> key is left out, it means that the referenced FDO must be complient with
         <code>21.T11969/Root</code>.
@@ -88,7 +88,7 @@
             The construction of the JSON schema works exactly the same as in [H5-4a]. The only difference is that the
             `validation` key is added.
             <p>
-                This schema validates any handle record that has between 1-n values representing a profile, for
+                This schema validates any handle record that references 1-n FDO profiles, for
                 example
                 <a href="https://github.com/fairdo-org/handle_fdo_specification/blob/jana-json-schemas/json-schema-examples-handles/%5BH5-7%5D_Profile_Referencing/Attr_Profile_1.json">record 1</a> and
                 <a href="https://github.com/fairdo-org/handle_fdo_specification/blob/jana-json-schemas/json-schema-examples-handles/%5BH5-7%5D_Profile_Referencing/Attr_Profile_2.json">record 2</a>.
