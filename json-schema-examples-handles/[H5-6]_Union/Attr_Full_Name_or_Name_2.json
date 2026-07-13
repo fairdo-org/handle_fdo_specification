@@ -4,7 +4,7 @@
   "values": [
     {
       "index": 1,
-      "type": "21.T11969/Author_or_Name",
+      "type": "21.T11969/Full_Name_or_Name",
       "data": {
         "format": "string",
         "value": "Jane Doe"

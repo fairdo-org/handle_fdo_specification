@@ -17,7 +17,7 @@
             into a union and potentially overwrite their cardinalities.
         </p>
         <aside class="example" title="Union of attribute definitions using JSON Schemas">
-            The following FDO attribute definition record defines a union of a Name and an Author.
+            The following FDO attribute definition record defines a union of a name and a full name.
                     <table>
                         <thead>
                         <tr>
@@ -36,16 +36,16 @@
                         </tr>
                         <tr>
                             <td>21.T11969/Name</td>
-                            <td>Author_or_Name</td>
+                            <td>Full_Name_or_Name</td>
                         </tr>
                         <tr>
                             <td>21.T11969/Description</td>
-                            <td>Either an author or a name.
+                            <td>Either a full name or a name.
                             </td>
                         </tr>
                         <tr>
                             <td>21.T11969/Cardinality</td>
-                            <td>1..3</td>
+                            <td>0..1</td>
                         </tr>
                         <tr>
                             <td>21.T11969/Data</td>
@@ -63,7 +63,7 @@
                         </caption>
                     </table>
             The full validation schema for the union attribute can be found
-            <a href="https://github.com/fairdo-org/handle_fdo_specification/blob/jana-json-schemas/json-schema-examples-handles/%5BH5-6%5D_Union/AttrDef_Union_Name%2BAuthor.json">here</a>.
+            <a href="https://github.com/fairdo-org/handle_fdo_specification/blob/jana-json-schemas/json-schema-examples-handles/%5BH5-6%5D_Union/AttrDef_Union_Full_Name%2BName.json">here</a>.
             The validation schema is constructed as follows:
             <ul>
                 <li>
@@ -76,22 +76,22 @@
                     line 5: description of the attribute
                 </li>
                 <li>
-                    line 7: the plain syntax (as given in lines 41, 81, 121, 161) is wrapped into the handle record syntax
+                    line 7: the plain syntax (as given in lines 41, 81, 122, 163) is wrapped into the handle record syntax
                 </li>
                 <li>
-                    lines 23-24, 83-84, 104-105, 164-165: The union cardinality is set to 1. Hence, either exactly one
-                    name, or exactly one author can appear in the Handle record.
+                    lines 23-24, 83-84, 104-105, 164-165: The union cardinality is set to 0-1. Hence, either exactly 0-1
+                    name, or exactly 0-1 full name can appear in the Handle record.
                 </li>
                 <li>
-                    lines 41, 81, 122, 162: references to the schemas of name and author
+                    lines 41, 81, 122, 162: references to the schemas of name and full name
                 </li>
             </ul>
             <p>
-                This schema validates any handle record that has either one value representing an Author,
-                or one value representing a name, for
+                This schema validates any handle record that has either 0-1 value representing a full name,
+                or 0-1 value representing a name, for
                 example
-                <a href="https://github.com/fairdo-org/handle_fdo_specification/blob/jana-json-schemas/json-schema-examples-handles/%5BH5-6%5D_Union/Attr_Author_or_Name_1.json">record 1</a> and
-                <a href="https://github.com/fairdo-org/handle_fdo_specification/blob/jana-json-schemas/json-schema-examples-handles/%5BH5-6%5D_Union/Attr_Author_or_Name_2.json">record 2</a>.
+                <a href="https://github.com/fairdo-org/handle_fdo_specification/blob/jana-json-schemas/json-schema-examples-handles/%5BH5-6%5D_Union/Attr_Full_Name_or_Name_1.json">record 1</a> and
+                <a href="https://github.com/fairdo-org/handle_fdo_specification/blob/jana-json-schemas/json-schema-examples-handles/%5BH5-6%5D_Union/Attr_Full_Name_or_Name_2.json">record 2</a>.
             </p>
         </aside>
 

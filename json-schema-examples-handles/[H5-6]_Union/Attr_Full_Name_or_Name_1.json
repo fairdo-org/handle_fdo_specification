@@ -4,13 +4,13 @@
   "values": [
     {
       "index": 1,
-      "type": "Author_or_Name",
+      "type": "Full_Name_or_Name",
       "data": {
         "format": "string",
         "value": [
           {
-            "first_name": "Jane",
-            "last_name": "Doe"
+            "First_Name": "Jane",
+            "21.T11969/Last_Name": "Doe"
           }
         ]
       },
