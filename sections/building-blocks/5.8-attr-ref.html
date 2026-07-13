@@ -133,9 +133,9 @@
         <code>21.T11969/JsonSchema</code>, which has as its value a JSON schema. The JSON schema can specify both syntax
         rules for the attribute value (i.e. that it is a whitelist of strings allowing for
         <code>b<sub>1</sub>,...,b<sub>n</sub></code>) and that it applies attribute referencing. The validity of
-        attribute referencing must be checked on top of simple JSON schema validation.
+        attribute referencing must be checked on top of simple JSON schema validation by any FDO validator.
         <pre><code>{
-    "enum": ["[PID or name of b1]", "...", "[PID or name of bn]"],
+    "enum": ["PID or name of b1, ..., PID or name of bn"],
     "validation": {
         "mechanism": "attributeReference"
     }
@@ -182,15 +182,7 @@
                 <tr>
                     <td>21.T11969/JsonSchema</td>
                     <td><pre><code>{
-    "$schema": "http://json-schema.org/draft-04/schema#",
-    "@id": "hdl:21.T11969/Data",
-    "title": "Data",
-    "description": "Reference to the data bit-sequence of the FDO.",
-    "type": "string",
-    "enum": ["21.T11969/Attr_Def_inline_data", "21.T11969/Attr_Def_URL", "21.T11969/Attr_Def_FDO_Ref"],
-    "validation": {
-        "mechanism": "attributeReference"
-    }
+    "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/%5BH5-8%5D_Attribute_Referencing/AttrDef_Data.json"
 }</code></pre></td>
                 </tr>
                 </tbody>
@@ -198,6 +190,16 @@
                     FDO record of attribute definition (PID: <i>21.T11969/Data</i>.)
                 </caption>
             </table>
+
+            The full validation schema for the attribute applying attribute referencing can be found
+            <a href="https://github.com/fairdo-org/handle_fdo_specification/blob/jana-json-schemas/json-schema-examples-handles/%5BH5-8%5D_Attribute_Referencing/AttrDef_Data.json">here</a>.
+            The construction of the JSON schema works exactly the same as in [H5-4a]. The only difference is that the
+            `validation` key is added.
+            <p>
+                This schema validates any handle record that contains at least one data reference. Examples are
+                <a href="https://github.com/fairdo-org/handle_fdo_specification/blob/jana-json-schemas/json-schema-examples-handles/%5BH5-8%5D_Attribute_Referencing/Attr_Data_1.json">record 1</a> and
+                <a href="https://github.com/fairdo-org/handle_fdo_specification/blob/jana-json-schemas/json-schema-examples-handles/%5BH5-8%5D_Attribute_Referencing/Attr_Data_2.json">record 2</a>.
+            </p>
         </aside>
 
         <p><b>[H5-8b] Attribute Referencing implemented on Handle-record level:</b></p>

@@ -11,7 +11,7 @@
   "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/handle-wrapper.json",
   "properties": {
     "values": {
-      "oneOf": [
+      "anyOf": [
         {
           "title": "Option 1: Repeated individual handle values (1-n).",
           "contains": {

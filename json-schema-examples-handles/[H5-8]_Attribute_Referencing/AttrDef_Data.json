@@ -1,12 +1,16 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "@id": "hdl:21.T19969/Data",
+  "$id": "hdl:21.T11969/Data",
   "title": "Data",
-  "description": "Validates the 21.T11969/Data attribute in an FDO record.",
+  "description": "Reference to the data bit-sequence of the FDO.",
+  "validation": {
+    "mechanism": "attributeReference"
+  },
+  "$comment": "Validates the 21.T11969/Data attribute in an FDO record.",
   "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/handle-wrapper.json",
   "properties": {
     "values": {
-      "oneOf": [
+      "anyOf": [
         {
           "title": "Option 1: Repeated individual handle values (1-n).",
           "contains": {
