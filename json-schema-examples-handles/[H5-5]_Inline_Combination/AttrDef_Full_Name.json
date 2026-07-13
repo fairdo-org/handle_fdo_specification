@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "21.T19969/Full_Name",
+  "$id": "21.T11969/Full_Name",
   "title": "Full_Name",
   "description": "Full name of a person. A person has between 0-2 full names",
   "$comment": "Validates the 21.T11969/Full_Name attribute in an FDO record.",

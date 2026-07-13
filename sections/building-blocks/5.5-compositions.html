@@ -25,7 +25,7 @@
         </p>
 
         <aside class="example" title="Composition of attribute definitions using JSON schema">
-            The following FDO record gives the attribute definition of an author, which is a composition of a
+            The following FDO record contains the attribute definition of a full name, which is a composition of a
             first name and a last name.
             <table>
                 <thead>
@@ -45,16 +45,16 @@
                 </tr>
                 <tr>
                     <td>21.T11969/Name</td>
-                    <td>author</td>
+                    <td>Full_Name</td>
                 </tr>
                 <tr>
                     <td>21.T11969/Description</td>
-                    <td>An author is a composition of a first name and a last name..
+                    <td>Full name of a person. A person has between 0-2 full names.
                     </td>
                 </tr>
                 <tr>
                     <td>21.T11969/Cardinality</td>
-                    <td>1</td>
+                    <td>0..2</td>
                 </tr>
                 <tr>
                     <td>21.T11969/Data</td>
@@ -63,16 +63,16 @@
                 <tr>
                     <td>21.T11969/JsonSchema</td>
                     <td>
-                        <pre><code>{"$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/%5BH5-5%5D_Inline_Combination/AttrDef_Author.json"}</code></pre>
+                        <pre><code>{"$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/%5BH5-5%5D_Inline_Combination/AttrDef_Full_Name.json"}</code></pre>
                     </td>
                 </tr>
                 </tbody>
                 <caption>
-                    Attribute FDO record (fictionary PID: <i>21.T11969/Author</i>)
+                    Attribute FDO record (fictionary PID: <i>21.T11969/Full_Name</i>)
                 </caption>
             </table>
-            The full validation schema for the Author attribute can be found
-            <a href="https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/%5BH5-5%5D_Inline_Combination/AttrDef_Author.json">here</a>.
+            The full validation schema for the Full_Name attribute can be found
+            <a href="https://github.com/fairdo-org/handle_fdo_specification/blob/jana-json-schemas/json-schema-examples-handles/%5BH5-5%5D_Inline_Combination/AttrDef_Full_Name.json">here</a>.
             The validation schema is constructed as follows:
             <ul>
                 <li>
@@ -85,36 +85,53 @@
                     line 5: description of the attribute
                 </li>
                 <li>
-                    line 7: the plain syntax (as given in lines 40, 80) is wrapped into the handle record syntax
+                    line 7: the plain syntax (as given in lines 41, 81) is wrapped into the handle record syntax
                 </li>
                 <li>
-                    lines 23, 82: The Author is given a cardinality for validation in the Handle record.
-                    An Author can appear between 1-n times in the handle record.
+                    lines 23-24, 83-84: The Full_Name is given a cardinality for validation in the Handle record.
+                    A Full_Name can appear between 0-2 times in the handle record.
                 </li>
                 <li>
-                    lines 41, 81: reference to the <a href="https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/%5BH5-5%5D_Inline_Combination/SyntaxDef_Author.json">subschema</a> composing the first name and the last name.
+                    lines 41, 81: reference to the <a href="https://github.com/fairdo-org/handle_fdo_specification/blob/jana-json-schemas/json-schema-examples-handles/%5BH5-5%5D_Inline_Combination/SyntaxDef_Full_Name.json">subschema</a> composing the first name and the last name.
                     <ul>
                         <li>
-                            lines 8-18: inline attribute definition of the first name, including narrowing down its
-                            cardinality from 1-5 (in the syntax def of 21.T11969/Name) to 0-3.
+                            lines 8-20: attribute definition of the first name, including
+                            <ul>
+                                <li>its name (line 9)</li>
+                                <li>its description (line 10)</li>
+                                <li>its PID (line 11)</li>
+                                <li>its syntax (lines 13-17)</li>
+                                <li>its cardinality (lines 18-19). The cardinality is narrowed down from 0-5 (in the
+                                    attribute definition of 21.T11969/First_Name) to 0-3.</li>
+                            </ul>
                         </li>
                         <li>
-                            lines 19-28: inline attribute definition of the last name, including narrowing down its cardinality from 1-5 (in the syntax definition of 21.T11969/Name) to 1-3
+                            lines 21-31: attribute definition of the last name, including
+                            <ul>
+                                <li>its name (line 22)</li>
+                                <li>its description (line 23)</li>
+                                <li>its PID (line 24)</li>
+                                <li>its syntax (lines 26-28)</li>
+                                <li>its cardinality (lines 29-30). The cardinality is narrowed down from 0-5 (in the
+                                    attribute definition of 21.T11969/Last_Name) to 1-3.</li>
+                            </ul>
                         </li>
                         <li>
-                            Note that you can also create stand-alone attribute definitions for `first_name` and
-                            `last_name` (instead of the inline-way as in this example). Then, their underlying syntax,
-                            their name and their cardinality could be extracted to use this attribute definition within
-                            the inline combination.
+                            Note that there is a subtle difference in creating attribute definitions. For example,
+                            the two properties in this example
+                            <a href="https://github.com/fairdo-org/handle_fdo_specification/blob/jana-json-schemas/json-schema-examples-handles/%5BH5-5%5D_Inline_Combination/SyntaxDef_Full_Name.json">subschema</a>
+                            are called `First_Name` and `21.T11969/Last_Name`.
+                            Depending on how this attribute should be instantiated, one should either use the
+                            human-readable label or the PID as property. See also the two example records below.
                         </li>
                     </ul>
                 </li>
             </ul>
             <p>
-                This schema validates any handle record that has between 1-n handle values representing an Author, for
+                This schema validates any handle record that has between 0-2 full names in its record, for
                 example
-                <a href="https://github.com/fairdo-org/handle_fdo_specification/blob/jana-json-schemas/json-schema-examples-handles/%5BH5-5%5D_Inline_Combination/Attr_Author_1.json">record 1</a> and
-                <a href="https://github.com/fairdo-org/handle_fdo_specification/blob/jana-json-schemas/json-schema-examples-handles/%5BH5-5%5D_Inline_Combination/Attr_Author_2.json">record 2</a>.
+                <a href="https://github.com/fairdo-org/handle_fdo_specification/blob/jana-json-schemas/json-schema-examples-handles/%5BH5-5%5D_Inline_Combination/Attr_Full_Name_1.json">record 1</a> and
+                <a href="https://github.com/fairdo-org/handle_fdo_specification/blob/jana-json-schemas/json-schema-examples-handles/%5BH5-5%5D_Inline_Combination/Attr_Full_Name_2.json">record 2</a>.
             </p>
         </aside>
 

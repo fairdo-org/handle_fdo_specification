@@ -28,7 +28,7 @@
         </ol>
         <aside class="example" id="example-syntax-way-1"
                title="Simple attribute definitions using JSON schema">
-            This example shows a possible attribute definition for a name using [H5-4a].
+            This example shows a possible attribute definition for a URL using [H5-4a].
             <table>
                 <thead>
                 <tr>
@@ -64,7 +64,7 @@
                 <tr>
                     <td>21.T11969/JsonSchema</td>
                     <td>
-                        <pre><code>{"$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/main/json-schema-examples-handles/%5BH5-4%5D_Syntax/URL/AttrDef_URL.json"}</code></pre>
+                        <pre><code>{"$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/%5BH5-4%5D_Syntax/URL/AttrDef_URL.json"}</code></pre>
                     </td>
                 </tr>
                 </tbody>
@@ -74,7 +74,7 @@
             </table>
 
             The full validation schema for the URL attribute can be found
-            <a href="https://github.com/fairdo-org/handle_fdo_specification/blob/main/json-schema-examples-handles/%5BH5-4%5D_Syntax/URL/AttrDef_URL.json">here</a>.
+            <a href="https://github.com/fairdo-org/handle_fdo_specification/blob/jana-json-schemas/json-schema-examples-handles/%5BH5-4%5D_Syntax/URL/AttrDef_URL.json">here</a>.
             The validation schema is constructed as follows:
             <ul>
                 <li>
@@ -90,7 +90,7 @@
                     line 7: the plain syntax (as given in lines 41, 81) is wrapped into the handle record syntax
                 </li>
                 <li>
-                    lines 22-24, 83-84: The URL is given a cardinality for validation in the Handle record.
+                    lines 32-24, 83-84: The URL is given a cardinality for validation in the Handle record.
                     A URL can appear between 1-10 times in the handle record.
                 </li>
                 <li>
@@ -98,56 +98,19 @@
                 </li>
             </ul>
             <p>
-                This schema validates any handle record that has between 1-10 handle values representing a URL, for
-                example (JSON also available <a href="https://github.com/fairdo-org/handle_fdo_specification/blob/main/json-schema-examples-handles/%5BH5-4%5D_Syntax/URL/Attr_URL_1.json">here</a>):
+                This schema validates any handle record that has between 1-10 handle values representing a URL. The URLs
+                can appear
             </p>
-
-            <pre><code>{
-  "responseCode": 1,
-  "handle": "abc",
-  "values": [
-    {
-      "index": 1,
-      "type": "URL",
-      "data": {
-        "format": "string",
-        "value": "https://www.gwdg.de"
-      },
-      "ttl": 86400,
-      "timestamp": "2026-07-01T14:31:38Z"
-    },
-    {
-      "index": 2,
-      "type": "21.T11969/URL",
-      "data": {
-        "format": "string",
-        "value": "https://www.example.com"
-      },
-      "ttl": 86400,
-      "timestamp": "2026-07-01T14:31:38Z"
-    }
-  ]
-}</code></pre>
-            It also validates any Handle record that has one Handle value with a list of between 1-10 URL entries, for example
-            (JSON also available <a href="https://github.com/fairdo-org/handle_fdo_specification/blob/main/json-schema-examples-handles/%5BH5-4%5D_Syntax/URL/Attr_URL_2.json">here</a>):
-            <pre><code>{
-  "responseCode": 1,
-  "handle": "abc",
-  "values": [
-    {
-      "index": 1,
-      "type": "URL",
-      "data": {
-        "format": "string",
-        "value": ["https://www.gwdg.de", "https://www.example.com"]
-      },
-      "ttl": 86400,
-      "timestamp": "2026-07-01T14:31:38Z"
-    }
-  ]
-}</code></pre>
+                <ul>
+                    <li>
+                        as individual handle values, see <a href="https://github.com/fairdo-org/handle_fdo_specification/blob/main/json-schema-examples-handles/%5BH5-4%5D_Syntax/URL/Attr_URL_1.json">record 1</a>, or
+                    </li>
+                    <li>
+                        as one handle value with a list of URLs, see <a href="https://github.com/fairdo-org/handle_fdo_specification/blob/main/json-schema-examples-handles/%5BH5-4%5D_Syntax/URL/Attr_URL_2.json">record 2</a>
+                    </li>
+                </ul>
             <p>
-                Services such as the Data Type Registry implement the attribute and schema generation such that this
+                Services such as the Data Type Registry implement the attribute and JSON schema generation such that this
                 complexity is hidden from the user.
             </p>
         </aside>
