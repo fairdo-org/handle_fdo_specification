@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "hdl:21.T19969/First_Name",
+  "$id": "hdl:21.T11969/First_Name",
   "title": "First_Name",
   "description": "First name of a person, given as a non-empty string. A person can have between 0-5 first names.",
   "$comment": "Validates the 21.T11969/First_Name attribute in a Handle record.",

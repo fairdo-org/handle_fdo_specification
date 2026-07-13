@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "@id": "hdl:21.T19969/Name",
+  "$id": "hdl:21.T19969/Name",
   "title": "Name",
   "description": "Name of a person, given as a non-empty string.",
   "$comment": "Validates the 21.T11969/Name attribute in a Handle record.",

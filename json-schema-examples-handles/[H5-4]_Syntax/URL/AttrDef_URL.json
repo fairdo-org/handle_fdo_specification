@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "@id": "21.T19969/URL",
+  "$id": "21.T19969/URL",
   "title": "URL",
   "description": "URL to which this FDO resolves.",
   "$comment": "Validates the 21.T11969/URL attribute in a Handle record.",

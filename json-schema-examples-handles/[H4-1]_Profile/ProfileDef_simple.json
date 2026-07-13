@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "@id": "hdl:21.T19969/abcdefghi",
+  "$id": "hdl:21.T11969/abcdefghi",
   "title": "my-simple-profile",
   "description": "A profile containing the following properties: FdoProfile, Data, URL, and Name (omitted type for brevity; this is mandatory)",
   "allOf": [

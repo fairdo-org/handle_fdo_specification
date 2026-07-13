@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "@id": "hdl:21.T19969/extension-of-abcdefghi",
+  "$id": "hdl:21.T11969/extension-of-abcdefghi",
   "title": "my-simple-extended-profile",
   "description": "A profile containing the following properties: FdoProfile, Data, URL, Name and Author (omitted type for brevity; this is mandatory)",
   "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/%5BH4-1%5D_Profile/ProfileDef_simple.json",

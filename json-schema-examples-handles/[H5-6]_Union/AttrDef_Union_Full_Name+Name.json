@@ -1,34 +1,34 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "id": "21.T19969/Author_or_Name",
-  "title": "Author_or_Name",
-  "description": "Either an author or a name.",
-  "$comment": "Any attribute validates against this union if and only if it is either a valid name, or a valid author",
+  "$id": "21.T19969/Full_Name_or_Name",
+  "title": "Full_Name_or_Name",
+  "description": "Either a full name or a name.",
+  "$comment": "Any attribute validates against this union if and only if it is either a valid name, or a valid full name",
   "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/handle-wrapper.json",
   "properties": {
     "values": {
       "anyOf": [
         {
-          "title": "21.T11969/Author_or_Name - Option 1: Repeated individual Names as handle values; overwrites cardinality of name to 1-3.",
+          "title": "21.T11969/Full_Name_or_Name - Option 1: Repeated individual Names as handle values; overwrites cardinality of name to 1-3.",
           "contains": {
             "properties": {
               "type": {
                 "enum": [
-                  "21.T11969/Author_or_Name",
-                  "Author_or_Name"
+                  "21.T11969/Full_Name_or_Name",
+                  "Full_Name_or_Name"
                 ]
               }
             }
           },
-          "minContains": 1,
+          "minContains": 0,
           "maxContains": 1,
           "items": {
             "if": {
               "properties": {
                 "type": {
                   "enum": [
-                    "21.T11969/Author_or_Name",
-                    "Author_or_Name"
+                    "21.T11969/Full_Name_or_Name",
+                  "Full_Name_or_Name"
                   ]
                 }
               }
@@ -47,26 +47,26 @@
           }
         },
         {
-          "title": "21.T11969/Author_or_Name - Option 2: One handle value with an array of 1-3 Name elements.",
+          "title": "21.T11969/Full_Name_or_Nam - Option 2: One handle value with an array of 1-3 Name elements.",
           "contains": {
             "properties": {
               "type": {
                 "enum": [
-                  "21.T11969/Author_or_Name",
-                  "Author_or_Name"
+                  "21.T11969/Full_Name_or_Name",
+                  "Full_Name_or_Name"
                 ]
               }
             }
           },
-          "minContains": 1,
+          "minContains": 0,
           "maxContains": 1,
           "items": {
             "if": {
               "properties": {
                 "type": {
                   "enum": [
-                    "21.T11969/Author_or_Name",
-                    "Author_or_Name"
+                    "21.T11969/Full_Name_or_Name",
+                  "Full_Name_or_Name"
                   ]
                 }
               }
@@ -90,26 +90,26 @@
           }
         },
         {
-          "title": "21.T11969/Author_or_Name - Option 3: Repeated individual Author handle values (with original cardinality 1-n).",
+          "title": "21.T11969/Full_Name_or_Nam - Option 3: Repeated individual Full_Name handle values (with original cardinality 1-n).",
           "contains": {
             "properties": {
               "type": {
                 "enum": [
-                  "21.T11969/Author_or_Name",
-                  "Author_or_Name"
+                  "21.T11969/Full_Name_or_Name",
+                  "Full_Name_or_Name"
                 ]
               }
             }
           },
-          "minContains": 1,
+          "minContains": 0,
           "maxContains": 1,
           "items": {
             "if": {
               "properties": {
                 "type": {
                   "enum": [
-                    "21.T11969/Author_or_Name",
-                    "Author_or_Name"
+                    "21.T11969/Full_Name_or_Name",
+                  "Full_Name_or_Name"
                   ]
                 }
               }
@@ -119,7 +119,7 @@
                 "data": {
                   "properties": {
                     "value": {
-                      "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/%5BH5-5%5D_Inline_Combination/SyntaxDef_Author.json"
+                      "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/%5BH5-5%5D_Inline_Combination/SyntaxDef_Full_Name.json"
                     }
                   }
                 }
@@ -128,26 +128,26 @@
           }
         },
         {
-          "title": "21.T11969/Author_or_Name - Option 4: One handle value with an array of 1-3 Author elements.",
+          "title": "21.T11969/Full_Name_or_Name - Option 4: One handle value with an array of 1-3 Full_Name elements.",
           "contains": {
             "properties": {
               "type": {
                 "enum": [
-                  "21.T11969/Author_or_Name",
-                  "Author_or_Name"
+                  "21.T11969/Full_Name_or_Name",
+                  "Full_Name_or_Name"
                 ]
               }
             }
           },
-          "minContains": 1,
+          "minContains": 0,
           "maxContains": 1,
           "items": {
             "if": {
               "properties": {
                 "type": {
                   "enum": [
-                    "21.T11969/Author_or_Name",
-                    "Author_or_Name"
+                    "21.T11969/Full_Name_or_Name",
+                  "Full_Name_or_Name"
                   ]
                 }
               }
@@ -159,7 +159,7 @@
                     "value": {
                       "type": "array",
                       "items": {
-                        "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/%5BH5-5%5D_Inline_Combination/SyntaxDef_Author.json"
+                        "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/%5BH5-5%5D_Inline_Combination/SyntaxDef_Full_Name.json"
                       },
                       "minItems": 1,
                       "maxItems": 1
