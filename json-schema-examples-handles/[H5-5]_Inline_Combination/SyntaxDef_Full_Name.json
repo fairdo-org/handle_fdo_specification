@@ -18,7 +18,7 @@
       "minItems": 1,
       "maxItems": 3
     },
-    "21.T19969/Last_Name": {
+    "21.T11969/Last_Name": {
       "title": "Last_Name",
       "description": "last_name = Name with the cardinality overwritten to 1-3",
       "$id": "hdl:21.T19969/Last_Name",
