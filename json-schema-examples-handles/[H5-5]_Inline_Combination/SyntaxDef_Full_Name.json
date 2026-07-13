@@ -8,7 +8,7 @@
     "First_Name": {
       "title": "First_Name",
       "description": "first_name = Name with the cardinality overwritten to 0-3 (for 0, this property is left out, as this property is not required)",
-      "$id": "hdl:21.T19969/First_Name",
+      "$id": "hdl:21.T11969/First_Name",
       "type": "array",
       "items": {
         "type": "string",
@@ -21,7 +21,7 @@
     "21.T11969/Last_Name": {
       "title": "Last_Name",
       "description": "last_name = Name with the cardinality overwritten to 1-3",
-      "$id": "hdl:21.T19969/Last_Name",
+      "$id": "hdl:21.T11969/Last_Name",
       "type": "array",
       "items": {
         "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/%5BH5-4%5D_Syntax/Name/SyntaxDef_Name.json"
@@ -31,7 +31,7 @@
     }
   },
   "required": [
-    "21.T19969/Last_Name"
+    "21.T11969/Last_Name"
   ],
   "additionalProperties": false
 }
