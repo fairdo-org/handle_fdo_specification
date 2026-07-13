@@ -95,16 +95,23 @@
                     lines 41, 81: reference to the <a href="https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/%5BH5-5%5D_Inline_Combination/SyntaxDef_Author.json">subschema</a> composing the first name and the last name.
                     <ul>
                         <li>
-                            lines 8-18: inline attribute definition of the first name, including narrowing down its cardinality from 1-5 (in the syntax def of 21.T11969/Name) to 0-3
+                            lines 8-18: inline attribute definition of the first name, including narrowing down its
+                            cardinality from 1-5 (in the syntax def of 21.T11969/Name) to 0-3.
                         </li>
                         <li>
                             lines 19-28: inline attribute definition of the last name, including narrowing down its cardinality from 1-5 (in the syntax definition of 21.T11969/Name) to 1-3
+                        </li>
+                        <li>
+                            Note that you can also create stand-alone attribute definitions for `first_name` and
+                            `last_name` (instead of the inline-way as in this example). Then, their underlying syntax,
+                            their name and their cardinality could be extracted to use this attribute definition within
+                            the inline combination.
                         </li>
                     </ul>
                 </li>
             </ul>
             <p>
-                This schema validates any handle record that has between 1-n handle values representing a Author, for
+                This schema validates any handle record that has between 1-n handle values representing an Author, for
                 example
                 <a href="https://github.com/fairdo-org/handle_fdo_specification/blob/jana-json-schemas/json-schema-examples-handles/%5BH5-5%5D_Inline_Combination/Attr_Author_1.json">record 1</a> and
                 <a href="https://github.com/fairdo-org/handle_fdo_specification/blob/jana-json-schemas/json-schema-examples-handles/%5BH5-5%5D_Inline_Combination/Attr_Author_2.json">record 2</a>.
