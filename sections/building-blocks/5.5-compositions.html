@@ -1,122 +1,164 @@
 <dl>
-    <dfn data-lt="Composition of Attribute Definitions|inline-composition|inline-combination">Composition of Attribute Definitions</dfn>
-    There are two ways how to encode the composition of attribute definitions in Handle-based attribute definitions:
+    <dt><dfn data-lt="Composition of Attribute Definitions|inline-composition|inline-combination">[H5-5] Composition of Attribute Definitions</dfn></dt>
     <dd>
-        <ul>
-            <li><p><b>Way 1</b>:
-                A composition of attributes is implemented in JSON schema as an object with properties. Each property
-                corresponds to one attribute definition. The properties must all be arrays, where
+        <p>
+            There are two ways how to encode the composition of attribute definitions in Handle-based attribute
+            definitions:
+        </p>
+        <p><b>[H5-5a] Compositions implemented by JSON Schemas:</b></p>
+        <p>
+            The <a>FDO record</a> of the <a>attribute definition</a> <code>A</code> contains a JSON schema which encodes a
+            composition of attributes <code>A<sub>1</sub>,...,A<sub>n</sub></code>. In detail, the attribute
+            <code>21.T11969/Data</code> applies attribute referencing to point to the attribute
+            <code>21.T11969/JsonSchema</code>, which has as its value a JSON schema.
+        </p>
+        <p>
+            The JSON schema implements a composition as an object with properties. Each property
+            corresponds to one of the attribute definitions <code>A<sub>1</sub></code>, <code>A<sub>2</sub></code>, ...
+            If the attribute definition <code>A<sub>i</sub></code> has a cardinality larger than 1, then the property is
+            an array with the respective cardinality. The cardinality of <code>A<sub>i</sub></code> can also be
+            overwritten in the composition (only narrowing down the cardinality is possible, e.g. from 1..10 to 2..5).
+        </p>
+        <p>
+            The resulting composition `A` is a new attribute definition that has its own cardinality, which gives
+            information on how often `A` can and must be repeated in an FDO record.
+        </p>
 
-                links to the JSON schema of another attribute definitions by either using the keyword <code>$ref</code>,
-                or the other attribute definition is fully given inline. The composition is instantiated by a JSON that
-                validates against the JSON schema.</p>
+        <aside class="example" title="Composition of attribute definitions using JSON schema">
+            The following FDO record contains the attribute definition of a full name, which is a composition of a
+            first name and a last name.
+            <table>
+                <thead>
+                <tr>
+                    <th scope="col">PID of Attribute Definition</th>
+                    <th scope="col">Example Value</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>21.T11969/Type</td>
+                    <td>FDO_Attribute</td>
+                </tr>
+                <tr>
+                    <td>21.T11969/Profile</td>
+                    <td>21.T11969/AttributeDef</td>
+                </tr>
+                <tr>
+                    <td>21.T11969/Name</td>
+                    <td>Full_Name</td>
+                </tr>
+                <tr>
+                    <td>21.T11969/Description</td>
+                    <td>Full name of a person. A person has between 0-2 full names.
+                    </td>
+                </tr>
+                <tr>
+                    <td>21.T11969/Cardinality</td>
+                    <td>0..2</td>
+                </tr>
+                <tr>
+                    <td>21.T11969/Data</td>
+                    <td>21.T11969/JsonSchema</td>
+                </tr>
+                <tr>
+                    <td>21.T11969/JsonSchema</td>
+                    <td>
+                        <pre><code>{"$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/main/json-schema/%5BH5-5%5D_Inline_Combination/AttrDef_Full_Name.json"}</code></pre>
+                    </td>
+                </tr>
+                </tbody>
+                <caption>
+                    Attribute FDO record (fictionary PID: <i>21.T11969/Full_Name</i>)
+                </caption>
+            </table>
+            The full validation schema for the Full_Name attribute can be found
+            <a href="https://github.com/fairdo-org/handle_fdo_specification/blob/main/json-schema/%5BH5-5%5D_Inline_Combination/AttrDef_Full_Name.json">here</a>.
+            The validation schema is constructed as follows:
+            <ul>
+                <li>
+                    line 3: identifier of the attribute definition
+                </li>
+                <li>
+                    line 4: name of the attribute
+                </li>
+                <li>
+                    line 5: description of the attribute
+                </li>
+                <li>
+                    line 7: the plain syntax (as given in lines 41, 81) is wrapped into the handle record syntax
+                </li>
+                <li>
+                    lines 23-24, 83-84: The Full_Name is given a cardinality for validation in the Handle record.
+                    A Full_Name can appear between 0-2 times in the handle record.
+                </li>
+                <li>
+                    lines 41, 81: reference to the <a href="https://github.com/fairdo-org/handle_fdo_specification/blob/main/json-schema/%5BH5-5%5D_Inline_Combination/SyntaxDef_Full_Name.json">subschema</a> composing the first name and the last name.
+                    <ul>
+                        <li>
+                            lines 8-20: attribute definition of the first name, including
+                            <ul>
+                                <li>its name (line 9)</li>
+                                <li>its description (line 10)</li>
+                                <li>its PID (line 11)</li>
+                                <li>its syntax (lines 13-17)</li>
+                                <li>its cardinality (lines 18-19). The cardinality is narrowed down from 0-5 (in the
+                                    attribute definition of 21.T11969/First_Name) to 0-3.</li>
+                            </ul>
+                        </li>
+                        <li>
+                            lines 21-31: attribute definition of the last name, including
+                            <ul>
+                                <li>its name (line 22)</li>
+                                <li>its description (line 23)</li>
+                                <li>its PID (line 24)</li>
+                                <li>its syntax (lines 26-28)</li>
+                                <li>its cardinality (lines 29-30). The cardinality is narrowed down from 0-5 (in the
+                                    attribute definition of 21.T11969/Last_Name) to 1-3.</li>
+                            </ul>
+                        </li>
+                        <li>
+                            Note that there is a subtle difference in creating attribute definitions. For example,
+                            the two properties in this example
+                            <a href="https://github.com/fairdo-org/handle_fdo_specification/blob/main/json-schema/%5BH5-5%5D_Inline_Combination/SyntaxDef_Full_Name.json">subschema</a>
+                            are called `First_Name` and `21.T11969/Last_Name`.
+                            Depending on how this attribute should be instantiated, one should either use the
+                            human-readable label or the PID as property. See also the two example records below.
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <p>
+                This schema validates any handle record that has between 0-2 full names in its record, for
+                example
+                <a href="https://github.com/fairdo-org/handle_fdo_specification/blob/main/json-schema/%5BH5-5%5D_Inline_Combination/Attr_Full_Name_1.json">record 1</a> and
+                <a href="https://github.com/fairdo-org/handle_fdo_specification/blob/main/json-schema/%5BH5-5%5D_Inline_Combination/Attr_Full_Name_2.json">record 2</a>.
+            </p>
+        </aside>
 
-                <aside class="note">
-                    JSON does not support having the same key several times. Hence, the cardinalities of the attribute
-                    definitions (given on the Handle record-level by the attribute
-                    <code>21.T11969/Cardinality</code>) that are part of the composition are ignored. To state that
-                    certain attributes are required (Cardinality 1), you can use the <code>required</code> keyword.
-                    Additionally, you can use the <code>additionalProperties</code> keyword to prevent adding additional
-                    content to the composition.
-                </aside>
 
 
-                <div style="background-color:LightPink;">
-                    <b>TODO</b>: Cardinalities of attributes in compositions get lost when using JSON schema: JSON
-                    schema does not allow the same key multiple times. The required keyword can be used to overwrite the
-                    cardinalities, to say that an attribute is required (1) or optional (0..1). Is this ok? It is also
-                    not so nice to have different representations for inline FDOs (values are lists) and attribute
-                    compositions (values are JSONs). Can we maybe do this in a better way?
-                </div>
+        <p><b>[H5-5b] Composition implemented on Handle-record level:</b></p>
 
-                <aside class="example" title="JSON Schemas of a union of attributes">
-                    The following FDO record gives the attribute definition of an author, which is a composition of a
-                    first name and a last name.
-                    <table>
-                        <thead>
-                        <tr>
-                            <th scope="col">PID of Attribute Definition</th>
-                            <th scope="col">Example Value</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>21.T11969/Type</td>
-                            <td>FDO_Attribute</td>
-                        </tr>
-                        <tr>
-                            <td>21.T11969/Profile</td>
-                            <td>21.T11969/AttributeDef</td>
-                        </tr>
-                        <tr>
-                            <td>21.T11969/Name</td>
-                            <td>author</td>
-                        </tr>
-                        <tr>
-                            <td>21.T11969/Description</td>
-                            <td>An author is a composition of a first name and a last name..
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>21.T11969/Cardinality</td>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <td>21.T11969/Data</td>
-                            <td>21.T11969/JsonSchema</td>
-                        </tr>
-                        <tr>
-                            <td>21.T11969/JsonSchema</td>
-                            <td>
-                                <pre><code>{
-    "$schema": "http://json-schema.org/draft-04/schema#",
-    "title": "author",
-    "description": "An author is a composition of a first name and a last name.",
-    "type": "object",
-    "properties": {
-        "firstName": {
-            "$ref": "https://typeapi.lab.pidconsortium.net/v1/types/schema/21.T11969/3df63b7acb0522da685d"
-        },
-        "lastName": {
-            "title": "String",
-            "description": "Validation schema for type 'String' with the PID '21.T11969/3df63b7acb0522da685d'",
-            "type": "string"
-            }
-        }
-    },
-    "required": ["firstName", "lastName"],
-    "additionalProperties": false
-}</code></pre>
-                            </td>
-                        </tr>
-                        </tbody>
-                        <caption>
-                            Profile FDO record (fictionary PID: <i>21.example/comp_attribute01</i>)
-                        </caption>
-                    </table>
-                            This attribute definition validates the attribute:
-                    <pre><code>("21.example/comp_attribute01", {"firstName": "Jon", "lastName": "Doe"})</code></pre>
-                        </aside>
-            </li>
+        <div style="background-color:LightPink;">
+            <b>TODO</b>: This section [H5-5b] has to become more concrete: At this point, it is unclear how to overwrite
+            the cardinality of each attribute within an inline combination.
+        </div>
 
-            <li><b>Way 2</b>:
-                A composition of attributes is implemented by setting two attributes in the <a>FDO record</a>:
-                <ol>
-                    <li><code>(21.T11969/ValidationMechanism, InlineCombination)</code></li>
-                    <li><code>(21.T11969/DataType, [reference to <a>attribute definition</a>])</code>, repeated multiple times.</li>
-                </ol>
-                <aside class="example" title="JSON Schemas of a composition of attributes">
-                    The following three attributes define a composition of a string and an integer.
-                    <ol>
-                        <li><code>(21.T11969/ValidationMechanism, Composition)</code>,</li>
-                        <li><code>(21.T11969/DataType, 21.T11969/3df63b7acb0522da685d)</code>,</li>
-                        <li><code>(21.T11969/DataType, 21.T11969/9edcffff4461c9083fbf)</code>,</li>
-                    </ol>
-                    The composition is instantiated by the following JSON object (String and Integer are the
-                    names of the attributes -> we need to define better examples here):
-                    <pre><code>{"String": "abc", "Integer": 123}</code></pre>
-                </aside>
-            </li>
-        </ul>
+        A composition of attributes is implemented by setting two attributes in the <a>FDO record</a>:
+        <ol>
+            <li><code>(21.T11969/ValidationMechanism, InlineCombination)</code></li>
+            <li><code>(21.T11969/DataType, [reference to <a>attribute definition</a>])</code>, repeated multiple times.</li>
+        </ol>
+        <aside class="example" title="JSON Schemas of a composition of attributes">
+            The following three attributes define a composition of a string and an integer.
+            <ol>
+                <li><code>(21.T11969/ValidationMechanism, Composition)</code>,</li>
+                <li><code>(21.T11969/DataType, 21.T11969/3df63b7acb0522da685d)</code>,</li>
+                <li><code>(21.T11969/DataType, 21.T11969/9edcffff4461c9083fbf)</code>,</li>
+            </ol>
+            The composition is instantiated by the following JSON object (String and Integer are the
+            names of the attributes -> we need to define better examples here):
+            <pre><code>{"String": "abc", "Integer": 123}</code></pre>
+        </aside>
     </dd>
 </dl>

@@ -14,12 +14,10 @@
             <code>21.T11969/Data</code> applies attribute referencing to point to the attribute
             <code>21.T11969/JsonSchema</code>, which has as its value a JSON schema. The JSON schema uses the keyword
             <code>anyof</code> to compose the different <a>attribute definitions</a> <code>A<sub>1</sub>,...,A<sub>n</sub></code>
-            into a union. Each <a>attribute definition</a> can be either a reference through the <code>$ref</code> keyword, or
-            it can be directly pasted into the JSON schema as a sub schema.
+            into a union and potentially overwrite their cardinalities.
         </p>
         <aside class="example" title="Union of attribute definitions using JSON Schemas">
-            The following FDO attribute definition record defines a union of integers in the interval [1990,2000] and
-            [2010,2020].
+            The following FDO attribute definition record defines a union of a name and a full name.
                     <table>
                         <thead>
                         <tr>
@@ -38,16 +36,16 @@
                         </tr>
                         <tr>
                             <td>21.T11969/Name</td>
-                            <td>year_1990s_2010s</td>
+                            <td>Full_Name_or_Name</td>
                         </tr>
                         <tr>
                             <td>21.T11969/Description</td>
-                            <td>Any year in the 1990s and 2010s.
+                            <td>Either a full name or a name.
                             </td>
                         </tr>
                         <tr>
                             <td>21.T11969/Cardinality</td>
-                            <td>1</td>
+                            <td>0..1</td>
                         </tr>
                         <tr>
                             <td>21.T11969/Data</td>
@@ -56,37 +54,55 @@
                         <tr>
                             <td>21.T11969/JsonSchema</td>
                             <td>
-                                <pre><code>{
-    "@id": "hdl:21.T11969/example_integer_1990s",
-    "$schema": "http://json-schema.org/draft-04/schema#",
-    "title": "year_90s_2010s",
-    "description": "Any year in the 1990s and 2010s.",
-    "anyOf": [
-        {
-            "@id": "hdl:21.T11969/example_integer_1990s"
-            "title": "year_1990s",
-            "description": "Any year in the 1990s.",
-            "type": "integer",
-            "minimum": 1990,
-            "maximum": 1999
-        },
-        {
-          "$ref": "https://typeapi.lab.pidconsortium.net/v1/types/schema/21.T11969/example_integer_2010s"
-        }
-    ]
-}</code></pre>
+                                <pre><code>{"$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/main/json-schema/%5BH5-6%5D_Union/AttrDef_Union_Full_Name%2BName.json"}</code></pre>
                             </td>
                         </tr>
                         </tbody>
                         <caption>
-                            FDO record of attribute definition (fictionary PID: <i>21.example/union_attribute01</i>)
+                            FDO record of attribute definition (fictionary PID: <i>21.T11969/Full_Name_or_Name</i>)
                         </caption>
                     </table>
-            The attribute definition validates for example the attributes
-            <pre><code>(21.example/union_attribute01, 1993)</code></pre>
-            and
-            <pre><code>(year_1990s_2010s, 2010).</code></pre>
+            The full validation schema for the union attribute can be found
+            <a href="https://github.com/fairdo-org/handle_fdo_specification/blob/main/json-schema/%5BH5-6%5D_Union/AttrDef_Union_Full_Name%2BName.json">here</a>.
+            The validation schema is constructed as follows:
+            <ul>
+                <li>
+                    line 3: identifier of the attribute definition
+                </li>
+                <li>
+                    line 4: name of the attribute
+                </li>
+                <li>
+                    line 5: description of the attribute
+                </li>
+                <li>
+                    line 7: the plain syntax (as given in lines 41, 81, 122, 163) is wrapped into the handle record syntax
+                </li>
+                <li>
+                    lines 23-24, 83-84, 104-105, 164-165: The union cardinality is set to 0-1. Hence, either exactly 0-1
+                    name, or exactly 0-1 full name can appear in the Handle record.
+                </li>
+                <li>
+                    lines 41, 81, 122, 162: references to the schemas of name and full name
+                </li>
+            </ul>
+            <p>
+                This schema validates any handle record that has either 0-1 value representing a full name,
+                or 0-1 value representing a name, for
+                example
+                <a href="https://github.com/fairdo-org/handle_fdo_specification/blob/main/json-schema/%5BH5-6%5D_Union/Attr_Full_Name_or_Name_1.json">record 1</a> and
+                <a href="https://github.com/fairdo-org/handle_fdo_specification/blob/main/json-schema/%5BH5-6%5D_Union/Attr_Full_Name_or_Name_2.json">record 2</a>.
+            </p>
         </aside>
+
+        <div style="background-color:LightPink;">
+            <b>TODOS:</b> It does not make much sense to give a union attribute a cardinality: A union of author (1-n)
+            and name (1-5) says that we have either 1-n authors or 1-5 names in the handle record. What should be the
+            cardinality of the union then? Or does the union cardinality overwrite both individual cardinalities (as in the example above)?
+            [Jana] A union can be better expressed as an attribute reference. Hence, I think the concept of unions does
+            not bring much benefit anyway. Maybe we can leave it out, at least for the Handle case, and say that unions
+            are implemented as attribute references?
+        </div>
 
         <p><b>[H5-6b] Unions implemented on Handle-record level:</b></p>
         The <a>FDO record</a> of the <a>attribute definition</a> <code>A</code> must specify the attributes
@@ -160,14 +176,3 @@
         </aside>
     </dd>
 </dl>
-
-<div style="background-color:LightPink;">
-    <b>TODOS:</b>
-    <ul>
-        <li>
-            All the JSON schemas should have "@id": "hdl:21.123/345" as a property such that the corresponding PID can be
-            identified if the schema is referenced using the $ref keyword (pointing to the schema directly, not to the
-            PID record).
-        </li>
-    </ul>
-</div>

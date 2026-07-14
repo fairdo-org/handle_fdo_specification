@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "hdl:21.T11969/extension-of-abcdefghi",
+  "title": "my-simple-extended-profile",
+  "description": "A profile containing the following properties: FdoProfile, Data, URL, Name and Full_Name (omitted type for brevity; this is mandatory)",
+  "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/main/json-schema/%5BH4-1%5D_Profile/ProfileDef_simple.json",
+  "allOf": [
+    {
+      "$comment": "Add additional attributes here (e.g. full name)",
+      "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/main/json-schema/%5BH5-5%5D_Inline_Combination/AttrDef_Full_Name.json"
+    },
+    {
+      "$comment": "This subschema overwrites the cardinality of full name to 1 (instead of 0-2)",
+      "properties": {
+        "values": {
+          "oneOf": [
+            {
+              "title": "Option 1: Repeated individual handle values.",
+              "contains": {
+                "properties": {
+                  "type": {
+                    "enum": [
+                      "21.T11969/Full_Name",
+                      "Full_Name"
+                    ]
+                  }
+                }
+              },
+              "minContains": 1,
+              "maxContains": 1,
+              "items": {
+                "if": {
+                  "properties": {
+                    "type": {
+                      "enum": [
+                        "21.T11969/Full_Name",
+                      "Full_Name"
+                      ]
+                    }
+                  }
+                },
+                "then": {
+                  "properties": {
+                    "data": {
+                      "properties": {
+                        "value": {
+                          "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/main/json-schema/%5BH5-5%5D_Inline_Combination/SyntaxDef_Full_Name.json"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "title": "Option 2: One handle value with an array of 1 element.",
+              "contains": {
+                "properties": {
+                  "type": {
+                    "enum": [
+                      "21.T11969/Full_Name",
+                      "Full_Name"
+                    ]
+                  }
+                }
+              },
+              "minContains": 1,
+              "maxContains": 1,
+              "items": {
+                "if": {
+                  "properties": {
+                    "type": {
+                      "enum": [
+                        "21.T11969/Full_Name",
+                      "Full_Name"
+                      ]
+                    }
+                  }
+                },
+                "then": {
+                  "properties": {
+                    "data": {
+                      "properties": {
+                        "value": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/main/json-schema/%5BH5-5%5D_Inline_Combination/SyntaxDef_Full_Name.json"
+                          },
+                          "minItems": 1,
+                          "maxItems": 1
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

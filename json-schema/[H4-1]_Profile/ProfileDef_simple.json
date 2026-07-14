@@ -1,0 +1,115 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "hdl:21.example/profile01",
+  "title": "my-simple-profile",
+  "description": "A very small profile for illustration purposes.",
+  "$comment": "The profile contains the following properties: FdoProfile, Data, URL, and Name (omitted type for brevity; this would be mandatory in a real profile).",
+  "allOf": [
+    {
+      "$comment": "FDO Profile",
+      "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/main/json-schema/%5BH5-7%5D_Profile_Referencing/AttrDef_Profile.json"
+    },
+    {
+      "$comment": "Data",
+      "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/main/json-schema/%5BH5-8%5D_Attribute_Referencing/AttrDef_Data.json"
+    },
+    {
+      "$comment": "URL",
+      "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/main/json-schema/%5BH5-4%5D_Syntax/URL/AttrDef_URL.json"
+    },
+    {
+      "$comment": "Name",
+      "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/main/json-schema/%5BH5-4%5D_Syntax/Name/AttrDef_Name.json"
+    },
+    {
+      "$comment": "This subschema overwrites the cardinality from Name to 1-2 (instead of 1-5)",
+      "properties": {
+        "values": {
+          "oneOf": [
+            {
+              "title": "Option 1: Repeated individual handle values (1-5).",
+              "contains": {
+                "properties": {
+                  "type": {
+                    "enum": [
+                      "21.T11969/Name",
+                      "Name"
+                    ]
+                  }
+                }
+              },
+              "minContains": 1,
+              "maxContains": 2,
+              "items": {
+                "if": {
+                  "properties": {
+                    "type": {
+                      "enum": [
+                        "21.T11969/Name",
+                        "Name"
+                      ]
+                    }
+                  }
+                },
+                "then": {
+                  "properties": {
+                    "data": {
+                      "properties": {
+                        "value": {
+                          "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/main/json-schema/%5BH5-4%5D_Syntax/Name/SyntaxDef_Name.json"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "title": "Option 2: One handle value with an array of 1-5 elements.",
+              "contains": {
+                "properties": {
+                  "type": {
+                    "enum": [
+                      "21.T11969/Name",
+                      "Name"
+                    ]
+                  }
+                }
+              },
+              "minContains": 1,
+              "maxContains": 1,
+              "items": {
+                "if": {
+                  "properties": {
+                    "type": {
+                      "enum": [
+                        "21.T11969/Name",
+                        "Name"
+                      ]
+                    }
+                  }
+                },
+                "then": {
+                  "properties": {
+                    "data": {
+                      "properties": {
+                        "value": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/main/json-schema/%5BH5-4%5D_Syntax/Name/SyntaxDef_Name.json"
+                          },
+                          "minItems": 1,
+                          "maxItems": 2
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

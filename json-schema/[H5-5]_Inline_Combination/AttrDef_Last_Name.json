@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "hdl:21.T11969/Last_Name",
+  "title": "Last_Name",
+  "description": "Last name of a person, given as a non-empty string. A person can have between 0-5 last names.",
+  "$comment": "Validates the 21.T11969/Last_Name attribute in a Handle record.",
+  "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/main/json-schema/handle-wrapper.json",
+  "properties": {
+    "values": {
+      "anyOf": [
+        {
+          "title": "Option 1: Repeated individual handle values (0-5).",
+          "contains": {
+            "properties": {
+              "type": {
+                "enum": [
+                  "21.T11969/Last_Name",
+                  "Last_Name"
+                ]
+              }
+            }
+          },
+          "minContains": 0,
+          "maxContains": 5,
+          "items": {
+            "if": {
+              "properties": {
+                "type": {
+                  "enum": [
+                    "21.T11969/Last_Name",
+                    "Last_Name"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "properties": {
+                    "value": {
+                      "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/main/json-schema/%5BH5-4%5D_Syntax/Name/SyntaxDef_Name.json"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Option 2: One handle value with an array of 1-5 elements.",
+          "contains": {
+            "properties": {
+              "type": {
+                "enum": [
+                  "21.T11969/Last_Name",
+                  "Last_Name"
+                ]
+              }
+            }
+          },
+          "minContains": 0,
+          "maxContains": 1,
+          "items": {
+            "if": {
+              "properties": {
+                "type": {
+                  "enum": [
+                    "21.T11969/Last_Name",
+                    "Last_Name"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "data": {
+                  "properties": {
+                    "value": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/main/json-schema/%5BH5-4%5D_Syntax/Name/SyntaxDef_Name.json"
+                      },
+                      "minItems": 0,
+                      "maxItems": 5
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}
