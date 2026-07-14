@@ -19,18 +19,18 @@
             that the referenced FDO complies to the <a>root profile</a> <code>21.T11969/Root</code>.
         </p>
 
-        <p><b>[H5-7a] Profile Referencing implemented by JSON Schemas:</b></p>
+        <p><b>[H5-7a] Profile Referencing implemented by JSON Schemas</b></p>
         The <a>FDO record</a> of the <a>attribute definition</a> <code>A</code> must contain a JSON schema which encodes a
         <a>profile reference</a> to one of the <a>profiles</a> <code>P<sub>1</sub>,...,P<sub>n</sub></code>. In detail, the attribute
         <code>21.T11969/Data</code> applies <a>attribute referencing</a> to point to the attribute
         <code>21.T11969/JsonSchema</code>, which has as its value a JSON schema. The JSON schema can specify both syntax
         rules for the attribute value (e.g. that it is a string or follows a regular expression) and validation rules
         that need to be checked beyond the syntax of the attribute value (profile referencing). The latter rules must be
-        extracted and checked separate from simple JSON schema validaton:
+        extracted and checked separately from simple JSON schema validaton:
         <pre><code>{
 "validation": {
     "mechanism": "profileReference",
-    "allowedProfiles": ["reference to P1", ..., reference to Pn"]
+    "allowedProfiles": ["reference to P1, ..., reference to Pn"]
 }</code></pre>
         If the <code>allowedProfiles</code> key is left out, it means that the referenced FDO must be complient with
         <code>21.T11969/Root</code>.
@@ -73,9 +73,7 @@
                 </tr>
                 <tr>
                     <td>21.T11969/JsonSchema</td>
-                    <td><pre><code>{
-    "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/main/json-schema/%5BH5-7%5D_Profile_Referencing/AttrDef_Profile.json"
-}</code></pre></td>
+                    <td><pre><code>{"$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/main/json-schema/%5BH5-7%5D_Profile_Referencing/AttrDef_Profile.json"}</code></pre></td>
                 </tr>
                 </tbody>
                 <caption>
@@ -94,7 +92,7 @@
                 <a href="https://github.com/fairdo-org/handle_fdo_specification/blob/main/json-schema/%5BH5-7%5D_Profile_Referencing/Attr_Profile_2.json">record 2</a>.
             </p>
 
-            <p>The figure below shows a part of the JSON schema directly instead of using the `$ref` keyword to illustrate
+            <p>The figure below shows a part of the JSON schema directly (instead of using the `$ref` keyword) to illustrate
             the principle of profile referencing.</p>
             <figure id="profile-ref-json-schema">
                 <img src="img/profile-reference-json-schema.svg" alt="Profile_Referencing.svg" height=400>

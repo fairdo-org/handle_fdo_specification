@@ -126,7 +126,7 @@
             instantiates an attribute definition. Hence, [H5-8a] is a bit more expressive.
         </aside>
 
-        <p><b>[H5-8a] Attribute Referencing implemented by JSON Schemas:</b></p>
+        <p><b>[H5-8a] Attribute Referencing implemented by JSON Schemas</b></p>
         The <a>FDO record</a> of the <a>attribute definition</a> <code>A</code> must contain a JSON schema which encodes an
         <a>attribute reference</a> to one of the <a>attributes</a> <code>b<sub>1</sub>,...,b<sub>n</sub></code>. In detail, the attribute
         <code>21.T11969/Data</code> applies <a>attribute referencing</a> to point to the attribute
@@ -181,9 +181,7 @@
                 </tr>
                 <tr>
                     <td>21.T11969/JsonSchema</td>
-                    <td><pre><code>{
-    "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/main/json-schema/%5BH5-8%5D_Attribute_Referencing/AttrDef_Data.json"
-}</code></pre></td>
+                    <td><pre><code>{"$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/main/json-schema/%5BH5-8%5D_Attribute_Referencing/AttrDef_Data.json"}</code></pre></td>
                 </tr>
                 </tbody>
                 <caption>
@@ -202,7 +200,9 @@
             </p>
         </aside>
 
-        <p><b>[H5-8b] Attribute Referencing implemented on Handle-record level:</b></p>
+
+
+        <p><b>[H5-8b] Attribute Referencing implemented on Handle-record level</b></p>
         The <a>FDO record</a> of the <a>attribute definition</a> <code>A</code> must specify the attributes
         <code>21.T11969/ValidationMechanism</code> and <code>21.T11969/DataType</code> to define an
         <a>attribute reference</a> to one of the <a>attribute definitions</a> <code>B<sub>1</sub>,...,B<sub>n</sub></code>. In detail, the
