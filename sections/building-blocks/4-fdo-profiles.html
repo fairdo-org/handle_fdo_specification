@@ -96,6 +96,20 @@
         </table>
         <br/>
 
+        <div style="background-color:LightPink;">
+            <b>TODOS:</b> For both [H4-1a] and [H4-1b],
+            <ul>
+                <li>
+                    it is unclear how attributes that do not have an attribute definition (i.e., that are simple labels)
+                    can be added to profiles.
+                </li>
+                <li>
+                    It is also not clear if there are special rules for adding attributes to profiles that apply attribute
+                    referencing or external vocab referencing.
+                </li>
+            </ul>
+        </div>
+
 
 
         <p><b>[H4-1a] Profiles implemented by JSON Schemas</b></p>
@@ -222,7 +236,7 @@
             </li>
             <li>
                 If this profile is an extension of another profile, the value of the attribute <code>21.T11969/Extends</code>
-                specifies the PID of the parent profile (see [H4-3]).
+                specifies the PID of the parent profile (see [H4-4b]).
             </li>
             <li>
                 The attribute <code>21.T11969/denyAdditionalAttributes</code> is an optional boolean flag
@@ -269,10 +283,6 @@
                 </tr>
                 <tr>
                     <td>21.T11969/Attribute</td>
-                    <td>21.T11969/Type</td>
-                </tr>
-                <tr>
-                    <td>21.T11969/Attribute</td>
                     <td>21.T11969/Profile</td>
                 </tr>
                 <tr>
@@ -281,7 +291,11 @@
                 </tr>
                 <tr>
                     <td>21.T11969/Attribute</td>
-                    <td>21.T11969/Metadata</td>
+                    <td>21.T11969/URL</td>
+                </tr>
+                <tr>
+                    <td>21.T11969/Attribute</td>
+                    <td>21.T11969/Name</td>
                 </tr>
                 <tr>
                     <td>21.T11969/denyAdditionalAttributes</td>
@@ -307,15 +321,16 @@
     <dt>[H4-2] Profile Definition Profile</dt>
     <dd>
         The Handle-based profile definition profile has the PID <code>21.T11969/ProfileDef</code> and is the Handle-based
-        implementation of <a href="#table-profile-def">Table 3</a>. It uses both mechanisms way 1 and way 2 (see [H4-1]).
+        implementation of <a href="#table-profile-def">Table 3</a>. It uses both mechanisms [H4-1a] and [H4-1b] to
+        encode its validation rules.
     </dd>
 
 
 
     <dt>[H4-3] <dfn data-lt="root profile|21.T11969/Root">Root Profile</dfn></dt>
     <dd>
-        The Handle-based root profile has the PID <code>21.T11969/Root</code>. It uses both mechanisms way 1 and way 2
-        (see [H4-1]). It can be used as a parent profile for profile extension.
+        The Handle-based root profile has the PID <code>21.T11969/Root</code>. It uses both mechanisms [H4-1a] and [H4-1b]
+        to encode its validation rules. It can be used as a parent profile for profile extension.
     </dd>
 
 
@@ -419,9 +434,9 @@
    <p><b>[H4-4b] Profile extension implemented on handle record-level</b></p>
         An FDO profile constructed on Handle record level references a parent FDO profile using the attribute
         <code>21.T11969/Extends</code>. Its value must be a PID pointing to another FDO profile.
-        <aside class="example" id="example-profile-extension-record" title="FDO profile on Handle record-level (way 2) and Extension">
-            The same profile as in <a href="#example-profile-json"></a> looks like this when it is
-            represented using way 2 in combination with extension:
+        <aside class="example" id="example-profile-extension-record" title="FDO Profiles on handle record-level using extension">
+            The same profile as in <a href="#example-profile-extension-json"></a> looks like this when it is
+            represented using [H4-1b] in combination with extension:
             <table>
                 <thead>
                 <tr>
@@ -440,12 +455,11 @@
                 </tr>
                 <tr>
                     <td>21.T11969/Name</td>
-                    <td>Simple_Profile</td>
+                    <td>my-simple-profile-extended</td>
                 </tr>
                 <tr>
                     <td>21.T11969/Description</td>
-                    <td>This is a very simple profile which only contains the mandatory attributes and
-                        a reference to a metadata file.
+                    <td>A very small profile for illustration purposes. It extends `21.example/profile01`.
                     </td>
                 </tr>
                 <tr>
@@ -453,16 +467,16 @@
                     <td>Not_Applicable</td>
                 </tr>
                 <tr>
-                    <td>21.T11969/Attribute</td>
+                    <td>21.T11969/Full_Name</td>
                     <td>21.T11969/Metadata</td>
                 </tr>
                 <tr>
                     <td>21.T11969/Extends</td>
-                    <td>21.T11969/Root</td>
+                    <td>21.example/profile01</td>
                 </tr>
                 <tr>
                     <td>21.T11969/denyAdditionalAttributes</td>
-                    <td>True</td>
+                    <td>False</td>
                 </tr>
                 </tbody>
                 <caption>
@@ -477,9 +491,9 @@
 <div style="background-color:LightPink;">
     <b>TODO</b>:
     <ul>
-        <li>Register the Handles 21.T11969/ProfileDef and 21.T11969/Root.</li>
+        <li>Register the Handles `21.T11969/ProfileDef` and `21.T11969/Root`.</li>
         <li>
-            Actually, 21.T11969/Type and 21.T11969/Data apply attribute referencing. This is not yet covered in the
+            Actually, `21.T11969/Type` and `21.T11969/Data` apply attribute referencing. This is not yet covered in the
             current version and needs to be updated as soon as adequate "referenced attributes" are agreed upon.
         </li>
     </ul>
