@@ -207,9 +207,7 @@
         </table>
         <aside id="example-syntax-way-2" class="example"
                title="Simple attribute definitions using Handle-record level representation">
-            We represent the same attribute definitions as were given in <a
-                href="#example-syntax-way-1"></a>
-            using [H5-4b].
+            We represent the same attribute definition as given in <a href="#example-syntax-way-1"></a> using [H5-4b].
             <table>
                 <thead>
                 <tr>
@@ -302,15 +300,15 @@
             <p>
                 An implementation of an FDO validator would be able to validate the attribute definition `21.T11969/URL`
                 against the example Handle records
-                <a href="https://github.com/fairdo-org/handle_fdo_specification/blob/main/json-schema-examples-handles/%5BH5-4%5D_Syntax/URL/Attr_URL_2.json">record 1</a> and
-                <a href="https://github.com/fairdo-org/handle_fdo_specification/blob/main/json-schema-examples-handles/%5BH5-4%5D_Syntax/URL/Attr_URL_2.json">record 2</a>.
+                <a href="https://github.com/fairdo-org/handle_fdo_specification/blob/main/json-schema/%5BH5-4%5D_Syntax/URL/Attr_URL_1.json">record 1</a> and
+                <a href="https://github.com/fairdo-org/handle_fdo_specification/blob/main/json-schema/%5BH5-4%5D_Syntax/URL/Attr_URL_2.json">record 2</a>.
             </p>
         </aside>
-        <p>
-            Note that both ways can be combined by using all attributes <code>21.T11969/Data</code>,
+        <aside class="note">
+            Note that both [H5-4a] and [H5-4b] can be combined by using all attributes <code>21.T11969/Data</code>,
             <code>21.T11969/JsonSchema</code>, <code>21.T11969/DataType</code>, and
             <code>21.T11969/ValidationMechanism</code> simultaneously. In this case, when creating or updating
             this FDO attribute definition, it must be checked that both ways induce the same syntax validation rules.
-        </p>
+        </aside>
     </dd>
 </dl>
