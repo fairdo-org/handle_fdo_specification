@@ -9,8 +9,8 @@
         "format": "string",
         "value": [
           {
-            "First_Name": "Jane",
-            "21.T11969/Last_Name": "Doe"
+            "First_Name": ["Jane"],
+            "21.T11969/Last_Name": ["Doe"]
           }
         ]
       },

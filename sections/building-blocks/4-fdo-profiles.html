@@ -99,20 +99,19 @@
 
 
         <p><b>[H4-1a] Profiles implemented by JSON Schemas</b></p>
-        The <a>FDO record</a> links to a JSON schema which contains all validation rules of the profile.
+        The <a>FDO record</a> of the profile links to a JSON schema which contains all validation rules of the profile.
         <ul>
             <li>
                 The linking is done by using the <a>attribute</a> <code>21.T11969/Data</code>. This <a>attribute</a> applies
                 <a>attribute referencing</a> to point to the <a>attribute</a> <code>21.T11969/JsonSchema</code>, which
-                has as its value a URL. This URL references a JSON schema.
+                has as its value a JSON schema.
             </li>
             <li>
                 The JSON schema stacks together attribute definitions using the `allof` JSON Schema keyword. The
                 referenced attribute definitions carry their own cardinalities. Those cardinalities can be
                 overwritten (i.e. narrowed down, e.g. from 0..10 to 1..5) in the JSON Schema to adapt the
-                attributes to the new context. If the <a>profile</a> is not an extension of an existing profile, the
-                JSON schema must at least contain the mandatory <a>attributes</a> <code>21.T11969/Type</code>,
-                <code>21.T11969/Profile</code>, and <code>21.T11969/Data</code>.
+                attributes to the new context. The JSON schema must at least contain the mandatory <a>attributes</a>
+                <code>21.T11969/Type</code>, <code>21.T11969/Profile</code>, and <code>21.T11969/Data</code>.
             </li>
             <li>
                 A <a>FDO profile</a> may specify that it extends another <a>FDO profile</a>
@@ -183,9 +182,9 @@
                     line 8-23: the attribute definitions used by this profile are stacked together
                 </li>
                 <li>
-                    lines 24-113: the cardinality of the name attribute is narrowed down to 1-2 (instead of 1-5 in
+                    lines 24-113: the cardinality of `21.T11969/Name` attribute is narrowed down to 1-2 (instead of 1-5 in
                     the original profile). The concrete lines containing the new cardinalities are 41-42 and 101-102.
-                    The name attribute is now allowed to be instantiated 1-2 times in the handle record.
+                    The `21.T11969/Name` attribute is now allowed to be instantiated 1-2 times in the handle record.
                 </li>
             </ul>
             <p>
@@ -195,7 +194,7 @@
                 <a href="https://github.com/fairdo-org/handle_fdo_specification/blob/main/json-schema/%5BH4-1%5D_Profile/Profile.json">this record</a>.
             </p>
             <p>
-                To prevent the FDO record from using additional attributes,
+                To prevent the FDO record from containing additional attributes,
                 <a href="https://github.com/fairdo-org/handle_fdo_specification/blob/main/json-schema/%5BH4-1%5D_Profile/deny_additional_attributes.json">this JSON snippet</a>
                 can be added into the JSON schema (i.e., into the `allof` using the `$ref` keyword). Then, any
                 handle values that carry other attributes will cause a JSON schema validation error.
@@ -325,8 +324,7 @@
     <dd>
         Handle-based FDOs implement profile extension in two different but equivalent ways, see [H4-4a] and [H4-4b].
         <aside class="note">
-            When your profile (according to [H4-1a] or [H4-1b]) prohibits the use of additional attributes that are not
-            listed in the profile, then it is impossible to extend this profile.
+            Profiles that prohibit the use of additional attributes that are not listed in the profile cannot be extended.
         </aside>
 
         <p><b>[H4-4a] Profile extension implemented by JSON Schemas</b></p>
@@ -397,9 +395,9 @@
                     line 8-11: additional attribute definitions that extend the parent profile can be added
                 </li>
                 <li>
-                    lines 12-101: the cardinality of the full name attribute is narrowed down to 1 (instead of 0-2 in
+                    lines 12-101: the cardinality of `21.T11969/Full_Name` attribute is narrowed down to 1 (instead of 0-2 in
                     the original attribute definition). The concrete lines containing the new cardinalities are 29-30
-                    and 89-90. The full name attribute must be instantiated exactly once in the handle record.
+                    and 89-90. The `21.T11969/Name` attribute must be instantiated exactly once in the handle record.
                 </li>
             </ul>
             <p>
@@ -483,11 +481,6 @@
         <li>
             Actually, 21.T11969/Type and 21.T11969/Data apply attribute referencing. This is not yet covered in the
             current version and needs to be updated as soon as adequate "referenced attributes" are agreed upon.
-        </li>
-        <li>
-            Is there a way to combine the extension mechanism with denyAdditionalAttributes when using JSON Schema (see
-            Example 4)
-            ?
         </li>
     </ul>
 </div>

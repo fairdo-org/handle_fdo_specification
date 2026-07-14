@@ -7,14 +7,14 @@
             least one of <code>A<sub>1</sub>,...,A<sub>n</sub></code>. There are two equivalent ways how to build a
             <a>union</a> of existing <a>attribute definitions</a> as a Handle-based FDO <a>attribute definition</a>.
         </p>
-        <p><b>[H5-6a] Unions implemented by JSON Schemas:</b></p>
+        <p><b>[H5-6a] Unions implemented by JSON Schemas</b></p>
         <p>
             The <a>FDO record</a> of the <a>attribute definition</a> <code>A</code> contains a JSON schema which encodes a
             <a>union</a> of attributes <code>A<sub>1</sub>,...,A<sub>n</sub></code>. In detail, the attribute
             <code>21.T11969/Data</code> applies attribute referencing to point to the attribute
             <code>21.T11969/JsonSchema</code>, which has as its value a JSON schema. The JSON schema uses the keyword
             <code>anyof</code> to compose the different <a>attribute definitions</a> <code>A<sub>1</sub>,...,A<sub>n</sub></code>
-            into a union and potentially overwrite their cardinalities.
+            into a union and potentially overwrite their cardinalities into a common cardinality.
         </p>
         <aside class="example" title="Union of attribute definitions using JSON Schemas">
             The following FDO attribute definition record defines a union of a name and a full name.
@@ -80,10 +80,10 @@
                 </li>
                 <li>
                     lines 23-24, 83-84, 104-105, 164-165: The union cardinality is set to 0-1. Hence, either exactly 0-1
-                    name, or exactly 0-1 full name can appear in the Handle record.
+                    name, or exactly 0-1 full name can appear in the handle record.
                 </li>
                 <li>
-                    lines 41, 81, 122, 162: references to the schemas of name and full name
+                    lines 41, 81, 122, 162: references to the syntax of `21.T11969/Name` and `21.T11969/Full_Name`
                 </li>
             </ul>
             <p>
@@ -95,16 +95,9 @@
             </p>
         </aside>
 
-        <div style="background-color:LightPink;">
-            <b>TODOS:</b> It does not make much sense to give a union attribute a cardinality: A union of author (1-n)
-            and name (1-5) says that we have either 1-n authors or 1-5 names in the handle record. What should be the
-            cardinality of the union then? Or does the union cardinality overwrite both individual cardinalities (as in the example above)?
-            [Jana] A union can be better expressed as an attribute reference. Hence, I think the concept of unions does
-            not bring much benefit anyway. Maybe we can leave it out, at least for the Handle case, and say that unions
-            are implemented as attribute references?
-        </div>
 
-        <p><b>[H5-6b] Unions implemented on Handle-record level:</b></p>
+
+        <p><b>[H5-6b] Unions implemented on Handle-record level</b></p>
         The <a>FDO record</a> of the <a>attribute definition</a> <code>A</code> must specify the attributes
         <code>21.T11969/ValidationMechanism</code> and <code>21.T11969/DataType</code> to define a <a>union</a> of attributes
         <code>A<sub>1</sub>,...,A<sub>n</sub></code>. In detail, the following attributes must be in the <a>attribute
@@ -176,3 +169,13 @@
         </aside>
     </dd>
 </dl>
+
+<div style="background-color:LightPink;">
+    <b>TODOS:</b> It does not make much sense to give a union attribute a cardinality: A union of author (1-n)
+    and name (1-5) says that we have either 1-n authors or 1-5 names in the handle record. What should be the
+    cardinality of the union then? Or does the union cardinality overwrite both individual cardinalities (as in the
+    example above)?
+    [Jana] A union can be better expressed as an attribute reference. Hence, I think the concept of unions does
+    not bring much benefit anyway. Maybe we can leave it out, at least for the Handle case, and say that unions
+    are implemented as attribute references?
+</div>

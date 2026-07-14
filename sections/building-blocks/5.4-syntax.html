@@ -90,7 +90,7 @@
                     line 7: the plain syntax (as given in lines 41, 81) is wrapped into the handle record syntax
                 </li>
                 <li>
-                    lines 32-24, 83-84: The URL is given a cardinality for validation in the Handle record.
+                    lines 23-24, 83-84: The URL is given a cardinality for validation in the Handle record.
                     A URL can appear between 1-10 times in the handle record.
                 </li>
                 <li>
@@ -98,26 +98,21 @@
                 </li>
             </ul>
             <p>
-                This schema validates any handle record that has between 1-10 handle values representing a URL. The URLs
-                can appear
+                This schema validates any handle record that has between 1-10 URLs. The URLs can appear
             </p>
                 <ul>
                     <li>
-                        as individual handle values, see <a href="https://github.com/fairdo-org/handle_fdo_specification/blob/main/json-schema-examples-handles/%5BH5-4%5D_Syntax/URL/Attr_URL_1.json">record 1</a>, or
+                        as individual handle values, see <a href="https://github.com/fairdo-org/handle_fdo_specification/blob/main/json-schema/%5BH5-4%5D_Syntax/URL/Attr_URL_1.json">record 1</a>, or
                     </li>
                     <li>
-                        as one handle value with a list of URLs, see <a href="https://github.com/fairdo-org/handle_fdo_specification/blob/main/json-schema-examples-handles/%5BH5-4%5D_Syntax/URL/Attr_URL_2.json">record 2</a>
+                        as one handle value with a list of URLs, see <a href="https://github.com/fairdo-org/handle_fdo_specification/blob/main/json-schema/%5BH5-4%5D_Syntax/URL/Attr_URL_2.json">record 2</a>
                     </li>
                 </ul>
-            <p>
-                Services such as the Data Type Registry implement the attribute and JSON schema generation such that this
-                complexity is hidden from the user.
-            </p>
         </aside>
 
 
 
-        <p><b>[H5-4b] Syntax implemented on Handle-record level:</b></p>
+        <p><b>[H5-4b] Syntax implemented on Handle-record level</b></p>
         The FDO <a>attribute definition</a> is fully encoded on the Handle record level, simply relying on a
         reference to a syntax definition. To specify that [H5-4b] is used to encode the syntax of an attribute,
         the following two attributes must be used in the FDO record of the attribute definition:
