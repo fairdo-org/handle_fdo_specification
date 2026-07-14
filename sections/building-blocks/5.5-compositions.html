@@ -4,7 +4,7 @@
         <p>
             A <a>composition</a> `A` of attribute definitions <code>A<sub>1</sub></code>, <code>A<sub>2</sub></code>, ... is
             instantiated in a handle value as JSON object with properties. Each property corresponds to one attribute
-            `A<sub>i</sub>`. The key of the property is either the names or the PID of an attribute definition. Values of
+            <code>A<sub>i</sub></code>. The key of the property is either the names or the PID of an attribute definition. Values of
             properties are either lists or simple values, depending on the cardinality of the attribute. In more details, if
             the attribute definition <code>A<sub>i</sub></code> has a cardinality larger than 1, then the property is
             an array with the respective cardinality. The cardinality of <code>A<sub>i</sub></code> can also be overwritten
@@ -160,7 +160,7 @@
             <li><code>(21.T11969/ValidationMechanism, InlineCombination)</code></li>
             <li><code>(21.T11969/DataType, [reference to <a>attribute definition</a>])</code>, repeated multiple times.</li>
             <li>
-                <code>(21.T11969/CardinalityOverride, {"Attribute PID 1": "new cardinality 1", "Attribute PID 2": "new cardinality 2", ... })</code>
+                <code>(21.T11969/CardinalityOverride,</code> <pre><code>{"Attribute PID 1": "new cardinality 1", "Attribute PID 2": "new cardinality 2", ... })</code></pre>
                 to override the cardinalities of the inline combination
             </li>
         </ol>

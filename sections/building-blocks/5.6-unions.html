@@ -7,6 +7,15 @@
             least one of <code>A<sub>1</sub>,...,A<sub>n</sub></code>. There are two equivalent ways how to build a
             <a>union</a> of existing <a>attribute definitions</a> as a Handle-based FDO <a>attribute definition</a>.
         </p>
+        <div style="background-color:LightPink;">
+            <b>TODOS:</b> It does not make much sense to give a union attribute a cardinality: A union of author (1-n)
+            and name (1-5) says that we have either 1-n authors or 1-5 names in the handle record. What should be the
+            cardinality of the union then? Or does the union cardinality overwrite both individual cardinalities (as in the
+            example above)?
+            [Jana] A union can be better expressed as an attribute reference. Hence, I think the concept of unions does
+            not bring much benefit anyway. Maybe we can leave it out, at least for the Handle case, and say that unions
+            are implemented as attribute references?
+        </div>
         <p><b>[H5-6a] Unions implemented by JSON Schemas</b></p>
         <p>
             The <a>FDO record</a> of the <a>attribute definition</a> <code>A</code> contains a JSON schema which encodes a
@@ -130,16 +139,16 @@
                 </tr>
                 <tr>
                     <td>21.T11969/Name</td>
-                    <td>year_1990s_2010s</td>
+                    <td>Full_Name_or_Name</td>
                 </tr>
                 <tr>
                     <td>21.T11969/Description</td>
-                    <td>Any year in the 1990s and 2010s.
+                    <td>Either a full name or a name.
                     </td>
                 </tr>
                 <tr>
                     <td>21.T11969/Cardinality</td>
-                    <td>1</td>
+                    <td>0..1</td>
                 </tr>
                 <tr>
                     <td>21.T11969/Data</td>
@@ -151,31 +160,30 @@
                 </tr>
                 <tr>
                     <td>21.T11969/DataType</td>
-                    <td>21.T11969/example_integer_1990s</td>
+                    <td>21.T11969/Name</td>
                 </tr>
                 <tr>
                     <td>21.T11969/DataType</td>
-                    <td>21.T11969/example_integer_2010s</td>
+                    <td>21.T11969/Full_Name</td>
                 </tr>
                 </tbody>
                 <caption>
-                    FDO record of attribute definition (fictionary PID: <i>21.example/union_attribute01</i>)
+                    FDO record of attribute definition (fictionary PID: <i>21.T11969/Full_Name_or_Name</i>)
                 </caption>
             </table>
-            The attribute definition validates for example the attributes
-            <pre><code>(21.example/union_attribute01, 1993)</code></pre>
-            and
-            <pre><code>(year_1990s_2010s, 2010).</code></pre>
+            <p>
+                An implementation of an FDO validator would be able to validate the attribute definition `21.T11969/Full_Name_or_Name`
+                against the example Handle records
+                <a href="https://github.com/fairdo-org/handle_fdo_specification/blob/main/json-schema/%5BH5-6%5D_Union/Attr_Full_Name_or_Name_1.json">record 1</a> and
+                <a href="https://github.com/fairdo-org/handle_fdo_specification/blob/main/json-schema/%5BH5-6%5D_Union/Attr_Full_Name_or_Name_2.json">record 2</a>.
+            </p>
+        </aside>
+        <aside class="note">
+            Note that both [H6-5a] and [H6-5b] can be combined by using all attributes <code>21.T11969/Data</code>,
+            <code>21.T11969/JsonSchema</code>, <code>21.T11969/DataType</code>,
+            anc <code>21.T11969/ValidationMechanism</code> simultaneously.
+            In this case, when creating or updating this FDO attribute definition, it must be checked that both ways
+            induce the same syntax validation rules.
         </aside>
     </dd>
 </dl>
-
-<div style="background-color:LightPink;">
-    <b>TODOS:</b> It does not make much sense to give a union attribute a cardinality: A union of author (1-n)
-    and name (1-5) says that we have either 1-n authors or 1-5 names in the handle record. What should be the
-    cardinality of the union then? Or does the union cardinality overwrite both individual cardinalities (as in the
-    example above)?
-    [Jana] A union can be better expressed as an attribute reference. Hence, I think the concept of unions does
-    not bring much benefit anyway. Maybe we can leave it out, at least for the Handle case, and say that unions
-    are implemented as attribute references?
-</div>
