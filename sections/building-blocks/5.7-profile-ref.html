@@ -174,7 +174,12 @@
                     FDO record of attribute definition (PID: <i>21.T11969/Profile</i>)
                 </caption>
             </table>
-
+            <p>
+                An implementation of an FDO validator would be able to validate the attribute definition `21.T11969/Profile`
+                against the example Handle records
+                <a href="https://github.com/fairdo-org/handle_fdo_specification/blob/main/json-schema/%5BH5-7%5D_Profile_Referencing/Attr_Profile_1.json">record 1</a> and
+                <a href="https://github.com/fairdo-org/handle_fdo_specification/blob/main/json-schema/%5BH5-7%5D_Profile_Referencing/Attr_Profile_2.json">record 2</a>.
+            </p>
             <figure id="profile-ref">
                 <img src="img/profile-reference-handle-level.svg" alt="Profile_Referencing.png" height=400>
                 <figcaption>
@@ -183,6 +188,13 @@
                     <code>21.T11969/Profile</code> must reference an FDO profile.
                 </figcaption>
             </figure>
+        </aside>
+        <aside class="note">
+            Note that both [H5-7a] and [H5-7b] can be combined by using all attributes <code>21.T11969/Data</code>,
+            <code>21.T11969/JsonSchema</code>, <code>21.T11969/DataType</code>,
+            anc <code>21.T11969/ValidationMechanism</code> simultaneously.
+            In this case, when creating or updating this FDO attribute definition, it must be checked that both ways
+            induce the same syntax validation rules.
         </aside>
     </dd>
 </dl>

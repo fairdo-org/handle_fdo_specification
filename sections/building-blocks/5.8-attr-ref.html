@@ -192,7 +192,10 @@
             The full validation schema for the attribute applying attribute referencing can be found
             <a href="https://github.com/fairdo-org/handle_fdo_specification/blob/main/json-schema/%5BH5-8%5D_Attribute_Referencing/AttrDef_Data.json">here</a>.
             The construction of the JSON schema works exactly the same as in [H5-4a]. The only difference is that the
-            `validation` key is added.
+            `validation` key is added, and that the
+            <a href="https://github.com/fairdo-org/handle_fdo_specification/blob/main/json-schema/%5BH5-8%5D_Attribute_Referencing/SyntaxDef_Data.json">subschema</a>
+            should define an `enum` with all PIDs/names of the attributes that are allowed to be referenced by this
+            attribute definition.
             <p>
                 This schema validates any handle record that contains at least one data reference. Examples are
                 <a href="https://github.com/fairdo-org/handle_fdo_specification/blob/main/json-schema/%5BH5-8%5D_Attribute_Referencing/Attr_Data_1.json">record 1</a> and
@@ -203,6 +206,17 @@
 
 
         <p><b>[H5-8b] Attribute Referencing implemented on Handle-record level</b></p>
+
+        <div style="background-color:LightPink;">
+            <b>TODOS for [H5-8b]</b>:
+            <ul>
+                <li>In [H5-8a], the attribute reference can also contain an attribute name/label as the referenced
+                    attribute. Should attribute referencing in [H5-8b] also be able to reference to attribute names
+                    (instead of just attribute PIDs)? How could this be done?
+                </li>
+            </ul>
+        </div>
+
         The <a>FDO record</a> of the <a>attribute definition</a> <code>A</code> must specify the attributes
         <code>21.T11969/ValidationMechanism</code> and <code>21.T11969/DataType</code> to define an
         <a>attribute reference</a> to one of the <a>attribute definitions</a> <code>B<sub>1</sub>,...,B<sub>n</sub></code>. In detail, the
@@ -286,15 +300,3 @@
         </aside>
     </dd>
 </dl>
-
-<div style="background-color:LightPink;">
-    <b>TODOS:</b>
-    <ul>
-        <li>
-            Register the attributes that are referenced (attribute referencing) by the 21.T11969/Data and 21.T11969/Type
-            attributes. Examples are: 21.T11969/Attr_Def_inline_data, 21.T11969/Attr_Def_URL, 21.T11969/Attr_Def_FDO_Ref.
-            Find better names for these attributes and discuss how they should look like. As soon as they are registered,
-            improve the examples above with the registered attributes.
-        </li>
-    </ul>
-</div>

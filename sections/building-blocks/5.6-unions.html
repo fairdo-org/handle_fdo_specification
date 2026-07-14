@@ -8,7 +8,7 @@
             <a>union</a> of existing <a>attribute definitions</a> as a Handle-based FDO <a>attribute definition</a>.
         </p>
         <div style="background-color:LightPink;">
-            <b>TODOS:</b> It does not make much sense to give a union attribute a cardinality: A union of author (1-n)
+            <b>TODOS for [H5-6]:</b> It does not make much sense to give a union attribute a cardinality: A union of author (1-n)
             and name (1-5) says that we have either 1-n authors or 1-5 names in the handle record. What should be the
             cardinality of the union then? Or does the union cardinality overwrite both individual cardinalities (as in the
             example above)?
@@ -179,7 +179,7 @@
             </p>
         </aside>
         <aside class="note">
-            Note that both [H6-5a] and [H6-5b] can be combined by using all attributes <code>21.T11969/Data</code>,
+            Note that both [H5-6a] and [H5-7b] can be combined by using all attributes <code>21.T11969/Data</code>,
             <code>21.T11969/JsonSchema</code>, <code>21.T11969/DataType</code>,
             anc <code>21.T11969/ValidationMechanism</code> simultaneously.
             In this case, when creating or updating this FDO attribute definition, it must be checked that both ways
