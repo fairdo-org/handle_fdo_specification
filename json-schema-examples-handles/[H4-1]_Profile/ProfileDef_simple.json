@@ -1,8 +1,9 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "hdl:21.T11969/abcdefghi",
+  "$id": "hdl:21.example/profile01",
   "title": "my-simple-profile",
-  "description": "A profile containing the following properties: FdoProfile, Data, URL, and Name (omitted type for brevity; this would be mandatory)",
+  "description": "A very small profile for illustration purposes.",
+  "$comment": "The profile contains the following properties: FdoProfile, Data, URL, and Name (omitted type for brevity; this would be mandatory in a real profile).",
   "allOf": [
     {
       "$comment": "FDO Profile",
