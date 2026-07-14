@@ -6,11 +6,11 @@
   "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/%5BH4-1%5D_Profile/ProfileDef_simple.json",
   "allOf": [
     {
-      "$comment": "Add additional attributes here (e.g. author)",
+      "$comment": "Add additional attributes here (e.g. full name)",
       "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/%5BH5-5%5D_Inline_Combination/AttrDef_Full_Name.json"
     },
     {
-      "$comment": "This subschema overwrites the cardinality from Full Name to 1 (instead of 0-2)",
+      "$comment": "This subschema overwrites the cardinality of full name to 1 (instead of 0-2)",
       "properties": {
         "values": {
           "oneOf": [
