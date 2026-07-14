@@ -4,7 +4,7 @@
   "title": "Full_Name_or_Name",
   "description": "Either a full name or a name.",
   "$comment": "Any attribute validates against this union if and only if it is either a valid name, or a valid full name",
-  "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/handle-wrapper.json",
+  "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/main/json-schema/handle-wrapper.json",
   "properties": {
     "values": {
       "anyOf": [
@@ -38,7 +38,7 @@
                 "data": {
                   "properties": {
                     "value": {
-                      "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/%5BH5-4%5D_Syntax/Name/SyntaxDef_Name.json"
+                      "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/main/json-schema/%5BH5-4%5D_Syntax/Name/SyntaxDef_Name.json"
                     }
                   }
                 }
@@ -78,7 +78,7 @@
                     "value": {
                       "type": "array",
                       "items": {
-                        "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/%5BH5-4%5D_Syntax/Name/SyntaxDef_Name.json"
+                        "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/main/json-schema/%5BH5-4%5D_Syntax/Name/SyntaxDef_Name.json"
                       },
                       "minItems": 1,
                       "maxItems": 1
@@ -119,7 +119,7 @@
                 "data": {
                   "properties": {
                     "value": {
-                      "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/%5BH5-5%5D_Inline_Combination/SyntaxDef_Full_Name.json"
+                      "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/main/json-schema/%5BH5-5%5D_Inline_Combination/SyntaxDef_Full_Name.json"
                     }
                   }
                 }
@@ -159,7 +159,7 @@
                     "value": {
                       "type": "array",
                       "items": {
-                        "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/%5BH5-5%5D_Inline_Combination/SyntaxDef_Full_Name.json"
+                        "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/main/json-schema/%5BH5-5%5D_Inline_Combination/SyntaxDef_Full_Name.json"
                       },
                       "minItems": 1,
                       "maxItems": 1

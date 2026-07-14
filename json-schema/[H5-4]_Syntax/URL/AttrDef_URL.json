@@ -1,34 +1,34 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "hdl:21.T11969/First_Name",
-  "title": "First_Name",
-  "description": "First name of a person, given as a non-empty string. A person can have between 0-5 first names.",
-  "$comment": "Validates the 21.T11969/First_Name attribute in a Handle record.",
-  "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/handle-wrapper.json",
+  "$id": "21.T11969/URL",
+  "title": "URL",
+  "description": "URL to which this FDO resolves.",
+  "$comment": "Validates the 21.T11969/URL attribute in a Handle record.",
+  "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/main/json-schema/handle-wrapper.json",
   "properties": {
     "values": {
       "anyOf": [
         {
-          "title": "Option 1: Repeated individual handle values (0-5).",
+          "title": "Option 1: Repeated individual handle values, each containing one URL (at least 1, at most 10).",
           "contains": {
             "properties": {
               "type": {
                 "enum": [
-                  "21.T11969/First_Name",
-                  "First_Name"
+                  "21.T11969/URL",
+                  "URL"
                 ]
               }
             }
           },
-          "minContains": 0,
-          "maxContains": 5,
+          "minContains": 1,
+          "maxContains": 10,
           "items": {
             "if": {
               "properties": {
                 "type": {
                   "enum": [
-                    "21.T11969/First_Name",
-                    "First_Name"
+                    "21.T11969/URL",
+                    "URL"
                   ]
                 }
               }
@@ -38,7 +38,7 @@
                 "data": {
                   "properties": {
                     "value": {
-                      "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/%5BH5-4%5D_Syntax/Name/SyntaxDef_Name.json"
+                      "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/main/json-schema/%5BH5-4%5D_Syntax/URL/SyntaxDef_URL.json"
                     }
                   }
                 }
@@ -47,26 +47,26 @@
           }
         },
         {
-          "title": "Option 2: One handle value with an array of 1-5 elements.",
+          "title": "Option 2: One handle value with an array of 1-10 URL elements.",
           "contains": {
             "properties": {
               "type": {
                 "enum": [
-                  "21.T11969/First_Name",
-                  "First_Name"
+                  "21.T11969/URL",
+                  "URL"
                 ]
               }
             }
           },
-          "minContains": 0,
+          "minContains": 1,
           "maxContains": 1,
           "items": {
             "if": {
               "properties": {
                 "type": {
                   "enum": [
-                    "21.T11969/First_Name",
-                    "First_Name"
+                    "21.T11969/URL",
+                    "URL"
                   ]
                 }
               }
@@ -78,10 +78,10 @@
                     "value": {
                       "type": "array",
                       "items": {
-                        "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/%5BH5-4%5D_Syntax/Name/SyntaxDef_Name.json"
+                        "$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/main/json-schema/%5BH5-4%5D_Syntax/URL/SyntaxDef_URL.json"
                       },
-                      "minItems": 0,
-                      "maxItems": 5
+                      "minItems": 1,
+                      "maxItems": 10
                     }
                   }
                 }

@@ -158,7 +158,7 @@
                 </tr>
                 <tr>
                     <td>21.T11969/JsonSchema</td>
-                    <td> <pre><code>{"$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/%5BH4-1%5D_Profile/ProfileDef_simple.json"}</code></pre></td>
+                    <td> <pre><code>{"$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/main/json-schema/%5BH4-1%5D_Profile/ProfileDef_simple.json"}</code></pre></td>
                 </tr>
                 </tbody>
                 <caption>
@@ -167,7 +167,7 @@
             </table>
 
             The full validation schema for this profile can be found
-            <a href="https://github.com/fairdo-org/handle_fdo_specification/blob/jana-json-schemas/json-schema-examples-handles/%5BH4-1%5D_Profile/ProfileDef_simple.json">here</a>.
+            <a href="https://github.com/fairdo-org/handle_fdo_specification/blob/main/json-schema/%5BH4-1%5D_Profile/ProfileDef_simple.json">here</a>.
             The validation schema is constructed as follows:
             <ul>
                 <li>
@@ -192,11 +192,11 @@
                 This schema validates any handle record that has 1-n profiles, 1-10 URLs, 1-2 names, 1-n data
                 references and potentially additional attributes that are not listed in the profile. An example
                 record that validates against this schema is
-                <a href="https://github.com/fairdo-org/handle_fdo_specification/blob/jana-json-schemas/json-schema-examples-handles/%5BH4-1%5D_Profile/Profile.json">this record</a>.
+                <a href="https://github.com/fairdo-org/handle_fdo_specification/blob/main/json-schema/%5BH4-1%5D_Profile/Profile.json">this record</a>.
             </p>
             <p>
                 To prevent the FDO record from using additional attributes,
-                <a href="https://github.com/fairdo-org/handle_fdo_specification/blob/jana-json-schemas/json-schema-examples-handles/%5BH4-1%5D_Profile/deny_additional_attributes.json">this JSON snippet</a>
+                <a href="https://github.com/fairdo-org/handle_fdo_specification/blob/main/json-schema/%5BH4-1%5D_Profile/deny_additional_attributes.json">this JSON snippet</a>
                 can be added into the JSON schema (i.e., into the `allof` using the `$ref` keyword). Then, any
                 handle values that carry other attributes will cause a JSON schema validation error.
             </p>
@@ -369,7 +369,7 @@
                 </tr>
                 <tr>
                     <td>21.T11969/JsonSchema</td>
-                    <td> <pre><code>{"$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/jana-json-schemas/json-schema-examples-handles/%5BH4-4%5D_Profile_Extension/ProfileDef_Extension.json"}</code></pre></td>
+                    <td> <pre><code>{"$ref": "https://raw.githubusercontent.com/fairdo-org/handle_fdo_specification/refs/heads/main/json-schema/%5BH4-4%5D_Profile_Extension/ProfileDef_Extension.json"}</code></pre></td>
                 </tr>
                 </tbody>
                 <caption>
@@ -378,7 +378,7 @@
             </table>
 
             The full validation schema for this profile can be found
-            <a href="https://github.com/fairdo-org/handle_fdo_specification/blob/jana-json-schemas/json-schema-examples-handles/%5BH4-4%5D_Profile_Extension/ProfileDef_Extension.json">here</a>.
+            <a href="https://github.com/fairdo-org/handle_fdo_specification/blob/main/json-schema/%5BH4-4%5D_Profile_Extension/ProfileDef_Extension.json">here</a>.
             The validation schema is constructed as follows:
             <ul>
                 <li>
@@ -406,11 +406,11 @@
                 This schema validates any handle record that has 1-n profiles, 1-10 URLs, 1-2 names, 1-n data
                 references, 1 full name and potentially additional attributes that are not listed in the profile. An
                 example record that validates against this schema is
-                <a href="https://github.com/fairdo-org/handle_fdo_specification/blob/jana-json-schemas/json-schema-examples-handles/%5BH4-4%5D_Profile_Extension/Profile.json">this record</a>.
+                <a href="https://github.com/fairdo-org/handle_fdo_specification/blob/main/json-schema/%5BH4-4%5D_Profile_Extension/Profile.json">this record</a>.
             </p>
             <p>
                 To prevent the FDO record from using additional attributes,
-                <a href="https://github.com/fairdo-org/handle_fdo_specification/blob/jana-json-schemas/json-schema-examples-handles/%5BH4-1%5D_Profile/deny_additional_attributes.json">this JSON snippet</a>
+                <a href="https://github.com/fairdo-org/handle_fdo_specification/blob/main/json-schema/%5BH4-1%5D_Profile/deny_additional_attributes.json">this JSON snippet</a>
                 can be added into the JSON schema (i.e., into the `allof` using the `$ref` keyword). Then, any
                 handle values that carry other attributes will cause a JSON schema validation error.
             </p>
