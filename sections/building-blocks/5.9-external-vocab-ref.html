@@ -1,13 +1,90 @@
 <dl>
-
-    <dt>[H5-1g] <dfn>External Vocabulary Referencing</dfn></dt>
-    <dfn>Implementation-specific rules</dfn>
+    <dt>[H5-9] <dfn data-lt=
+                            "external vocabulary referencing|
+                            External vocabulary referencing|
+                            external vocabulary reference|
+                            External vocabulary reference">
+        External Vocabulary Referencing</dfn></dt>
     <dd>
-        It is essential for FDOs that existing vocabularies, ontologies, and terminologies can be reused in
-        <a>records</a>
-        (even if they are not in the strict format as described in [H5-1]).
-        This can be carried out by applying <a>external vocabulary referencing</a>.
+        <p>
+            It is essential for FDOs that existing vocabularies can be reused in <a>FDO records</a>. To prevent that each
+            existing vocabulary term must be wrapped into its own <a>FDO attribute definition</a>, Handle-based FDOs adapt
+            the <a>external vocabulary referencing</a> mechanism. If terms from a specific vocabulary (e.g. schema.org)
+            should be used in the <a>FDO record</a>, the <a>FDO record</a> has to import this vocabulary. This is done by
+            referencing to an FDO that describes this vocabulary (which may exist already, or needs to be created). After
+            importing the vocabulary, any term from it can be used within the FDO record.
+        </p>
 
+        <p>
+            An FDO that describes an external vocabulary follows the external vocabulary profile
+            <code>21.T11969/VocabularyDef</code>. Its properties are listed in <a href="#table-vocab-def">Table 6</a>
+            below.
+        </p>
+
+        <table id="table-vocab-def" border="2">
+            <caption style="caption-side:bottom"><b>Table 6</b>: The list of <a>attribute definitions</a> which MUST be
+                used when registering a new FDO that describes a vocabulary. This table does not include all
+                information about the <a>attribute definitions</a>. For more details, please resolve the <a>attribute
+                definition</a> PIDs via the <a>Handle System</a>.
+            </caption>
+            <tr>
+                <th>PID of the <a>attribute definition</a> </th>
+                <th>Attribute value</th>
+                <th>Cardinality of the <a>attribute</a></th>
+            </tr>
+            <tr>
+                <td><code>21.T11969/Type</code></td>
+                <td>The string <code>Vocabulary</code>. Additional types may be added, if applicable.</td>
+                <td>1..*</td>
+            </tr>
+            <tr>
+                <td><code>21.T11969/Profile</code></td>
+                <td>The string <code>21.T11969/VocabularyDef</code>. Additional <a>profiles</a> may be added, if applicable.</td>
+                <td>1..*</td>
+            </tr>
+            <tr>
+                <td><code>21.T11969/Data</code></td>
+                <td>
+                    At least the string <code>21.T11969/DownloadURL</code>. Other data references may be added, if
+                    applicable.
+                </td>
+                <td>1..*</td>
+            </tr>
+            <tr>
+                <td><code>21.T11969/DownloadURL</code></td>
+                <td>
+                    URL to download the vocabulary.
+                </td>
+                <td>1..*</td>
+            </tr>
+            <tr>
+                <td><code>21.T11969/Name</code></td>
+                <td>Name(s) of the vocabulary. </td>
+                <td>1..*</td>
+            </tr>
+            <tr>
+                <td><code>21.T11969/Description</code></td>
+                <td>Description(s) of the vocabulary.</td>
+            <td>0..*</td>
+            <tr>
+                <td><code>21.T11969/LandingPage</code></td>
+                <td>Link to human-readable landing page of the vocabulary.</td>
+            <td>0..1</td>
+            <tr>
+                <td><code>21.T11969/VocabularyPrefix</code></td>
+                <td>Unique prefix(es) of vocabulary terms in an FDO record.</td>
+            <td>1..*</td>
+            <tr>
+                <td><code>21.T11969/SPARQL_Check</code></td>
+                <td>SPARQL query for validating vocabulary terms in the <a>FDO record</a></td>
+            <td>0..1</td>
+            <tr>
+                <td><code>21.T11969/Contact</code></td>
+                <td>Contact information for the vocabulary.</td>
+            <td>1..*</td>
+        </table>
+
+        <dfn>Implementation-specific rules</dfn>:
         <aside class="example" title="External Vocabulary Referencing: Using Schema.org in Handle-based FDOs">
             <a href="#ex-vocab-ref">Figure 6</a> shows how schema.org terms can be used in an <a>FDO record</a> by
             applying <a>external vocabulary referencing</a>.
@@ -37,6 +114,24 @@
                 </li>
             </ul>
         </aside>
+
+        <aside class="note">
+            <a>External vocabulary referencing</a> is a special case of <a>profile referencing</a>:
+            <ul>
+                <li>
+                    The <a>attribute definition</a> that applies <a>profile referencing</a> is
+                    <code>21.T11969/ImportVocabulary</code>. It references to the profile
+                    <code>21.T11969/VocabularyDef</code>
+                </li>
+                <li>
+                    In a data-FDO, a validator would check that the profile being referenced by the
+                    <code>21.T11969/ImportVocabulary</code> attribute complies to the external vocabulary profile
+                    <code>21.T11969/VocabularyDef</code>. The validator would NOT by default validate the vocabulary
+                    terms that are used by other attributes.
+                </li>
+            </ul>
+        </aside>
+
         <p>The detailed requirements for <a>External Vocabulary Referencing</a> are:</p>
         <p><b>Format of an <a>attribute definition</a> that Applies External Vocabulary Referencing:</b></p>
         <p>The following detailed requirements must be fulfilled such that an <a>attribute definition</a> A applies
