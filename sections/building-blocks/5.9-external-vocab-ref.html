@@ -7,16 +7,15 @@
         External Vocabulary Referencing</dfn></dt>
     <dd>
         <p>
-            It is essential for FDOs that existing vocabularies can be reused in <a>FDO records</a>. To prevent that each
-            existing vocabulary term must be wrapped into its own <a>FDO attribute definition</a>, Handle-based FDOs adapt
-            the <a>external vocabulary referencing</a> mechanism. If terms from a specific vocabulary (e.g. schema.org)
-            should be used in the <a>FDO record</a>, the <a>FDO record</a> has to import this vocabulary. This is done by
-            referencing to an FDO that describes this vocabulary (which may exist already, or needs to be created). After
-            importing the vocabulary, any term from it can be used within the FDO record.
+            It is essential for FDOs that existing vocabularies (for example, schema.org) can be reused in <a>FDO records</a>.
+            To prevent that each vocabulary term must be wrapped into its own <a>FDO attribute definition</a>,
+            Handle-based FDOs adapt the <a>external vocabulary referencing</a> mechanism (<dfn>Implementation-specific
+            rule</dfn>). If terms from a vocabulary should be used in the <a>FDO record</a>, the <a>FDO record</a> has
+            to import this vocabulary. This is done by referencing from the FDO record to an FDO that describes this
+            vocabulary. After importing the vocabulary, any term from it can be used within the FDO record.
         </p>
-
         <p>
-            An FDO that describes an external vocabulary follows the external vocabulary profile
+            An FDO that describes an external vocabulary (vocabulary FDO) follows the external vocabulary profile
             <code>21.T11969/VocabularyDef</code>. Its properties are listed in <a href="#table-vocab-def">Table 6</a>
             below.
         </p>
@@ -84,12 +83,40 @@
             <td>1..*</td>
         </table>
 
-        <dfn>Implementation-specific rules</dfn>:
+        <p>
+            <a>External vocabulary referencing</a> is a special case of <a>profile referencing</a>, applied to the
+            <a>attribute definition</a> <code>21.T11969/ImportVocabulary</code>. Hence, the <a>record</a> of
+            <code>21.T11969/ImportVocabulary</code> is constructed the same way as described in [H5-7]. Hereby, the
+            <a>profile</a> that is referenced by <code>21.T11969/ImportVocabulary</code> is
+            <code>21.T11969/VocabularyDef</code>.
+        </p>
+
+        <b>Instantiation of External Vocabulary Attributes in the Record:</b>
+        To use external vocabulary terms in the <a>FDO record</a>, the record MUST contain
+        <ul>
+            <li>the attribute <code>(21.T11969/ImportVocabulary,[reference to a vocabulary FDO])</code>
+            </li>
+            <li>
+                one or several attributes representing vocabulary terms from the same vocabulary. Those attributes have
+                as their first value the vocabulary term, starting with a valid prefix of this vocabulary. The second
+                value must instantiate the vocabulary term.
+            </li>
+        </ul>
+
+
+        <p>
+            <b>Validation Rules:</b>
+            To validate an FDO that contains the attribute <code>21.T11969/ImportVocabulary</code>, it is checked that the
+            attribute value of <code>21.T11969/ImportVocabulary</code> is a reference to a vocabulary FDO. A FDO validator
+            could now optionally to proceed to validate the vocabulary terms according to the SPARQL query, if it is given
+            in the vocabulary FDO.
+        </p>
+
         <aside class="example" title="External Vocabulary Referencing: Using Schema.org in Handle-based FDOs">
             <a href="#ex-vocab-ref">Figure 6</a> shows how schema.org terms can be used in an <a>FDO record</a> by
             applying <a>external vocabulary referencing</a>.
             <figure id="ex-vocab-ref">
-                <img src="img/External_Vocab_Referencing.png" alt="External_Vocab_Referencing.png">
+                <img src="img/External_Vocabulary_Referencing.svg" alt="External_Vocab_Referencing.png">
                 <figcaption>
                     This figure shows how schema.org terms are used in the FDO <code>21.123/456</code>.
                 </figcaption>
@@ -114,61 +141,5 @@
                 </li>
             </ul>
         </aside>
-
-        <aside class="note">
-            <a>External vocabulary referencing</a> is a special case of <a>profile referencing</a>:
-            <ul>
-                <li>
-                    The <a>attribute definition</a> that applies <a>profile referencing</a> is
-                    <code>21.T11969/ImportVocabulary</code>. It references to the profile
-                    <code>21.T11969/VocabularyDef</code>
-                </li>
-                <li>
-                    In a data-FDO, a validator would check that the profile being referenced by the
-                    <code>21.T11969/ImportVocabulary</code> attribute complies to the external vocabulary profile
-                    <code>21.T11969/VocabularyDef</code>. The validator would NOT by default validate the vocabulary
-                    terms that are used by other attributes.
-                </li>
-            </ul>
-        </aside>
-
-        <p>The detailed requirements for <a>External Vocabulary Referencing</a> are:</p>
-        <p><b>Format of an <a>attribute definition</a> that Applies External Vocabulary Referencing:</b></p>
-        <p>The following detailed requirements must be fulfilled such that an <a>attribute definition</a> A applies
-            external vocabulary referencing:</p>
-        <ul>
-            <li>
-                The <a>attribute definition</a> A MUST explicitly state that it uses this feature by containing the <a>attribute</a>
-                <code>(<a>21.T11969/ValidationMechanism</a>, ExternalVocabularyReference)</code>.
-            </li>
-            <li>
-                The <a>attribute definition</a> A MUST specify the namespace of the external vocabulary using the <a>attribute</a>
-                <a><code>21.T11969/Data</code></a> which references a syntax definition that validates the namespace.
-            </li>
-        </ul>
-
-        <p><b>Instantiation of External Vocabulary Attributes in the Record:</b></p>
-
-        To use external vocabulary in the <a>FDO record</a>, the record MUST contain
-        <ul>
-            <li>an attribute <code>a=(a<sub>def</sub>,a<sub>val</sub>)</code> that instantiates <a>attribute
-                definition</a> A, where A
-                applies external vocabulary referencing
-            </li>
-            <li>an attribute <code>b=(b<sub>def</sub>,b<sub>val</sub>)</code> representing a vocabulary term</li>
-        </ul>
-        A and b must fulfill the following requirements:
-        <ul>
-            <li><code>a<sub>val</sub></code> is a URL representing a namespace</li>
-            <li><code>b<sub>def</sub> = a<sub>val</sub>/&ltterm&gt</code>, i.e., <code>b<sub>def</sub></code> is a URL
-                representing a term under a namespace
-            </li>
-            <li><code>>b<sub>val</sub></code> instantiates <code>b<sub>def</sub></code>.</li>
-        </ul>
-        <p><b>Validation Rules:</b></p>
-        To validate an FDO that contains an <a>attribute</a> <code>a=(a<sub>def</sub>,a<sub>val</sub>)</code> applying
-        <a>external vocabulary referencing</a>, it is
-        checked that the namespace a<sub>val</sub> is valid according to the <a>syntax definition</a> referenced from
-        the <a>attribute definition</a>.
     </dd>
 </dl>
