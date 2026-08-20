@@ -1,0 +1,368 @@
+<h3>FDO records</h3>
+
+This section specifies how an FDO record is implemented by Handle-based FDOs.
+
+<dl>
+    <dt><dfn>Handle record</dfn></dt>
+    <dd>
+        Each <a>Handle record</a> consists of a list of Handle values. Each Handle value is represented as a JSON object
+        with (at least) five types (see also [[Handle Technical Manual]]):
+        <ul>
+            <li> <code>index</code> (integer)</li>
+            <li> <code>type</code> (string)</li>
+            <li> <code>data</code> (object)</li>
+            <li> <code>ttl</code> (the time-to-live in seconds of the value, an integer (or, in the rare case of an absolute expiration
+                 time, that expiration time as an ISO8601-formatted string))</li>
+            <li> <code>timestamp</code> (an ISO8601-formatted string)</li>
+        </ul>
+    </dd>
+</dl>
+
+<dl>
+    <dt><dfn data-lt="FDO record|record">FDO record</dfn></dt>
+    <dd>
+        The conceptional <a>FDO record</a> (according to the [[FDO specification]]) consists of attributes (tuples) <br>
+        <code>a<sub>1</sub>=(k<sub>1</sub>:v<sub>1</sub>), a<sub>2</sub>=(k<sub>2</sub>:v<sub>2</sub>), ..., a<sub>n</sub>=(k<sub>n</sub>:v<sub>n</sub>)</code>.
+        Each attribute <code>a<sub>i</sub></code>, <code>1<span>&#8804;</span>i<span>&#8804;</span>n</code>, belongs to one of three types:
+        <ol>
+            <li><code>a<sub>i</sub></code> instantiates an <a>attribute definition</a>, which is identified by a PID,
+                has an attribute name, a cardinality, and it is listed in at least one of the profiles of this FDO.
+                Some of the <code>a<sub>i</sub></code> may instantiate the same attribute definition (this depends
+                on the cardinality of the attribute definition: a cardinality of x..y allows this attribute definition
+                to be instantiates in a record between x and y times).
+                <code>k<sub>i</sub></code> is either the PID or the name of the attribute definition.
+                <code>v<sub>i</sub></code> must be a value that is valid against the attribute definition.
+                <aside class="note">
+                    If you want to use human-readable attribute names of attribute definitions (instead of attribute
+                    definition PIDs) in the FDO records, it is essential that the attribute definitions are part of at
+                    least one of the profiles of the FDO. If <code>k<sub>i</sub></code> was the attribute name of an
+                    attribute definition that is not in any of the profiles, there would be no way to find out the
+                    attribute definition PID.
+                </aside>
+            </li>
+            <li><code>a<sub>i</sub></code> instantiates an <a>attribute definition</a>, which is identified by a PID,
+                has an attribute name, a cardinality, but it is not listed in any of the profiles of this FDO.
+                <code>k<sub>i</sub></code> is the PID the attribute definition.
+                <code>v<sub>i</sub></code> must be a value that is valid against the attribute definition.
+            </li>
+            <li>
+                <code>a<sub>i</sub></code> is a simple combination of an attribute name and a value. In this case, <code>k<sub>i</sub></code>
+                is the attribute name, and <code>v<sub>i</sub></code> is the attribute value. <code>v<sub>i</sub></code> does not need to comply to
+                any validation rules.
+            </li>
+        </ol>
+        Furthermore, <code>k<sub>i</sub></code> is only allowed to be an attribute name if there is no other attribute
+        definition having the same name in the FDO record. If there are two attribute definitions with the same
+        attribute name, <code>k<sub>i</sub></code> must be the PID of the attribute definition.
+    </dd>
+</dl>
+
+<dl>
+    <dt>
+        [H3-1] Mapping the <a>FDO Record</a> to the <a>Handle Record</a>
+    </dt>
+    <dd>
+        <p>
+            We assume an <a>FDO record</a> which consists of FDO attributes (tuples)
+            <code>a<sub>1</sub>=(k<sub>1</sub>:v<sub>1</sub>), a<sub>2</sub>=(k<sub>2</sub>:v<sub>2</sub>), ...,
+                a<sub>n</sub>=(k<sub>n</sub>:v<sub>n</sub>)</code>.
+            The attributes are reordered such that
+            <code>a<sub>1</sub>, ..., a<sub>k</sub></code> instantiate attribute definitions that are listed in the profile,
+            <code>a<sub>k+1</sub>, ..., a<sub>l</sub></code> instantiate attribute definitions that are not listed in the profile,
+            and <code>a<sub>l+1</sub>, ..., a<sub>n</sub></code> are simple names plus values,
+            <code>1<span>&#8804;</span>k<span>&#8804;</span>l<span>&#8804;</span>n-1</code>.
+             Mapping the <a>FDO record</a> to a <a>Handle record</a> means to map all FDO attributes
+            <code>a<sub>1</sub>, ..., a<sub>n</sub></code> to a list of Handle values
+            <code>h<sub>1</sub>, ..., h<sub>m</sub></code> (<code>m<span>&#8804;</span>n</code>) as follows:
+        </p>
+        <p>
+            We start by mapping <code>a<sub>1</sub>, ..., a<sub>k</sub></code> to handle values:
+
+            Let <code>A<sub>1</sub>,...,A<sub>r</sub></code> be all attribute definitions that are instantiated by at
+            least one of <code>a<sub>1</sub>, ..., a<sub>k</sub></code> and that are in at least one of the profiles, with <code>r</code> the total number of
+            instantiated attribute definitions. It holds <code>r<span>&#8804;</span>k</code> because some
+            attributes may instantiate the same attribute definitions.
+            Define the sets <code>S<sub>1</sub>, ..., S<sub>r</sub></code>. The attributes
+            <code>a<sub>1</sub>, ..., a<sub>k</sub></code> are placed in <code>S<sub>1</sub>, ..., S<sub>r</sub></code>
+            depending on which attribute definition they instantiate. In more detail, <code>a<sub>i</sub></code> is placed in
+            <code>S<sub>j</sub></code> if <code>k<sub>i</sub></code> is either the name or the PID of
+            <code>A<sub>j</sub></code>. Now, each set <code>S<sub>j</sub></code> is mapped to handle values. There are
+            two allowed ways how to do this:
+        </p>
+        <ol>
+            <li>
+                One handle value is created which contains all attributes that are placed in <code>S<sub>j</sub></code>.
+                The handle value looks as follows:
+                <ul>
+                    <li><code>index</code>: any positive integer that was not yet used by any other handle value</li>
+                    <li>
+                        <code>type</code>: either the name or the PID of attribute definition <code>A<sub>j</sub></code>
+                        (name only allowed if there are no other attribute definitions with the same name)
+                    </li>
+                    <li><code>data.value:</code> a list containing all values of the attributes placed in <code>S<sub>j</sub></code></li>
+                </ul>
+            </li>
+            <li><code>|S<sub>j</sub>|</code> handle values are created, each containing one of the attributes that are
+                placed in <code>S<sub>j</sub></code>. The handle values look as follows:
+                <ul>
+                    <li><code>index</code>, <code>type</code>: same as 1.
+                    </li>
+                    <li><code>data.value:</code> the value of one of the attributes placed in <code>S<sub>j</sub></code></li>
+                </ul>
+            </li>
+        </ol>
+
+        <p>
+            We continue by mapping <code>a<sub>k+1</sub>,...,a<sub>l</sub></code> to handle values:
+            This mapping works exactly the same as the mapping for the <code>a<sub>1</sub>,...,a<sub>k</sub></code>,
+            except that all <code>k<sub>i</sub></code> PIDs of attribute definitions (not attribute names) and that the
+            resulting <code>type</code> in the handle value(s) must be the PID of the given attribute
+            definition (not attribute names).
+        </p>
+
+        <p>
+            Finally, <code>a<sub>l+1</sub>,...,a<sub>n</sub></code> are mapped to handle values:
+            This mapping works again the same as above,
+            except that all <code>k<sub>i</sub></code> must be attribute names (not attribute definition PIDs) and that the
+            resulting <code>type</code> in the handle value(s) must also be attribute names (not attribute definition PIDs).
+            Note that attributes whose name is `HS_ADMIN` MUST be mapped this way.
+        </p>
+
+        The remaining properties of Handle values are usually set according to their default values, but possibly also
+        with different values, if this makes sense in the given context:
+        <ul>
+            <li> <code>data.format</code>: string (and <code>data.format</code>: admin for attributes with the name `HS_ADMIN`)</li>
+            <li> <code>ttl</code>: 86400</li>
+            <li> <code>timestamp</code>:  [current time]</li>
+        </ul>
+
+        <aside class="note">
+            Even though the mapping allows some freedom, it is recommended to be consistent within the same FDO:
+            <ul>
+                <li>For the attributes that instantiate attribute definitions in the profile, you should consistently
+                    either use only the names or the PIDs of an attribute definition as the `type` in the handle value.
+                </li>
+                <li>
+                    Also, you should decide either to map your attributes with higher cardinalities to one handle value
+                    with a list of values, or to multiple individual handle values with single value, within your FDO.
+                </li>
+            </ul>
+        </aside>
+
+        <aside class="example" id="example-mapping-fdo-to-handle" title="Mapping the FDO Record to the Handle Record">
+            We give two example mappings how the <a>FDO record</a> with <a>Handle identifier</a> <code>123/abcde</code> and
+            the following five <a>FDO attributes</a> can be mapped to a <a>Handle record</a> in JSON format:
+            <table>
+                <thead>
+                <tr>
+                    <th scope="col"><code>k<sub>i</sub></code> (attribute PID/name)</th>
+                    <th scope="col"><code>v<sub>i</sub></code> (value)</th>
+                    <th scope="col"><code>k<sub>i</sub></code> attribute type</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>21.T11969/Type</td>
+                    <td>123/45678</td>
+                    <td>attribute definition 21.T11969/Type is listed in profile</td>
+                </tr>
+                <tr>
+                    <td>Type</td>
+                    <td>123/00001</td>
+                    <td>attribute definition 21.T11969/Type is listed in profile</td>
+                </tr>
+                <tr>
+                    <td>Profile</td>
+                    <td>21.T11969/my-profile</td>
+                    <td>attribute definition 21.T11969/Profile is listed in profile</td>
+                </tr>
+                <tr>
+                    <td>21.T11969/version</td>
+                    <td>1.0</td>
+                    <td>attribute definition 21.T11969/version not listed in profile</td>
+                </tr>
+                <tr>
+                    <td>HS_ADMIN</td>
+                    <td><pre><code>{"handle": "0.NA/21.T11971", "index": 200, "permissions": "111111111111"}</code></pre></td>
+                    <td>only attribute name and value</td>
+                </tr>
+                </tbody>
+                <caption>
+                    Profile FDO record (fictionary PID: <i>21.example/profile00</i>)
+                </caption>
+            </table>
+            <b>Example 1</b>:
+<pre><code>{
+    "responseCode": 1,
+    "handle": "123/abcde",
+    "values": [
+        {
+            "index": 1,
+            "type": "Type",
+            "data": {
+                "format": "string",
+                "value": ["123/45678", "123/00001"]
+            },
+            "ttl": 86400,
+            "timestamp": "2025-05-06T12:30:44Z"
+        },
+        {
+            "index": 2,
+            "type": "Profile",
+            "data": {
+                "format": "string",
+                "value": "21.T11969/my-profile"
+            },
+            "ttl": 86400,
+            "timestamp": "2025-05-06T12:30:44Z"
+        },
+        {
+            "index": 3,
+            "type": "21.T11969/version",
+            "data": {
+                "format": "string",
+                "value": "1.0"
+            },
+            "ttl": 86400,
+            "timestamp": "2025-05-06T12:30:44Z"
+        },
+        {
+            "index": 100,
+            "type": "HS_ADMIN",
+            "data": {
+                "format": "admin",
+                "value": {
+                    "handle": "0.NA/21.T11971",
+                    "index": 200,
+                    "permissions": "111111111111"
+                }
+            },
+            "ttl": 86400,
+            "timestamp": "2025-05-06T12:30:44Z"
+        }
+    ]
+}
+</code></pre>
+            <ul>
+                <li>
+                    As `Type` is the name of the attribute definition `21.T11969/Type` (this can be found out by
+                    inspecting the profile), the first and the second attribute can be mapped to one common handle value
+                    (index 1).
+                </li>
+                <li>
+                    Furthermore, in this mapping, we have decided to make all keys human-readable where possible, so the
+                    handle values contain as their `type` the names of attribute definitions.
+                </li>
+            </ul>
+            <br>
+
+            <b>Example 2</b>
+<pre><code>{
+    "responseCode": 1,
+    "handle": "123/abcde",
+    "values": [
+        {
+            "index": 1,
+            "type": "21.T11969/Type",
+            "data": {
+                "format": "string",
+                "value": "123/45678"
+            },
+            "ttl": 86400,
+            "timestamp": "2025-05-06T12:30:44Z"
+        },
+        {
+            "index": 2,
+            "type": "21.T11969/Type",
+            "data": {
+                "format": "string",
+                "value": "123/00001"
+            },
+            "ttl": 86400,
+            "timestamp": "2025-05-06T12:30:44Z"
+        },
+        {
+            "index": 3,
+            "type": "21.T11969/Profile",
+            "data": {
+                "format": "string",
+                "value": "21.T11969/my-profile"
+            },
+            "ttl": 86400,
+            "timestamp": "2025-05-06T12:30:44Z"
+        },
+        {
+            "index": 4,
+            "type": "21.T11969/version",
+            "data": {
+                "format": "string",
+                "value": "1.0"
+            },
+            "ttl": 86400,
+            "timestamp": "2025-05-06T12:30:44Z"
+        },
+        {
+            "index": 100,
+            "type": "HS_ADMIN",
+            "data": {
+                "format": "admin",
+                "value": {
+                    "handle": "0.NA/21.T11971",
+                    "index": 200,
+                    "permissions": "111111111111"
+                }
+            },
+            "ttl": 86400,
+            "timestamp": "2025-05-06T12:30:44Z"
+        }
+    ]
+}
+</code></pre>
+            <ul>
+                <li>
+                    In this example, the first and second attribute were mapped to two separate handle values (index 1 and 2).
+                </li>
+                <li>
+                    Furthermore, in this mapping, we have decided to use the attribute definition PIDs as keys for all
+                    attributes where possible.
+                </li>
+            </ul>
+        </aside>
+    </dd>
+</dl>
+
+<dl>
+    <dt>
+        [H3-2] Mapping the <a>Handle Record</a> to the <a>FDO Record</a>
+    </dt>
+    <dd>
+        This mapping is the exact reverse operation from what was described in [H3-1].
+        Mapping a <a>Handle record</a> with Handle values <code>h<sub>1</sub>,...,h<sub>n</sub></code> to an <a>FDO record</a> with <a>attributes</a> <code>a<sub>1</sub>,...,a<sub>m</sub></code> (<code>n<span>&#8804;</span>m</code>)
+        means to map each Handle value <code>h<sub>i</sub></code> to one or several <a>FDO attributes</a>. The Handle value <code>h<sub>i</sub></code>
+        with
+        <ul>
+            <li><code>index:</code> any integer</li>
+            <li><code>type:</code>name or attribute PID</li>
+            <li><code>data.format:</code> string</li>
+            <li><code>data.value: </code> single value, or list of values</li>
+            <li><code>ttl: 86400</code></li>
+            <li><code>timestamp: 2025-05-06T12:30:44Z</code></li>
+        </ul>
+        is mapped to <a>FDO attributes</a> as follows:
+        <ol>
+            <li>
+                The <code>index</code>, <code>data.format:</code>, <code>ttl</code>, and <code>timestamp</code> are dropped.
+            </li>
+            <li>
+                If <code>data.value</code> is a list of <code>r</code> elements, then this handle value is mapped to
+                <code>r</code> FDO attributes by creating one attribute for each list element.
+                If <code>data.value</code> is a single value, it is mapped to a single attribute.
+            </li>
+            <li>For each of the resulting FDO attributes, <code>k<sub>i</sub></code> is either the name of the attribute,
+                or the PID of the attribute definition that is instantiated, depending on whether the attribute
+                instantiates an attribute definition that is in the profile, that is not in the profile, or whether
+                attribute is a simple name plus value.
+            </li>
+        </ol>
+    </dd>
+</dl>

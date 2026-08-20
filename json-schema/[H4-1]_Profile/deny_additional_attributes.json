@@ -1,0 +1,27 @@
+{
+  "$comment": "Add this with a $ref to the allof from the ProfileDef_simple.json to deny attributes.",
+  "properties": {
+    "values": {
+      "not": {
+        "contains": {
+          "properties": {
+            "type": {
+              "not": {
+                "enum": [
+                  "21.T11969/Name",
+                  "Name",
+                  "21.T11969/Profile",
+                  "FdoProfile",
+                  "21.T11969/Data",
+                  "Data",
+                  "21.T11969/URL",
+                  "URL"
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

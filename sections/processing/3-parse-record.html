@@ -1,0 +1,51 @@
+<h3>[S-3] PID Record Parsing into an <a>FDO Record</a></h3>
+<h4 class="notoc">Input</h4>
+JSON
+<h4 class="notoc">Process</h4>
+Map all values from the JSON <a>Handle Record</a> to <a>FDO attributes</a> as described in [H3-2].
+<aside class="note">
+    Some of the <a>attributes</a> in the HandleResponse are related to the functioning of the <a>Handle system</a>.
+    A client MAY heuristically exclude them from processing since they are clearly distinguishable from the FDO-related <a>attributes</a>.
+
+    <br><b>Beware:</b> Excluding such attributes on modification of a <a>Handle record</a> can have severe consequences!
+    For example, removing the <code>HS_ADMIN</code> <a>attribute</a> causes the record to be never editable again.
+
+    <br>There exists no official list of such Handle-related <a>attribute</a>, but an incomplete list can be found here:
+    <ul>
+        <li>HS_* (everything starting with HS; e.g., HS_ADMIN, HS_SITE)</li>
+        <li>0* (Handle root records can be ignored; except 0.FDO prefix)</li>
+        <li>10320/* (e.g., 10320/loc)</li>
+    </ul>
+</aside>
+<pre><code>struct FDORecord {
+    pid: PID,
+    attributes: {
+        key : string,
+        value : string
+    }[]
+}
+
+function parseFDORecord (json: HandleResponse) -> FDORecord throws HandleRecord {
+    const pid = json["handle"]; // Get PID from JSON
+    let attributes: {
+        key : string,
+        value : string
+    }[] = [];
+
+    for row in json["values"]{ // Iterate over every row in the Handle record
+        const key: string | undefined = row["type"] || undefined;
+        const value: string | undefined = row["data"]["value"] || undefined;
+
+        if (!key || !value) {
+            throw new HandleError("No key or value in JSON", row);
+        } else {
+            attributes.append(key, value);
+        )
+    }
+
+    return new FDORecord(pid, attributes);
+}</code></pre>
+
+<h4 class="notoc">Output</h4>
+List of attributes <code>a<sub>1</sub>=(a<sub>1,def</sub>,a<sub>1,val</sub> ), ..., a<sub>n</sub>=(a<sub>n,def</sub>,a<sub>n,val</sub>)</code>.
+According to the [[FDO specification]], the <code>a<sub>i,def</sub></code> can either be PIDs identifying the <a>attribute definition</a> or human-readable names.

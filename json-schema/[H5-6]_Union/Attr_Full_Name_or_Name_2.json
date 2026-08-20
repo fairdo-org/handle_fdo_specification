@@ -1,0 +1,16 @@
+{
+  "responseCode": 1,
+  "handle": "abc",
+  "values": [
+    {
+      "index": 1,
+      "type": "21.T11969/Full_Name_or_Name",
+      "data": {
+        "format": "string",
+        "value": "Jane Doe"
+      },
+      "ttl": 86400,
+      "timestamp": "2026-07-01T14:31:38Z"
+    }
+  ]
+}

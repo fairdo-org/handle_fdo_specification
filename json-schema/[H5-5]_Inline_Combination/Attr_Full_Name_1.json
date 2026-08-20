@@ -1,0 +1,19 @@
+{
+  "responseCode": 1,
+  "handle": "abc",
+  "values": [
+    {
+      "index": 1,
+      "type": "Full_Name",
+      "data": {
+        "format": "string",
+        "value": {
+          "First_Name": ["Mr"],
+          "21.T11969/Last_Name": ["X"]
+        }
+      },
+      "ttl": 86400,
+      "timestamp": "2026-07-01T14:31:38Z"
+    }
+  ]
+}

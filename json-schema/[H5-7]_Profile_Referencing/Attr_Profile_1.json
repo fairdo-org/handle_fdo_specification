@@ -1,0 +1,26 @@
+{
+  "responseCode": 1,
+  "handle": "21.12345/abcdef",
+  "values": [
+    {
+      "index": 1,
+      "type": "FdoProfile",
+      "data": {
+        "format": "string",
+        "value": "21.123/my-profile-1"
+      },
+      "ttl": 86400,
+      "timestamp": "2026-07-01T14:31:38Z"
+    },
+    {
+      "index": 2,
+      "type": "21.T11969/Profile",
+      "data": {
+        "format": "string",
+        "value": "21.123/my-profile-2"
+      },
+      "ttl": 86400,
+      "timestamp": "2026-07-01T14:31:38Z"
+    }
+  ]
+}

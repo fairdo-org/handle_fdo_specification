@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+  <head>
+    <meta charset="utf-8" />
+    <title>Handle-Based FAIR Digital Objects Specification</title>
+    <script
+      src="https://www.w3.org/Tools/respec/respec-w3c"
+      class="remove"
+      defer
+    ></script>
+    <link href="global.css" rel="stylesheet" />
+    <script class="remove">
+      // All config options at https://respec.org/docs/
+      const respecConfig = {
+        specStatus: "unofficial",
+        editors: [
+          {
+            name: "J. Böhm",
+            company: "GWDG",
+            companyUrl: "https://www.gwdg.de/",
+            orcid: "0009-0004-9802-113X"
+          },
+          {
+            name: "M. Inckmann",
+            company: "KIT",
+            orcid: "0009-0005-2800-4833",
+            companyUrl: "https://kit.edu"
+          }
+        ],
+        github: "https://github.com/fairdo-org/handle_fdo_specification/",
+        shortName: "Handle FDO Specification",
+        // xref: "web-platform",
+        //group: "TSIG",
+        latestVersion: null,
+        edDraftURI: "https://github.com/fairdo-org/handle_fdo_specification/",
+        commitHistoryURL: "https://github.com/fairdo-org/handle_fdo_specification/commits/main/",
+        localBiblio: {
+          "FAIR": {
+            title: "The FAIR Guiding Principles for scientific data management and stewardship",
+            authors: ["Mark D. Wilkinson", "Michel Dumontier", "IJsbrand Jan Aalbersberg", "et al."],
+            publisher: "Scientific Data",
+            date: "2016",
+            href: "https://www.nature.com/articles/sdata201618",
+            doi: "10.1038/sdata.2016.18"
+          },
+          "ISO26324": {
+            title: "Information and documentation — Digital object identifier system",
+            authors: [
+                "ISO/TC 46 Information and documentation",
+                "ISO/TC 46/SC 9 Identification and description",
+                "NA 009-00-09-03 AK Numbering systems"
+            ],
+            date: "2025-03",
+            publisher: "International Organisation for Standardization",
+            href: "https://www.iso.org/standard/88862.html",
+            status: "published",
+          },
+          "Handle Technical Manual": {
+            title: "Handle Technical Manual",
+            version: 9,
+            href: "https://www.handle.net/tech_manual/HN_Tech_Manual_9.pdf",
+            date: "2018-06",
+            publisher: "Corporation for National Research Initiatives",
+          },
+          "DO-IRP specification": {
+            title: "Digital Object Identifier Resolution Protocol Specification",
+            version: "3.0",
+            date: "2022-06-30",
+            href: "https://hdl.handle.net/0.100/DO-IRPV3.0",
+            publisher: "DONA Foundation",
+            authors: [
+              "Robert Kahn",
+              "Christophe Blanchi",
+              "Robert Tupelo-Schneck",
+              "Laurence Lannom",
+              "Patrice A. Lyons",
+              "Giridhar Manepalli",
+              "Sam Sun"
+            ]
+          },
+          "FDO specification": {
+            title: "FAIR Digital Objects Architecture Specification",
+            authors: [
+              "S. Bingert",
+              "Ch. Blanchi",
+              "J. Böhm",
+              "M. Inckmann",
+              "Z. Trautt",
+              "N. Blumenröhr",
+              "I. Anders",
+              "J. Castro",
+              "W. Elbers",
+              "T. Goosen",
+              "T. Kuhn",
+              "K. Peters-von Gehlen",
+              "A. Pfeil",
+              "U. Schwardmann",
+              "S. Soiland-Reyes",
+              "C. Weiland"
+            ],
+            href: "https://github.com/fairdo-org/fdo-architecture-spec",
+            publisher: "FDO Forum",
+            date: "2026-06",
+          },
+        },
+        lint: { "no-unused-dfns": false }
+      };
+    </script>
+  </head>
+  <body>
+    <p class="copyright">
+      <a href="https://github.com/fairdo-org/handle_fdo_specification/">Handle-Based FAIR Digital Objects Specification</a>
+      © 2026 by
+      <a href="https://fairdo.org">FDO Forum</a>
+      is licensed under
+      <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>
+      <img src="https://mirrors.creativecommons.org/presskit/icons/cc.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;">
+      <img src="https://mirrors.creativecommons.org/presskit/icons/by.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;">
+    </p>
+    <section id="abstract">
+      <p>
+          This document specifies the architecture of Handle-based FAIR Digital Objects (FDOs). FDOs are persistent
+          bundles of information identified by globally unique and resolvable persistent identifiers (PIDs) that resolve
+          to structured FDO Records defined by explicit profiles and registered attributes. This document specifies how
+          the core building blocks of FDOs, as described in the technology-agnostic
+          <a href="https://fairdo-org.github.io/fdo-architecture-spec/">FDO Specifications</a>, are realized by
+          Handle-based FDOs.
+      </p>
+    </section>
+    <section id="sotd">
+      <p>
+        This document is an official publication of the FDO Forum.
+        This document version has the status of a draft work document according to the FDO Forum process.
+        This document will undergo the FDO Forum process for official documents.
+      </p>
+    </section>
+
+    <section>
+      <h2>Introduction</h2>
+      <div data-include="sections/introduction.html"></div>
+    </section>
+
+    <section>
+      <h2>Building Blocks</h2>
+      <p>
+        Each section within this chapter explains in detail how the FDO building blocks from the technology-agnostic
+        <a href="https://fairdo-org.github.io/fdo-architecture-spec/">FDO specification</a> are implemented by
+        Handle-based FDOs.
+      </p>
+      <section data-include="sections/building-blocks/1-pid.html"></section>
+      <section data-include="sections/building-blocks/2-attribute-mapping.html"></section>
+      <section data-include="sections/building-blocks/3-fdo-records.html"></section>
+      <section data-include="sections/building-blocks/4-fdo-profiles.html"></section>
+      <section data-include="sections/building-blocks/5.1-fdo-attribute-definitions.html"  id="attribute-definitions"></section>
+      <section data-include="sections/building-blocks/6-inline-fdos.html"></section>
+      <section data-include="sections/building-blocks/7-collection-fdos.html"></section>
+      <section data-include="sections/building-blocks/8-fdo-operations.html"></section>
+    </section>
+
+    <section>
+      <h2>Processing</h2>
+      <p>
+        Each section within this chapter explains in detail how a Handle-based FDO is processed.
+      </p>
+      <div style="background-color:LightPink;">
+        <b>TODO</b>:
+        <ul>
+          <li>Think about reordering the processing steps</li>
+          <li>Fix the pseudocode to use JSON schema</li>
+          <li>Complete pseudocode examples</li>
+          <li>Implement code in FDO SDK?</li>
+        </ul>
+      </div>
+
+      <section data-include="sections/processing/1-pid-detection.html" id="s-1"></section>
+      <section data-include="sections/processing/2-pid-resolution.html" id="s-2"></section>
+      <section data-include="sections/processing/3-parse-record.html" id="s-3"></section>
+      <section data-include="sections/processing/4-root-profile-validation.html" id="s-4"></section>
+      <section data-include="sections/processing/5-record-type-inspection.html" id="s-5"></section>
+      <section data-include="sections/processing/6-profile-inspection.html" id="s-6"></section>
+      <section data-include="sections/processing/7-profile-validation.html" id="s-7"></section>
+      <section data-include="sections/processing/8-attributes-processing.html" id="s-8"></section>
+    </section>
+
+    <section id="conformance"></section>
+    <section id="tof" class="appendix"></section>
+    <section id="index" class="appendix"></section>
+  </body>
+</html>

@@ -1,0 +1,26 @@
+{
+  "responseCode": 1,
+  "handle": "abc",
+  "values": [
+    {
+      "index": 1,
+      "type": "Name",
+      "data": {
+        "format": "string",
+        "value": "Jane Doe"
+      },
+      "ttl": 86400,
+      "timestamp": "2026-07-01T14:31:38Z"
+    },
+    {
+      "index": 2,
+      "type": "21.T11969/Name",
+      "data": {
+        "format": "string",
+        "value": "Max Mustermann"
+      },
+      "ttl": 86400,
+      "timestamp": "2026-07-01T14:31:38Z"
+    }
+  ]
+}

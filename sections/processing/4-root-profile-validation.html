@@ -1,0 +1,84 @@
+<h3>[S-4]: FDO Record <a>Root Profile</a> Validation</h3>
+
+<h4 class="notoc">Input</h4>
+List of FDO attributes <code>a<sub>1</sub>=(a<sub>1,def</sub>,a<sub>1,val</sub> ), ..., a<sub>n</sub>=(a<sub>n,def</sub>,a<sub>n,val</sub>)</code>.
+
+<h4 class="notoc">Process</h4>
+Check that there are at least the attributes <a>`21.T11969/Type`</a>, <a>`21.T11969/Profile`</a> and <a>`21.T11969/Data`</a> in the
+<code>a<sub>1,def</sub>,...,a<sub>n,def</sub></code>.
+
+<pre><code>enum Status {
+    COMPLETE, REQUIRED_FIELDS, PROFILE_ONLY, TYPE_ONLY, NON_COMPLIANT
+} // according to [S-4] in section 4 of the FDO Specifications
+
+function validateAgainstRootProfile (fdo: FDORecord) -> Status {
+    let status: Status = COMPLETE
+
+    if (!fdo.containsAttribute('21.T11969/Profile')) {
+        status = TYPE_ONLY // if 21.T11969/Profile is not found, at best the type can be found
+    } else {
+        if(!detectPID(typeValue)){
+            status = TYPE_ONLY
+        }
+    }
+
+    if (!fdo.containsAttribute('21.T11969/Type')) {
+        if (status == TYPE_ONLY) {
+            status = NON_COMPLIANT // Neither the type nor the profile has been found
+        } else {
+            status = PROFILE_ONLY // Only the profile has been found
+        }
+    } else {
+        const typeValues = fdo.getAllValuesForAttribute('21.T11969/Type');
+        for typeValue in typeValues {
+            if (typeValue === "FDO_Profile" || typeValue === "FDO_Attribute_Definition" || typeValue === "FDO_Syntax_Definition" || typeValue === "FDO_Type_Definition"){
+                continue; // This is the expected value for FDOs defining a profile, an attribute, a syntax definition, or an FDO type
+            } else if (fdo.containsAttribute(typeValue)) {
+                continue; // This is the expected case for attribute referencing
+            } else if (detectPID(typeValue)){
+                continue; // This is the expected case for profile referencing
+            } else {
+                if (status == PROFILE_ONLY) {
+                    status = NON_COMPLIANT // 21.T11969/Profile was found, but the value of 21.T11969/Type is not compliant with the specification
+                } else {
+                    status = TYPE_ONLY // 21.T11969/Type was found, but the value of 21.T11969/Type is not compliant with the specification
+                }
+            }
+        }
+    }
+
+    if (!fdo.containsAttribute("21.T11969/Data")){
+        if (status == COMPLETE) {
+            status = REQUIRED_FIELDS // Data has not been found, but profile and type were
+        }
+    } else {
+        const dataValues = fdo.getAllValuesForAttribute("21.T11969/Data");
+        boolean allValid = true;
+
+        for dataValue in dataValues { // Inspect the values of all 21.T11969/Data attributes
+            if (!fdo.containsAttribute(dataValue)){
+                allValid = false // Check that every attribute reference actually exists in the record
+            }
+        }
+
+        if (!allValid){ // Not all attribute references exist
+            if (status == COMPLETE) {
+                status = REQUIRED_FIELDS // The profile and type were found
+            }
+        }
+    }
+
+    return status
+}
+</code></pre>
+
+<p>
+<h4 class="notoc">Output</h4>
+One value from an enumeration of possible results
+<ul>
+    <li><b>COMPLETE:</b> <code>21.T11969/Profile</code>, <code>21.T11969/Type</code>, and <code>21.T11969/Data</code> were found.</li>
+    <li><b>REQUIRED_FIELDS:</b> <code>21.T11969/Profile</code> and <code>21.T11969/Type</code> were found. <code>21.T11969/Data</code> is missing or invalid.</li>
+    <li><b>PROFILE_ONLY:</b> <code>21.T11969/Profile</code> has been found. <code>21.T11969/Type</code> is missing or invalid. No assumption about <code>21.T11969/Data</code> is made.</li>
+    <li><b>TYPE_ONLY:</b> <code>21.T11969/Type</code> has been found. <code>21.T11969/Profile</code> is missing or invalid. No assumption about <code>21.T11969/Data</code> is made.</li>
+    <li><b>NON_COMPLIANT:</b> Neither <code>21.T11969/Profile</code> nor <code>21.T11969/Type</code> has been found.</li>
+</ul>

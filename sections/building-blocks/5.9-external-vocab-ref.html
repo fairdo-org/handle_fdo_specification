@@ -1,0 +1,132 @@
+<dl>
+    <dt>[H5-9] <dfn data-lt=
+                            "external vocabulary referencing|
+                            External vocabulary referencing|
+                            external vocabulary reference|
+                            External vocabulary reference">
+        External Vocabulary Referencing</dfn></dt>
+    <dd>
+        <p>
+            It is essential for FDOs that existing vocabularies (for example, schema.org) can be reused in <a>FDO records</a>.
+            To prevent that each vocabulary term must be wrapped into its own <a>FDO attribute definition</a>,
+            Handle-based FDOs adapt the <a>external vocabulary referencing</a> mechanism (<dfn>Implementation-specific
+            rule</dfn>). If terms from a vocabulary should be used in the <a>FDO record</a>, the <a>FDO record</a> has
+            to import this vocabulary. This is done by referencing from the FDO record to an FDO that describes this
+            vocabulary. After importing the vocabulary, any term from it can be used within the FDO record.
+        </p>
+        <p>
+            An FDO that describes an external vocabulary (vocabulary FDO) follows the external vocabulary profile
+            <code>21.T11969/VocabularyDef</code>. Its properties are listed in <a href="#table-vocab-def">Table 6</a>
+            below.
+        </p>
+
+        <table id="table-vocab-def" border="2">
+            <caption style="caption-side:bottom"><b>Table 6</b>: The list of <a>attribute definitions</a> which MUST be
+                used when registering a new FDO that describes a vocabulary. This table does not include all
+                information about the <a>attribute definitions</a>. For more details, please resolve the <a>attribute
+                definition</a> PIDs via the <a>Handle System</a>.
+            </caption>
+            <tr>
+                <th>PID of the <a>attribute definition</a> </th>
+                <th>Attribute value</th>
+                <th>Cardinality of the <a>attribute</a></th>
+            </tr>
+            <tr>
+                <td><code>21.T11969/Type</code></td>
+                <td>The string <code>Vocabulary</code>. Additional types may be added, if applicable.</td>
+                <td>1..*</td>
+            </tr>
+            <tr>
+                <td><code>21.T11969/Profile</code></td>
+                <td>The string <code>21.T11969/VocabularyDef</code>. Additional <a>profiles</a> may be added, if applicable.</td>
+                <td>1..*</td>
+            </tr>
+            <tr>
+                <td><code>21.T11969/Data</code></td>
+                <td>
+                    At least the string <code>21.T11969/DownloadURL</code>. Other data references may be added, if
+                    applicable.
+                </td>
+                <td>1..*</td>
+            </tr>
+            <tr>
+                <td><code>21.T11969/DownloadURL</code></td>
+                <td>
+                    URL to download the vocabulary.
+                </td>
+                <td>1..*</td>
+            </tr>
+            <tr>
+                <td><code>21.T11969/Name</code></td>
+                <td>Name(s) of the vocabulary. </td>
+                <td>1..*</td>
+            </tr>
+            <tr>
+                <td><code>21.T11969/Description</code></td>
+                <td>Description(s) of the vocabulary.</td>
+            <td>0..*</td>
+            <tr>
+                <td><code>21.T11969/LandingPage</code></td>
+                <td>Link to human-readable landing page of the vocabulary.</td>
+            <td>0..1</td>
+            <tr>
+                <td><code>21.T11969/VocabularyPrefix</code></td>
+                <td>Unique prefix(es) of vocabulary terms in an FDO record.</td>
+            <td>1..*</td>
+            <tr>
+                <td><code>21.T11969/SPARQL_Check</code></td>
+                <td>SPARQL query for validating vocabulary terms in the <a>FDO record</a></td>
+            <td>0..1</td>
+            <tr>
+                <td><code>21.T11969/Contact</code></td>
+                <td>Contact information for the vocabulary.</td>
+            <td>1..*</td>
+        </table>
+
+        <p>
+            <a>External vocabulary referencing</a> is a special case of <a>profile referencing</a>, applied to the
+            <a>attribute definition</a> <code>21.T11969/ImportVocabulary</code>. Hence, the <a>FDO record</a> of
+            <code>21.T11969/ImportVocabulary</code> is constructed the same way as described in [H5-7]. Hereby, the
+            <a>profile</a> that is referenced by <code>21.T11969/ImportVocabulary</code> is
+            <code>21.T11969/VocabularyDef</code>.
+        </p>
+
+        <b>Instantiation of External Vocabulary Attributes in the Record:</b>
+        To use external vocabulary terms in the <a>FDO record</a>, the <a>record</a> MUST contain
+        <ol>
+            <li>the <a>attribute</a> <code>(21.T11969/ImportVocabulary,[reference to a vocabulary FDO])</code>
+            </li>
+            <li>
+                one or several <a>attributes</a> representing vocabulary terms from the same vocabulary. Those
+                <a>attributes</a> must have as their first value the vocabulary term, starting with a valid prefix of
+                this vocabulary as listed in the vocabulary FDO. The second value must instantiate the vocabulary term.
+            </li>
+        </ol>
+
+
+        <p>
+            <b>Validation Rules:</b>
+            To validate an FDO that contains the <a>attribute</a> <code>21.T11969/ImportVocabulary</code>, it is checked
+            that the <a>attribute</a> value of <code>21.T11969/ImportVocabulary</code> is a reference to a vocabulary
+            FDO. A FDO validator could now optionally proceed to validate the vocabulary terms according to the SPARQL
+            query, if it is given in the vocabulary FDO.
+        </p>
+
+        <aside class="example" title="External Vocabulary Referencing: Using Schema.org in Handle-based FDOs">
+            <a href="#ex-vocab-ref">Figure 5</a> illustrates how schema.org terms can be used in an <a>FDO record</a>
+            by applying <a>external vocabulary referencing</a>.
+            <figure id="ex-vocab-ref">
+                <img src="img/External-Vocabulary-Referencing.svg" alt="External_Vocab_Referencing.png">
+                <figcaption>
+                    This figure shows how schema.org terms are used in the FDO <code>21.123/456</code>.
+                </figcaption>
+            </figure>
+
+            The example FDO <code>21.123/456</code> contains the <a>attribute</a> <code>(21.T11969/ImportVocabulary,
+            21.abc/SchemaOrg)</code>, indicating that it uses vocabulary from schema.org.
+            The vocabulary FDO <code>21.abc/SchemaOrg</code> specifies the vocabulary prefixes <code>schema:</code> and
+            <code>https://schema.org/</code>. Any other attribute that starts with either of these prefixes would be
+            recognized and interpreted as a schema.org term (blue attributes).
+        </aside>
+    </dd>
+</dl>

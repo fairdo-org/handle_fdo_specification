@@ -1,0 +1,8 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$id": "hdl:21.T11969/Handle_identifier",
+    "title": "Handle_Identifier",
+    "description": "A handle identifier resolving to a handle record.",
+    "type": "string",
+    "pattern": "^([0-9A-Za-z])+(\\.([0-9A-Za-z])+)*/([!-~])+$"
+}

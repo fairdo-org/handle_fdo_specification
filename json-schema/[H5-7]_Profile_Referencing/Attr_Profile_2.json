@@ -1,0 +1,16 @@
+{
+  "responseCode": 1,
+  "handle": "abc",
+  "values": [
+    {
+      "index": 1,
+      "type": "21.T11969/Profile",
+      "data": {
+        "format": "string",
+        "value": ["21.12345/my-profile-1", "21.12345/my-profile-2"]
+      },
+      "ttl": 86400,
+      "timestamp": "2026-07-01T14:31:38Z"
+    }
+  ]
+}
