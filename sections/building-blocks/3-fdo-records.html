@@ -26,14 +26,14 @@ This section specifies how an FDO record is implemented by Handle-based FDOs.
         <ol>
             <li>
                 <code>a<sub>i</sub>=(A<sub>i</sub>,v<sub>i</sub>)</code>, with <code>A<sub>i</sub></code>
-                being an <a>attribute definition</a> that is listed in at least one of the profiles of this FDO.
-                As every attribute definition, <code>A<sub>i</sub></code> is identified by a PID, it has an
-                attribute name as well as a cardinality. <code>v<sub>i</sub></code> must be a value that is valid
-                against <code>A<sub>i</sub></code>.
+                being an FDO <a>attribute definition</a> that is listed in at least one of the profiles of
+                this FDO. <code>A<sub>i</sub></code> is identified by a conceptual PID (denoted
+                <code>0.FDO/...</code>), it has an attribute name as well as a cardinality. <code>v<sub>i</sub></code>
+                must be a value that is valid against <code>A<sub>i</sub></code>.
             </li>
             <li><code>a<sub>i</sub>=(A<sub>i</sub>,v<sub>i</sub>)</code>, with <code>A<sub>i</sub></code> being an
-                <a>attribute definition</a> that is NOT listed in any of the profiles of this FDO. The same conditions
-                on <code>A<sub>i</sub></code> and <code>v<sub>i</sub></code> apply as in 1.
+                <a>attribute definition</a> that is NOT listed in any of the profiles of this FDO. The
+                same conditions on <code>A<sub>i</sub></code> and <code>v<sub>i</sub></code> apply as in 1.
             </li>
             <li>
                 <code>a<sub>i</sub>=(s<sub>i</sub>,v<sub>i</sub>)</code>. Here, <code>s<sub>i</sub></code> is a
@@ -41,10 +41,10 @@ This section specifies how an FDO record is implemented by Handle-based FDOs.
                 validation rules.
             </li>
         </ol>
-        Some of the attributes <code>a<sub>i</sub></code> in the FDO record may refer to the same attribute definition
-        <code>A<sub>i</sub></code>. This depends on the cardinality of the attribute definition: A cardinality of
-        x..y allows this attribute definition to be instantiated in a record between x and y times. Simple attribute
-        names <code>s<sub>i</sub></code> (see 3.) can be repeated as often as desired, as they do
+        Some of the attributes <code>a<sub>i</sub></code> in the conceptional FDO record may refer to the same
+        attribute definition <code>A<sub>i</sub></code>. This depends on the cardinality of the attribute definition: A
+        cardinality of x..y allows this attribute definition to be instantiated in a record between x and y times. Simple
+        attribute names <code>s<sub>i</sub></code> (see 3.) can be repeated as often as desired, as they do
         not specify any cardinality.
     </dd>
 </dl>
@@ -90,7 +90,17 @@ This section specifies how an FDO record is implemented by Handle-based FDOs.
                             <li><code>index</code>: any positive integer that was not yet used by any other handle value</li>
                             <li>
                                 <code>type</code>: either the name or the PID of attribute definition <code>A<sub>j</sub></code>
-                                (name only allowed if there are no other attribute definitions with the same name in the FDO record)
+                                <ul>
+                                    <li>
+                                        If the attribute definition PID is used, the conceptional PID from the
+                                        conceptional FDO record (denoted <code>0.FDO/...</code>) is replaced by a
+                                        handle-based representation of this conceptional PID.
+                                    </li>
+                                    <li>
+                                        Using the attribute name is only allowed if there are no other attribute definitions
+                                        with the same name in the FDO record.
+                                    </li>
+                                </ul>
                             </li>
                             <li><code>data.value:</code> a list containing all values of the attributes placed in <code>S<sub>j</sub></code></li>
                         </ul>
@@ -123,7 +133,9 @@ This section specifies how an FDO record is implemented by Handle-based FDOs.
                 This mapping works again the same for the <code>a<sub>1</sub>,...,a<sub>k</sub></code> (see 1.), except
                 that all <code>type</code>s in the handle values MUST be attribute names (in fact,
                 <code>a<sub>l+1</sub>,...,a<sub>n</sub></code> do note have any no associated PIDs or attribute
-                definitions). Note that attributes whose name is `HS_ADMIN` MUST be mapped this way.
+                definitions).
+                Note that attributes whose name is `HS_ADMIN` or `URL` MUST be mapped to individual handle values to
+                guarantee that administration and resolution of handles works as intended.
             </li>
         </ol>
         The remaining properties of Handle values are usually set according to their default values, but are also
@@ -147,45 +159,46 @@ This section specifies how an FDO record is implemented by Handle-based FDOs.
         </aside>
 
         <aside class="example" id="example-mapping-fdo-to-handle" title="Mapping the FDO Record to the Handle Record">
-            We give two example mappings how the <a>FDO record</a> with <a>Handle identifier</a> <code>123/abcde</code> and
-            the following five <a>FDO attributes</a> can be mapped to a <a>Handle record</a> in JSON format:
+            We give two example mappings how the <a>FDO record</a> with <a>Handle identifier</a> <code>123/abcde</code>
+            and the following five <a>FDO attributes</a> can be mapped to a <a>Handle record</a> in JSON format:
             <table>
                 <thead>
                 <tr>
-                    <th scope="col"><code>k<sub>i</sub></code> (attribute PID/name)</th>
-                    <th scope="col"><code>v<sub>i</sub></code> (value)</th>
-                    <th scope="col"><code>k<sub>i</sub></code> attribute type</th>
+                    <th scope="col">attribute PID / attribute name</th>
+                    <th scope="col">attribute category</th>
+                    <th scope="col">attribute value (<code>v<sub>i</sub></code>)</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
-                    <td>21.T11969/Type</td>
+                    <td>0.FDO/Type / FDO_Type</td>
+                    <td>1. (attribute definition is listed in FDO profile)</td>
                     <td>123/45678</td>
-                    <td>attribute definition 21.T11969/Type is listed in profile</td>
                 </tr>
                 <tr>
-                    <td>Type</td>
+                    <td>0.FDO/Type / FDO_Type</td>
+                    <td>1. (attribute definition is listed in FDO profile)</td>
                     <td>123/00001</td>
-                    <td>attribute definition 21.T11969/Type is listed in profile</td>
                 </tr>
                 <tr>
-                    <td>Profile</td>
+                    <td>0.FDO/Profile / FDO_Profile</td>
+                    <td>1. (attribute definition is listed in profile)</td>
                     <td>21.T11969/my-profile</td>
-                    <td>attribute definition 21.T11969/Profile is listed in profile</td>
                 </tr>
                 <tr>
-                    <td>21.T11969/version</td>
+                    <td>0.FDO/version / Version</td>
+                    <td>2. (attribute definition is NOT listed in profile)</td>
                     <td>1.0</td>
-                    <td>attribute definition 21.T11969/version not listed in profile</td>
                 </tr>
                 <tr>
                     <td>HS_ADMIN</td>
-                    <td><pre><code>{"handle": "0.NA/21.T11971", "index": 200, "permissions": "111111111111"}</code></pre></td>
-                    <td>only attribute name and value</td>
+                    <td>3. (simply attribute name and value)</td>
+                    <td><code>{"handle": "0.NA/21.T11971", "index": 200, "permissions": "111111111111"}</code></td>
                 </tr>
                 </tbody>
                 <caption>
-                    Profile FDO record (fictionary PID: <i>21.example/profile00</i>)
+                    FDO record (fictionary PID: <i>123/abcde</i>). This is not a fully complete FDO record as defined in
+                    the coming sections.
                 </caption>
             </table>
             <b>Example 1</b>:
@@ -195,7 +208,7 @@ This section specifies how an FDO record is implemented by Handle-based FDOs.
     "values": [
         {
             "index": 1,
-            "type": "Type",
+            "type": "FDO_Type",
             "data": {
                 "format": "string",
                 "value": ["123/45678", "123/00001"]
@@ -205,7 +218,7 @@ This section specifies how an FDO record is implemented by Handle-based FDOs.
         },
         {
             "index": 2,
-            "type": "Profile",
+            "type": "FDO_Profile",
             "data": {
                 "format": "string",
                 "value": "21.T11969/my-profile"
@@ -242,13 +255,16 @@ This section specifies how an FDO record is implemented by Handle-based FDOs.
 </code></pre>
             <ul>
                 <li>
-                    As `Type` is the name of the attribute definition `21.T11969/Type` (this can be found out by
-                    inspecting the profile), the first and the second attribute can be mapped to one common handle value
-                    (index 1).
+                    In this example, the first and the second attribute (<code>0.FDO/Type</code> / <code>FDO_Type</code>)
+                    were mapped to one common handle value because they both represent FDO Types.
                 </li>
                 <li>
-                    Furthermore, in this mapping, we have decided to make all keys human-readable where possible, so the
-                    handle values contain as their `type` the names of attribute definitions.
+                    We have decided to make all <code>types</code> human-readable where possible, hence, the handle
+                    values with <code>types</code> <code>FDO_Type</code> and <code>FDO_Profile</code>.
+                </li>
+                <li>
+                    The conceptional PID <code>0.FDO/version</code> was mapped to a handle representation PID
+                    <code>21.T11969/version</code>.
                 </li>
             </ul>
             <br>
@@ -317,11 +333,18 @@ This section specifies how an FDO record is implemented by Handle-based FDOs.
 </code></pre>
             <ul>
                 <li>
-                    In this example, the first and second attribute were mapped to two separate handle values (index 1 and 2).
+                    In this example, the first and second attribute (<code>0.FDO/Type</code> / <code>FDO_Type</code>)
+                    were mapped to two separate handle values (index 1 and 2).
                 </li>
                 <li>
-                    Furthermore, in this mapping, we have decided to use the attribute definition PIDs as keys for all
-                    attributes where possible.
+                    Furthermore, we have decided to use the attribute definition PIDs as keys for all
+                    attributes where possible, hence, the handle values with <code>types</code> <code>21.T11969/Type</code>
+                    and <code>21.T11969/Profile</code>
+                </li>
+                <li>
+                    The conceptional PIDs <code>0.FDO/Type</code>, <code>0.FDO/Profile</code> and <code>0.FDO/version</code>
+                    were mapped to handle representations <code>21.T11969/Type</code>, <code>21.T11969/Profile</code> and
+                    <code>21.T11969/version</code>.
                 </li>
             </ul>
         </aside>
@@ -360,7 +383,8 @@ This section specifies how an FDO record is implemented by Handle-based FDOs.
             <li>
                 The <code>type</code> field and the FDO profile are inspected to decide which category of FDO attributes
                 (1., 2. oder 3.) this handle value belongs to. In case of 1., if the attribute name is used as the
-                <code>type</code>, the attribute PID can be recovered through the profile.
+                <code>type</code>, the attribute PID can be recovered through the profile. Handle representations of
+                these attribute PIDs are mapped to conceptional PIDs.
             </li>
         </ol>
     </dd>
