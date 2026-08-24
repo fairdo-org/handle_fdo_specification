@@ -21,39 +21,31 @@ This section specifies how an FDO record is implemented by Handle-based FDOs.
 <dl>
     <dt><dfn data-lt="FDO record|record">FDO record</dfn></dt>
     <dd>
-        The conceptional <a>FDO record</a> (according to the [[FDO specification]]) consists of attributes (tuples) <br>
-        <code>a<sub>1</sub>=(k<sub>1</sub>:v<sub>1</sub>), a<sub>2</sub>=(k<sub>2</sub>:v<sub>2</sub>), ..., a<sub>n</sub>=(k<sub>n</sub>:v<sub>n</sub>)</code>.
-        Each attribute <code>a<sub>i</sub></code>, <code>1<span>&#8804;</span>i<span>&#8804;</span>n</code>, belongs to one of three types:
+        The conceptional <a>FDO record</a> (according to the [[FDO specification]]) consists of a set of attributes
+        <code>a<sub>1</sub>, a<sub>2</sub>, ..., a<sub>n</sub></code>. Each attribute belongs to one of three types:
         <ol>
-            <li><code>a<sub>i</sub></code> instantiates an <a>attribute definition</a>, which is identified by a PID,
-                has an attribute name, a cardinality, and it is listed in at least one of the profiles of this FDO.
-                Some of the <code>a<sub>i</sub></code> may instantiate the same attribute definition (this depends
-                on the cardinality of the attribute definition: a cardinality of x..y allows this attribute definition
-                to be instantiates in a record between x and y times).
-                <code>k<sub>i</sub></code> is either the PID or the name of the attribute definition.
-                <code>v<sub>i</sub></code> must be a value that is valid against the attribute definition.
-                <aside class="note">
-                    If you want to use human-readable attribute names of attribute definitions (instead of attribute
-                    definition PIDs) in the FDO records, it is essential that the attribute definitions are part of at
-                    least one of the profiles of the FDO. If <code>k<sub>i</sub></code> was the attribute name of an
-                    attribute definition that is not in any of the profiles, there would be no way to find out the
-                    attribute definition PID.
-                </aside>
+            <li>
+                <code>a<sub>i</sub>=(A<sub>i</sub>,v<sub>i</sub>)</code>, with <code>A<sub>i</sub></code>
+                being an <a>attribute definition</a> that is listed in at least one of the profiles of this FDO.
+                As every attribute definition, <code>A<sub>i</sub></code> is identified by a PID, it has an
+                attribute name as well as a cardinality. <code>v<sub>i</sub></code> must be a value that is valid
+                against <code>A<sub>i</sub></code>.
             </li>
-            <li><code>a<sub>i</sub></code> instantiates an <a>attribute definition</a>, which is identified by a PID,
-                has an attribute name, a cardinality, but it is not listed in any of the profiles of this FDO.
-                <code>k<sub>i</sub></code> is the PID the attribute definition.
-                <code>v<sub>i</sub></code> must be a value that is valid against the attribute definition.
+            <li><code>a<sub>i</sub>=(A<sub>i</sub>,v<sub>i</sub>)</code>, with <code>A<sub>i</sub></code> being an
+                <a>attribute definition</a> that is NOT listed in any of the profiles of this FDO. The same conditions
+                on <code>A<sub>i</sub></code> and <code>v<sub>i</sub></code> apply as in 1.
             </li>
             <li>
-                <code>a<sub>i</sub></code> is a simple combination of an attribute name and a value. In this case, <code>k<sub>i</sub></code>
-                is the attribute name, and <code>v<sub>i</sub></code> is the attribute value. <code>v<sub>i</sub></code> does not need to comply to
-                any validation rules.
+                <code>a<sub>i</sub>=(s<sub>i</sub>,v<sub>i</sub>)</code>. Here, <code>s<sub>i</sub></code> is a
+                simple attribute name in form of a string. <code>v<sub>i</sub></code> does not need to comply to any
+                validation rules.
             </li>
         </ol>
-        Furthermore, <code>k<sub>i</sub></code> is only allowed to be an attribute name if there is no other attribute
-        definition having the same name in the FDO record. If there are two attribute definitions with the same
-        attribute name, <code>k<sub>i</sub></code> must be the PID of the attribute definition.
+        Some of the attributes <code>a<sub>i</sub></code> in the FDO record may refer to the same attribute definition
+        <code>A<sub>i</sub></code>. This depends on the cardinality of the attribute definition: A cardinality of
+        x..y allows this attribute definition to be instantiated in a record between x and y times. Simple attribute
+        names <code>s<sub>i</sub></code> (see 3.) can be repeated as often as desired, as they do
+        not specify any cardinality.
     </dd>
 </dl>
 
@@ -63,73 +55,79 @@ This section specifies how an FDO record is implemented by Handle-based FDOs.
     </dt>
     <dd>
         <p>
-            We assume an <a>FDO record</a> which consists of FDO attributes (tuples)
-            <code>a<sub>1</sub>=(k<sub>1</sub>:v<sub>1</sub>), a<sub>2</sub>=(k<sub>2</sub>:v<sub>2</sub>), ...,
-                a<sub>n</sub>=(k<sub>n</sub>:v<sub>n</sub>)</code>.
+            We assume an <a>FDO record</a> which consists of FDO attributes <code>a<sub>1</sub>, a<sub>2</sub>, ..., a<sub>n</sub></code>.
             The attributes are reordered such that
-            <code>a<sub>1</sub>, ..., a<sub>k</sub></code> instantiate attribute definitions that are listed in the profile,
-            <code>a<sub>k+1</sub>, ..., a<sub>l</sub></code> instantiate attribute definitions that are not listed in the profile,
-            and <code>a<sub>l+1</sub>, ..., a<sub>n</sub></code> are simple names plus values,
+        </p>
+        <ol>
+            <li><code>a<sub>1</sub>, ..., a<sub>k</sub></code> instantiate attribute definitions that are listed in the profile,</li>
+            <li><code>a<sub>k+1</sub>, ..., a<sub>l</sub></code> instantiate attribute definitions that are not listed in the profile, and</li>
+            <li><code>a<sub>l+1</sub>, ..., a<sub>n</sub></code> are simple names with values,</li>
+        </ol>
+        <p>
             <code>1<span>&#8804;</span>k<span>&#8804;</span>l<span>&#8804;</span>n-1</code>.
              Mapping the <a>FDO record</a> to a <a>Handle record</a> means to map all FDO attributes
             <code>a<sub>1</sub>, ..., a<sub>n</sub></code> to a list of Handle values
             <code>h<sub>1</sub>, ..., h<sub>m</sub></code> (<code>m<span>&#8804;</span>n</code>) as follows:
         </p>
-        <p>
-            We start by mapping <code>a<sub>1</sub>, ..., a<sub>k</sub></code> to handle values:
-
-            Let <code>A<sub>1</sub>,...,A<sub>r</sub></code> be all attribute definitions that are instantiated by at
-            least one of <code>a<sub>1</sub>, ..., a<sub>k</sub></code> and that are in at least one of the profiles, with <code>r</code> the total number of
-            instantiated attribute definitions. It holds <code>r<span>&#8804;</span>k</code> because some
-            attributes may instantiate the same attribute definitions.
-            Define the sets <code>S<sub>1</sub>, ..., S<sub>r</sub></code>. The attributes
-            <code>a<sub>1</sub>, ..., a<sub>k</sub></code> are placed in <code>S<sub>1</sub>, ..., S<sub>r</sub></code>
-            depending on which attribute definition they instantiate. In more detail, <code>a<sub>i</sub></code> is placed in
-            <code>S<sub>j</sub></code> if <code>k<sub>i</sub></code> is either the name or the PID of
-            <code>A<sub>j</sub></code>. Now, each set <code>S<sub>j</sub></code> is mapped to handle values. There are
-            two allowed ways how to do this:
-        </p>
         <ol>
             <li>
-                One handle value is created which contains all attributes that are placed in <code>S<sub>j</sub></code>.
-                The handle value looks as follows:
-                <ul>
-                    <li><code>index</code>: any positive integer that was not yet used by any other handle value</li>
+                We start by mapping <code>a<sub>1</sub>, ..., a<sub>k</sub></code> to handle values:
+
+            Let <code>A<sub>1</sub>,...,A<sub>r</sub></code> be all attribute definitions that are instantiated by at
+            least one of <code>a<sub>1</sub>, ..., a<sub>k</sub></code> and that are in at least one of the profiles,
+            with <code>r</code> the total number of mutually different instantiated attribute definitions.
+            It holds <code>r<span>&#8804;</span>k</code> because some attributes may instantiate the same attribute
+            definition.
+            Define the sets <code>S<sub>1</sub>, ..., S<sub>r</sub></code>. The attributes
+            <code>a<sub>1</sub>, ..., a<sub>k</sub></code> are placed in <code>S<sub>1</sub>, ..., S<sub>r</sub></code>
+            depending on which attribute definition they instantiate. Now, each set <code>S<sub>j</sub></code> is mapped to handle values. There are
+            two allowed ways how to do this:
+                <ol type="a">
                     <li>
-                        <code>type</code>: either the name or the PID of attribute definition <code>A<sub>j</sub></code>
-                        (name only allowed if there are no other attribute definitions with the same name)
+                        One handle value is created which contains all attributes that are placed in <code>S<sub>j</sub></code>.
+                        The handle value looks as follows:
+                        <ul>
+                            <li><code>index</code>: any positive integer that was not yet used by any other handle value</li>
+                            <li>
+                                <code>type</code>: either the name or the PID of attribute definition <code>A<sub>j</sub></code>
+                                (name only allowed if there are no other attribute definitions with the same name in the FDO record)
+                            </li>
+                            <li><code>data.value:</code> a list containing all values of the attributes placed in <code>S<sub>j</sub></code></li>
+                        </ul>
                     </li>
-                    <li><code>data.value:</code> a list containing all values of the attributes placed in <code>S<sub>j</sub></code></li>
-                </ul>
+                    <li><code>|S<sub>j</sub>|</code> handle values are created, each containing one of the attributes that are
+                        placed in <code>S<sub>j</sub></code>. The handle values look as follows:
+                        <ul>
+                            <li><code>index</code>, <code>type</code>: same as above (see a.).
+                            </li>
+                            <li><code>data.value:</code> the value of one of the attributes placed in <code>S<sub>j</sub></code></li>
+                        </ul>
+                    </li>
+                </ol>
+                <aside class="note">
+                    If you want to use human-readable attribute names of attribute definitions (instead of attribute
+                    definition PIDs) as the <code>type</code> in a handle value, it is essential that these attribute
+                    definitions are part of at least one of the profiles of this FDO. Through the profile, a machine can
+                    map the attribute name to an attribute PID and access the attribute definition. Without being part
+                    of a profile, there would be no way to find the attribute definition belonging to the attribute name.
+                </aside>
             </li>
-            <li><code>|S<sub>j</sub>|</code> handle values are created, each containing one of the attributes that are
-                placed in <code>S<sub>j</sub></code>. The handle values look as follows:
-                <ul>
-                    <li><code>index</code>, <code>type</code>: same as 1.
-                    </li>
-                    <li><code>data.value:</code> the value of one of the attributes placed in <code>S<sub>j</sub></code></li>
-                </ul>
+            <li>
+                We continue by mapping <code>a<sub>k+1</sub>,...,a<sub>l</sub></code> to handle values:
+                This mapping works exactly the same as the mapping for the <code>a<sub>1</sub>,...,a<sub>k</sub></code> (see 1.),
+                except that all <code>type</code>s in the handle values MUST be PIDs of attribute definitions (not attribute
+                names).
+            </li>
+            <li>
+                Finally, <code>a<sub>l+1</sub>,...,a<sub>n</sub></code> are mapped to handle values.
+                This mapping works again the same for the <code>a<sub>1</sub>,...,a<sub>k</sub></code> (see 1.), except
+                that all <code>type</code>s in the handle values MUST be attribute names (in fact,
+                <code>a<sub>l+1</sub>,...,a<sub>n</sub></code> do note have any no associated PIDs or attribute
+                definitions). Note that attributes whose name is `HS_ADMIN` MUST be mapped this way.
             </li>
         </ol>
-
-        <p>
-            We continue by mapping <code>a<sub>k+1</sub>,...,a<sub>l</sub></code> to handle values:
-            This mapping works exactly the same as the mapping for the <code>a<sub>1</sub>,...,a<sub>k</sub></code>,
-            except that all <code>k<sub>i</sub></code> PIDs of attribute definitions (not attribute names) and that the
-            resulting <code>type</code> in the handle value(s) must be the PID of the given attribute
-            definition (not attribute names).
-        </p>
-
-        <p>
-            Finally, <code>a<sub>l+1</sub>,...,a<sub>n</sub></code> are mapped to handle values:
-            This mapping works again the same as above,
-            except that all <code>k<sub>i</sub></code> must be attribute names (not attribute definition PIDs) and that the
-            resulting <code>type</code> in the handle value(s) must also be attribute names (not attribute definition PIDs).
-            Note that attributes whose name is `HS_ADMIN` MUST be mapped this way.
-        </p>
-
-        The remaining properties of Handle values are usually set according to their default values, but possibly also
-        with different values, if this makes sense in the given context:
+        The remaining properties of Handle values are usually set according to their default values, but are also
+        allowed to contain different values, if this makes sense in the given context:
         <ul>
             <li> <code>data.format</code>: string (and <code>data.format</code>: admin for attributes with the name `HS_ADMIN`)</li>
             <li> <code>ttl</code>: 86400</li>
