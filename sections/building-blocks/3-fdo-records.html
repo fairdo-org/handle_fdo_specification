@@ -133,7 +133,6 @@ This section specifies how an FDO record is implemented by Handle-based FDOs.
             <li> <code>ttl</code>: 86400</li>
             <li> <code>timestamp</code>:  [current time]</li>
         </ul>
-
         <aside class="note">
             Even though the mapping allows some freedom, it is recommended to be consistent within the same FDO:
             <ul>
@@ -335,31 +334,33 @@ This section specifies how an FDO record is implemented by Handle-based FDOs.
     </dt>
     <dd>
         This mapping is the exact reverse operation from what was described in [H3-1].
-        Mapping a <a>Handle record</a> with Handle values <code>h<sub>1</sub>,...,h<sub>n</sub></code> to an <a>FDO record</a> with <a>attributes</a> <code>a<sub>1</sub>,...,a<sub>m</sub></code> (<code>n<span>&#8804;</span>m</code>)
-        means to map each Handle value <code>h<sub>i</sub></code> to one or several <a>FDO attributes</a>. The Handle value <code>h<sub>i</sub></code>
+        Mapping a <a>Handle record</a> with Handle values <code>h<sub>1</sub>,...,h<sub>m</sub></code> to an
+        <a>FDO record</a> with <a>attributes</a> <code>a<sub>1</sub>,...,a<sub>n</sub></code>
+        (<code>m<span>&#8804;</span>n</code>) means to map each Handle value <code>h<sub>i</sub></code> to one or
+        several <a>FDO attributes</a>. The Handle value <code>h<sub>i</sub></code>
         with
         <ul>
-            <li><code>index:</code> any integer</li>
-            <li><code>type:</code>name or attribute PID</li>
-            <li><code>data.format:</code> string</li>
-            <li><code>data.value: </code> single value, or list of values</li>
-            <li><code>ttl: 86400</code></li>
-            <li><code>timestamp: 2025-05-06T12:30:44Z</code></li>
+            <li><code>index</code>: any integer</li>
+            <li><code>type</code>: attribute name or attribute PID</li>
+            <li><code>data.format</code>: string</li>
+            <li><code>data.value</code>: single value, or list of values</li>
+            <li><code>ttl</code>: 86400</li>
+            <li><code>timestamp</code>: 2025-05-06T12:30:44Z</li>
         </ul>
-        is mapped to <a>FDO attributes</a> as follows:
+        is mapped to an <a>FDO attribute</a> / multiple <a>FDO attributes</a> as follows:
         <ol>
             <li>
-                The <code>index</code>, <code>data.format:</code>, <code>ttl</code>, and <code>timestamp</code> are dropped.
+                The <code>index</code>, <code>data.format</code>, <code>ttl</code>, and <code>timestamp</code> are dropped.
             </li>
             <li>
-                If <code>data.value</code> is a list of <code>r</code> elements, then this handle value is mapped to
+                The  <code>data.value</code> field is inspected. If <code>data.value</code> is a list of <code>r</code> elements, then this handle value is mapped to
                 <code>r</code> FDO attributes by creating one attribute for each list element.
                 If <code>data.value</code> is a single value, it is mapped to a single attribute.
             </li>
-            <li>For each of the resulting FDO attributes, <code>k<sub>i</sub></code> is either the name of the attribute,
-                or the PID of the attribute definition that is instantiated, depending on whether the attribute
-                instantiates an attribute definition that is in the profile, that is not in the profile, or whether
-                attribute is a simple name plus value.
+            <li>
+                The <code>type</code> field and the FDO profile are inspected to decide which category of FDO attributes
+                (1., 2. oder 3.) this handle value belongs to. In case of 1., if the attribute name is used as the
+                <code>type</code>, the attribute PID can be recovered through the profile.
             </li>
         </ol>
     </dd>
